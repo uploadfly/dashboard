@@ -4,14 +4,16 @@ const Index = () => {
   return (
     <div className="bg-uf-dark relative h-screen text-uf-light">
       <div className="magicpattern absolute opacity-10 animate-opacity"></div>
-      <div className="absolute">
+      <div className="absolute opacity-40 scale-150 flex items-center flex-wrap w-56 justify-center left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%]">
         <div className="h-28 w-28 rounded-full blur-2xl bg-pink-400"></div>
         <div className="h-28 w-28 rounded-full blur-2xl bg-yellow-500"></div>
         <div className="h-28 w-28 rounded-full blur-2xl bg-purple-500"></div>
       </div>
       <div className="h-full w-full flex justify-center items-center flex-col">
-        <small className="">Private Beta</small>
-        <div className="w-24 h-24 mt-2 bg-white rounded-xl p-4 flex justify-center items-center">
+        <small className="bg-[rgba(255,255,255,0.1)] border-[1px] border-solid rounded-md px-2">
+          Beta
+        </small>
+        <div className="w-24 h-24 mt-4 bg-white rounded-xl p-4 flex justify-center items-center">
           <img
             src="https://img.freepik.com/free-icon/kite_318-572724.jpg"
             alt="logo"
@@ -19,7 +21,8 @@ const Index = () => {
           />
         </div>
         <h1 className="text-4xl mt-10">
-          File uploads that <span className="font-semibold">fly</span>
+          File uploads that{" "}
+          <span className="font-semibold shiny-text">fly</span>
         </h1>
         <p className="text-lg font-semibold mt-10 flex items-center">
           Press enter to to begin
