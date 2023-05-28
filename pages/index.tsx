@@ -1,7 +1,25 @@
-import React, { useState } from "react";
+import { use } from "passport";
+import React, { KeyboardEvent, useEffect, useState } from "react";
 
 const Index = () => {
   const [hide, setHide] = useState<boolean>(false);
+
+  const handleKeyPress = (e: KeyboardEvent) => {
+    e.key === "Enter" && setHide(true);
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      handleKeyPress(e);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
   return (
     <div className="bg-uf-dark relative h-screen text-uf-light overflow-x-hidden">
       <div
