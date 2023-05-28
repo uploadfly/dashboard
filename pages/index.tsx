@@ -1,15 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Index = () => {
+  const [hide, setHide] = useState<boolean>(false);
   return (
-    <div className="bg-uf-dark relative h-screen text-uf-light">
-      <div className="magicpattern pointer-events-none absolute opacity-10 animate-opacity"></div>
-      <div className="absolute opacity-40 scale-150 pointer-events-none flex items-center flex-wrap w-56 justify-center left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%]">
-        <div className="h-28 w-28 rounded-full blur-2xl bg-pink-400"></div>
-        <div className="h-28 w-28 rounded-full blur-2xl bg-yellow-500"></div>
-        <div className="h-28 w-28 rounded-full blur-2xl bg-purple-500"></div>
+    <div className="bg-uf-dark relative h-screen text-uf-light overflow-x-hidden">
+      <div
+        className={`abosolute top-0 w-full h-full bg-uf-dark flex items-center justify-center`}
+      >
+        <h1>omooooooooo</h1>
       </div>
-      <div className="h-full w-full flex justify-center items-center flex-col">
+      <div
+        className={`bg-uf-dark h-full w-full absolute top-0 flex justify-center items-center flex-col ${
+          hide && "translate-x-[200%]"
+        } transition-all duration-1000`}
+      >
+        <div className="magicpattern pointer-events-none absolute opacity-10 animate-opacity"></div>
+        <div className="absolute opacity-40 scale-150 pointer-events-none flex items-center flex-wrap w-56 justify-center left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%]">
+          <div className="h-28 w-28 rounded-full blur-2xl bg-pink-400"></div>
+          <div className="h-28 w-28 rounded-full blur-2xl bg-yellow-500"></div>
+          <div className="h-28 w-28 rounded-full blur-2xl bg-purple-500"></div>
+        </div>
         <small className="bg-[rgba(255,255,255,0.1)] border-[1px] border-solid rounded-md px-2">
           Beta
         </small>
@@ -27,6 +37,7 @@ const Index = () => {
         <p
           className="text-lg  font-semibold mt-10 flex items-center"
           role="button"
+          onClick={() => setHide(true)}
         >
           Press enter to to begin
           <span className="ml-2 animate-flow">
