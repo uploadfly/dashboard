@@ -1,4 +1,3 @@
-import { use } from "passport";
 import React, { KeyboardEvent, useEffect, useState } from "react";
 
 const Index = () => {
@@ -9,8 +8,8 @@ const Index = () => {
   };
 
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      handleKeyPress(e);
+    const handleKeyDown: EventListener = (e: Event) => {
+      handleKeyPress(e as unknown as KeyboardEvent);
     };
 
     window.addEventListener("keydown", handleKeyDown);
@@ -18,6 +17,8 @@ const Index = () => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
+    //Written by ChatGPT
+    //Modified by @xing0x
   }, []);
 
   return (
