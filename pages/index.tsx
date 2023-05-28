@@ -2,7 +2,13 @@ import React from "react";
 
 const Index = () => {
   return (
-    <div className="bg-uf-dark h-screen text-uf-light">
+    <div className="bg-uf-dark relative h-screen text-uf-light">
+      <div className="magicpattern absolute opacity-10 animate-opacity"></div>
+      <div className="absolute">
+        <div className="h-28 w-28 rounded-full blur-2xl bg-pink-400"></div>
+        <div className="h-28 w-28 rounded-full blur-2xl bg-yellow-500"></div>
+        <div className="h-28 w-28 rounded-full blur-2xl bg-purple-500"></div>
+      </div>
       <div className="h-full w-full flex justify-center items-center flex-col">
         <small className="">Private Beta</small>
         <div className="w-24 h-24 mt-2 bg-white rounded-xl p-4 flex justify-center items-center">
