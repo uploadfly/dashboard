@@ -76,6 +76,19 @@
   }
 }
 
+@keyframes slide {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(90%);
+  }
+}
+
+.animate-slide {
+  animation: slide infinite 1s alternate-reverse;
+}
+
 .input {
   @apply w-[380px] h-12 border-none outline-none rounded-md bg-[#1e1e1e] pl-4 font-semibold text-gray-400;
 }
