@@ -4,10 +4,10 @@
 
 @keyframes flow {
   0% {
-    transform: translateX(10px);
+    transform: translateY(-10px);
   }
   100% {
-    transform: translateX(0);
+    transform: translateY(0);
   }
 }
 
