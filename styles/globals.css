@@ -19,6 +19,14 @@
     opacity: 0.1;
   }
 }
+@keyframes breath {
+  0% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
 
 .animate-flow {
   animation: flow infinite 1s alternate-reverse;
@@ -26,6 +34,10 @@
 
 .animate-opacity {
   animation: opacity infinite 1s alternate-reverse;
+}
+
+.animate-breath {
+  animation: breath infinite 1s alternate;
 }
 
 .magicpattern {
