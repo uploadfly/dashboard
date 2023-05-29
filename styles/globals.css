@@ -75,3 +75,11 @@
     -webkit-mask-position: -50%;
   }
 }
+
+.input {
+  @apply w-[380px] h-12 border-none outline-none rounded-md bg-[#1e1e1e] pl-4 font-semibold text-gray-400;
+}
+
+.uf-gradient {
+  @apply bg-gradient-to-r from-[#0083cb] via-[#ffb564] to-[#a06eac];
+}
