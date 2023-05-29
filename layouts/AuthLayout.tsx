@@ -1,12 +1,15 @@
 import FlyingThing from "@/components/FlyingThing";
+import Link from "next/link";
 import React, { ReactNode, useEffect, useState } from "react";
 
 const AuthLayout = ({
   children,
   text,
+  type = "login",
 }: {
   children: ReactNode;
   text: string;
+  type?: "login" | "signup";
 }) => {
   const [hide, setHide] = useState<boolean>(false);
 
@@ -54,7 +57,17 @@ const AuthLayout = ({
             <p className="text-center font-semibold text-gray-400">{`Let's fly`}</p>
           </div>
           {children}
-          <div className="mt-7 flex items-center gap-4 flex-col">
+          <div className="mt-4 flex justify-start w-[380px] gap-2 font-semibold">
+            <p>
+              {type === "login"
+                ? "New to Uploadfly?"
+                : "Already have an account?"}
+            </p>
+            <Link href={type === "login" ? "/signup" : "/login"}>
+              {type === "login" ? "Signup" : "Login"}
+            </Link>
+          </div>
+          <div className="mt-4 flex items-center gap-4 flex-col">
             <p>or</p>
             <button
               className="flex gap-2 bg-uf-light text-uf-dark rounded-md py-2 w-[380px] items-center justify-center font-bold hover:scale-105 transition-all"
