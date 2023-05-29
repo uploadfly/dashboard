@@ -2,7 +2,7 @@ import React from "react";
 
 const Login = () => {
   const loginWithGithub = async () => {
-    window.open("http://localhost:1112/github", "_self");
+    window.open(`${process.env.NEXT_PUBLIC_AUTH_URL}/github`, "_self");
   };
 
   return (
