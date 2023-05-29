@@ -3,12 +3,14 @@ import AuthLayout from "@/layouts/AuthLayout";
 import axios from "axios";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { useRouter } from "next/router";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
+  const router = useRouter();
   const loginWithEmail = async () => {
     if (!email) {
       toast("Email is required", toastErrorConfig);
@@ -32,6 +34,7 @@ const Login = () => {
       console.log(res);
       toast("Login successful", toastSuccessConfig);
       // window.open(`${process.env.NEXT_PUBLIC_AUTH_URL}/dashboard`, "_self");
+      router.push("/");
       setLoading(false);
     } catch (error: any) {
       console.log(error.response);
