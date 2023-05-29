@@ -26,11 +26,12 @@ const Index = () => {
       <div
         className={`abosolute top-0 w-full h-full bg-uf-dark flex items-center justify-center`}
       >
-        <h1>omooooooooo</h1>
+        <div className="bg-gradient-to-tr w-[35%] h-full"></div>
+        <div className="w-[65%] h-full"></div>
       </div>
       <div
         className={`bg-uf-dark h-full w-full absolute top-0 flex justify-center items-center flex-col ${
-          hide && "translate-x-[200%]"
+          hide && "-translate-y-[200%]"
         } transition-all duration-1000`}
       >
         <div className="magicpattern pointer-events-none absolute opacity-10 animate-opacity"></div>
@@ -54,7 +55,7 @@ const Index = () => {
           <span className="font-semibold shiny-text">fly</span>
         </h1>
         <p
-          className="text-lg  font-semibold mt-10 flex items-center"
+          className="text-xl  font-semibold mt-10 flex items-center"
           role="button"
           onClick={() => setHide(true)}
         >
@@ -66,7 +67,7 @@ const Index = () => {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-4 h-4"
+              className="w-5 h-5 -rotate-90"
             >
               <path
                 strokeLinecap="round"
