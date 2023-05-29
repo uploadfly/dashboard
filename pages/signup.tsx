@@ -51,7 +51,7 @@ const Signup = () => {
   };
 
   return (
-    <AuthLayout text="Get started">
+    <AuthLayout text="Get started" type="signup">
       <form
         className="flex flex-col gap-8 z-40"
         onSubmit={(e) => {
