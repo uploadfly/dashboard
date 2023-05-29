@@ -21,6 +21,10 @@ const Index = () => {
     //Modified by @xing0x
   }, []);
 
+  const loginWithGithub = async () => {
+    window.open(`${process.env.NEXT_PUBLIC_AUTH_URL}/github`, "_self");
+  };
+
   return (
     <div className="bg-uf-dark relative h-screen text-uf-light overflow-x-hidden">
       <div
@@ -59,7 +63,10 @@ const Index = () => {
           </form>
           <div className="mt-7 flex items-center gap-4 flex-col">
             <p>or</p>
-            <button className="flex gap-2 bg-uf-light text-uf-dark rounded-md py-2 w-[380px] items-center justify-center font-bold hover:scale-105 transition-all">
+            <button
+              className="flex gap-2 bg-uf-light text-uf-dark rounded-md py-2 w-[380px] items-center justify-center font-bold hover:scale-105 transition-all"
+              onClick={loginWithGithub}
+            >
               <svg
                 role="img"
                 viewBox="0 0 24 24"
