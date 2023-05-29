@@ -42,9 +42,11 @@ const Index = () => {
 
         {/* <small className="text-center">Here, projects a called flies</small> */}
 
-        <button className="border-[1px] rounded-md font-semibold w-[300px] text-xl h-[50px]">
-          <span className="shiny-text">Create your fly</span>
-        </button>
+        <Link href={"/launch"}>
+          <button className="border-[1px] rounded-md font-semibold w-[300px] text-xl h-[50px]">
+            <span className="shiny-text">Create your fly</span>
+          </button>
+        </Link>
       </div>
     </div>
   );
