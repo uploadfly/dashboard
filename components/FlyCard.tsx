@@ -1,3 +1,4 @@
+import { useFlyStore } from "@/stores/flyStore";
 import { useUserStore } from "@/stores/userStore";
 import moment from "moment";
 import Link from "next/link";
@@ -7,23 +8,22 @@ const FlyCard = ({
   name,
   used,
   updated,
+  uuid,
 }: {
   name: string;
   used: number;
   updated: string;
+  uuid: string;
 }) => {
   const usedStoragePercent = (used / 2048) * 100;
   const { user } = useUserStore();
-  const [currentUser, setCurrentUser] = useState<{ username: string }>({
-    username: "",
-  });
-  useEffect(() => {
-    setCurrentUser(user);
-  }, []);
+  const { setFly } = useFlyStore();
+
   return (
     <Link
-      href={`${currentUser?.username}/${name}`}
+      href={`${user?.username}/${name}`}
       className="border-[1px] w-[380px] border-gray-500 px-5 py-3 rounded-md hover:border-gray-400 transition-all hover:scale-105"
+      onClick={() => setFly(name, uuid)}
     >
       <h2 className="text-lg font-bold shiny-text">{name}</h2>
       <div className="my-10">
