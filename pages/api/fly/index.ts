@@ -23,6 +23,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       select: {
         name: true,
         uuid: true,
+        used_storage: true,
+        updated_at: true,
       },
     });
 
