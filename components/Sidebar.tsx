@@ -50,7 +50,7 @@ const Sidebar = () => {
     <div>
       {links.map((link, i) => (
         <Link
-          href={link.path}
+          href={`/${link.path}`}
           key={i}
           className={`flex items-center ${
             currentRoute === link.path ? "bg-gray-600" : "bg-transparent"
