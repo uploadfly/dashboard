@@ -23,6 +23,7 @@ const Login = () => {
     }
 
     setLoading(true);
+
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_AUTH_URL}/login`,
@@ -33,7 +34,6 @@ const Login = () => {
       );
       console.log(res);
       toast("Login successful", toastSuccessConfig);
-      // window.open(`${process.env.NEXT_PUBLIC_AUTH_URL}/dashboard`, "_self");
       router.push("/");
       setLoading(false);
     } catch (error: any) {
