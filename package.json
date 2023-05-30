@@ -23,6 +23,7 @@
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.3",
     "jsonwebtoken": "^9.0.0",
+    "moment": "^2.29.4",
     "next": "13.4.3",
     "next-connect": "^1.0.0",
     "next-method-guard": "^1.0.1",
