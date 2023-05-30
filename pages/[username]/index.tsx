@@ -1,5 +1,6 @@
 import FlyCard from "@/components/FlyCard";
 import LoadingCard from "@/components/LoadingCard";
+import Navbar from "@/components/Navbar";
 import { axios } from "@/configs/axios";
 import { useUserStore } from "@/stores/userStore";
 import { Card, Metric } from "@tremor/react";
@@ -19,7 +20,7 @@ const DashboardIndex = () => {
   useEffect(() => {
     setCurrentUser(user);
     const getFlies = async () => {
-      const res = await axios("/api/fly");
+      const res = await axios("/fly");
       setFlies(res?.data || []);
       setLoading(false);
       console.log(res);
@@ -28,32 +29,8 @@ const DashboardIndex = () => {
   }, []);
   return (
     <div className="w-full bg-uf-dark h-screen text-uf-light">
-      <div className="flex items-center px-10 py-4  justify-between">
-        <h1 className="shiny-text text-xl">uploadfly</h1>
-        <div className="flex gap-4 items-center">
-          <p>{currentUser?.username}</p>
-          <Link
-            href={"https://docs.uploadfly.io"}
-            target="_blank"
-            className="font-semibold text-gray-300"
-          >
-            Docs
-          </Link>
-          <div className="">
-            <div
-              className="w-10 h-10 uf-gradient rounded-full p-[2px]"
-              role="button"
-            >
-              <img
-                src="https://avatars.githubusercontent.com/u/54487532?v=4"
-                alt=""
-                className="w-full h-full object-cover rounded-full"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="uf-gradient w-full h-[2px] opacity-70"></div>
+      {/**NAVBAR */}
+      <Navbar />
 
       <>
         {loading ? (
