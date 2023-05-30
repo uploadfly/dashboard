@@ -1,12 +1,15 @@
+import { useUserStore } from "@/stores/userStore";
 import Link from "next/link";
 import React from "react";
 
 const Index = () => {
+  const { user } = useUserStore();
   return (
     <div className="w-full bg-uf-dark h-screen text-uf-light">
       <div className="flex items-center px-10 py-4  justify-between">
         <h1 className="shiny-text text-xl">uploadfly</h1>
         <div className="flex gap-4 items-center">
+          {user.username}
           <Link
             href={"https://docs.uploadfly.io"}
             target="_blank"
