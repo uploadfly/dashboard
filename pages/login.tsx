@@ -3,7 +3,6 @@ import AuthLayout from "@/layouts/AuthLayout";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
-import { useUserStore } from "@/stores/userStore";
 import { axiosAuth } from "@/configs/axios";
 
 const Login = () => {
@@ -11,7 +10,6 @@ const Login = () => {
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
-  const { setUser } = useUserStore();
 
   const loginWithEmail = async () => {
     if (!email) {
@@ -32,8 +30,6 @@ const Login = () => {
       });
       toast("Login successful", toastSuccessConfig);
       router.push(`/${res?.data?.user?.username}`);
-      localStorage.setItem("user", JSON.stringify(res?.data?.user));
-      setUser(res?.data?.user);
       setLoading(false);
     } catch (error: any) {
       toast(error.response.data.message, toastErrorConfig);
@@ -51,11 +47,12 @@ const Login = () => {
         }}
       >
         <input
-          type="text"
+          type="email"
           className="input"
           placeholder="What's your email?"
           value={email}
           onChange={(e) => setEmail(e.target.value.toLowerCase().trim())}
+          name="email"
         />
         <input
           type="password"
@@ -63,6 +60,7 @@ const Login = () => {
           placeholder="Shh...it's a secret"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          name="password"
         />
         <button className="uf-gradient w-full rounded-md py-2 h-10 flex items-center justify-center text-[#1e1e1e] font-bold hover:scale-105 transition-all">
           {loading ? (
