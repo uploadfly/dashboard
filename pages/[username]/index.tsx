@@ -1,4 +1,5 @@
 import FlyCard from "@/components/FlyCard";
+import LoadingCard from "@/components/LoadingCard";
 import { axios } from "@/configs/axios";
 import { useUserStore } from "@/stores/userStore";
 import { Card, Metric } from "@tremor/react";
@@ -11,14 +12,16 @@ const DashboardIndex = () => {
     username: "",
   });
 
+  const [loading, setLoading] = useState<boolean>(true);
+
   const [flies, setFlies] = useState<any[]>([]);
 
   useEffect(() => {
     setCurrentUser(user);
-
     const getFlies = async () => {
       const res = await axios("/api/fly");
       setFlies(res.data);
+      setLoading(false);
       console.log(res);
     };
     getFlies();
@@ -52,41 +55,52 @@ const DashboardIndex = () => {
       </div>
       <div className="uf-gradient w-full h-[2px] opacity-70"></div>
 
-      <div className="flex items-center flex-col">
-        {!flies.length ? (
-          <>
-            <h1 className="shiny-text font-semibold text-center text-5xl mt-8">
-              Welcome to the cloud
-            </h1>
-            <p className="text-center mt-3 text-gray-300 text-xl font-semibold">
-              You're ready to create your first fly.
-            </p>
-
-            <h1 className="text-9xl my-16">⛈️</h1>
-
-            {/* <small className="text-center">Here, projects a called flies</small> */}
-
-            <Link href={"/launch"}>
-              <button className="border-[1px] rounded-md font-semibold w-[300px] text-xl h-[50px]">
-                <span className="shiny-text">Create your fly</span>
-              </button>
-            </Link>
-          </>
-        ) : (
-          <div className="flex gap-4 items-center justify-center mt-8">
-            {flies.map((fly) => {
-              return (
-                <FlyCard
-                  key={fly.uuid}
-                  name={fly.name}
-                  used={fly.used_storage}
-                  updated={fly.updated_at}
-                />
-              );
-            })}
+      <>
+        {loading ? (
+          <div className="flex gap-4 items-center justify-center mt-8 opacity-50">
+            <LoadingCard />
+            <LoadingCard />
           </div>
+        ) : (
+          <>
+            <div className="flex items-center flex-col">
+              {!flies.length ? (
+                <>
+                  <h1 className="shiny-text font-semibold text-center text-5xl mt-8">
+                    Welcome to the cloud
+                  </h1>
+                  <p className="text-center mt-3 text-gray-300 text-xl font-semibold">
+                    You're ready to create your first fly.
+                  </p>
+
+                  <h1 className="text-9xl my-16">⛈️</h1>
+
+                  {/* <small className="text-center">Here, projects a called flies</small> */}
+
+                  <Link href={"/launch"}>
+                    <button className="border-[1px] rounded-md font-semibold w-[300px] text-xl h-[50px]">
+                      <span className="shiny-text">Create your fly</span>
+                    </button>
+                  </Link>
+                </>
+              ) : (
+                <div className="flex gap-4 items-center justify-center mt-8">
+                  {flies.map((fly) => {
+                    return (
+                      <FlyCard
+                        key={fly.uuid}
+                        name={fly.name}
+                        used={fly.used_storage}
+                        updated={fly.updated_at}
+                      />
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          </>
         )}
-      </div>
+      </>
     </div>
   );
 };
