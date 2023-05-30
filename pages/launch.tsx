@@ -21,9 +21,12 @@ const Launch = () => {
       });
       toast("Your fly was created successfully", toastSuccessConfig);
       router.push(res.data.redirect);
-    } catch (error) {
-      console.log(error);
-      toast("Holy *#it! something went wrong. Try again", toastErrorConfig);
+    } catch (error: any) {
+      toast(
+        error?.response?.data?.message ||
+          "Holy *#it! something went wrong. Try again",
+        toastErrorConfig
+      );
     }
   };
 
