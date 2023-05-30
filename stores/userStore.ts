@@ -14,7 +14,6 @@ export const useUserStore = create<UserStore>((set) => ({
         const res = await axios.get("/user");
         const userData = res.data;
         set({ user: userData });
-        console.log("User data:", userData);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
