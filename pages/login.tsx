@@ -1,10 +1,10 @@
 import { toastErrorConfig, toastSuccessConfig } from "@/configs/toast";
 import AuthLayout from "@/layouts/AuthLayout";
-import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import { useUserStore } from "@/stores/userStore";
+import { axiosAuth } from "@/configs/axios";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -27,13 +27,10 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_AUTH_URL}/login`,
-        {
-          email,
-          password,
-        }
-      );
+      const res = await axiosAuth.post("/login", {
+        email,
+        password,
+      });
       console.log(res);
       toast("Login successful", toastSuccessConfig);
       router.push(`/${res?.data?.user?.username}`);
