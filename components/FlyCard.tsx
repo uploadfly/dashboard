@@ -22,7 +22,7 @@ const FlyCard = ({
   }, []);
   return (
     <Link
-      href={`/${currentUser.username}/${name}`}
+      href={`${currentUser?.username}/${name}`}
       className="border-[1px] w-[380px] border-gray-500 px-5 py-3 rounded-md hover:border-gray-400 transition-all hover:scale-105"
     >
       <h2 className="text-lg font-bold shiny-text">{name}</h2>
