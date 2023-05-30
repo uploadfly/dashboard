@@ -6,7 +6,7 @@ const axiosAuthInstance = axios.create({
 });
 
 const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_SERVICE_URL,
+  baseURL: "/",
   withCredentials: true,
 });
 
