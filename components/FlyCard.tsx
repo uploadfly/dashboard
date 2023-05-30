@@ -12,7 +12,7 @@ const FlyCard = ({
 }) => {
   const usedStoragePercent = (used / 2048) * 100;
   return (
-    <div className="border-[1px] w-[380px] border-gray-300 px-5 py-3 rounded-md">
+    <div className="border-[1px] w-[380px] border-gray-500 px-5 py-3 rounded-md">
       <h2 className="text-lg font-bold shiny-text">{name}</h2>
       <div className="my-10">
         <div className="flex justify-between mb-1">
