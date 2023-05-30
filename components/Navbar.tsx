@@ -10,7 +10,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <>
+    <div className="sticky top-0 z-50 bg-uf-dark">
       <div className="flex items-center px-10 py-4  justify-between">
         <h1 className="shiny-text text-xl">uploadfly</h1>
         <div className="flex gap-4 items-center">
@@ -37,7 +37,7 @@ const Navbar = () => {
         </div>
       </div>
       <div className="uf-gradient w-full h-[2px] opacity-70"></div>
-    </>
+    </div>
   );
 };
 
