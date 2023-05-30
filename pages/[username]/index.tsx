@@ -2,7 +2,7 @@ import { useUserStore } from "@/stores/userStore";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-const Index = () => {
+const DashboardIndex = () => {
   const { user } = useUserStore();
   const [currentUser, setCurrentUser] = useState<{ username: string }>({
     username: "",
@@ -62,4 +62,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default DashboardIndex;
