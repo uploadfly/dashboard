@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import generate from "boring-name-generator";
-// import { axios } from "@/configs/axios";
+import { axios } from "@/configs/axios";
 import toast from "react-hot-toast";
 import { toastErrorConfig, toastSuccessConfig } from "@/configs/toast";
 import { useRouter } from "next/router";
-import axios from "axios";
-import Error from "next/error";
 
 const Launch = () => {
   const [name, setName] = useState<string>("");
@@ -18,15 +16,9 @@ const Launch = () => {
 
   const createNewFly = async () => {
     try {
-      const res = await axios.post(
-        "/api/fly/create",
-        {
-          name: name || placeholder,
-        },
-        {
-          withCredentials: true,
-        }
-      );
+      const res = await axios.post("/api/fly/create", {
+        name: name || placeholder,
+      });
       toast("Your fly was created successfully", toastSuccessConfig);
       router.push(res.data.redirect);
     } catch (error: any) {
