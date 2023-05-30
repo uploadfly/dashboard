@@ -1,4 +1,10 @@
+import { useEffect, useState } from "react";
+import generate from "boring-name-generator";
+
 const Launch = () => {
+  const [name, setName] = useState<string>("");
+  const [placeholder, setPlaceholder] = useState<string>(generate().dashed);
+
   return (
     <div className="bg-uf-dark relative h-screen text-uf-light overflow-x-hidden">
       <div
@@ -24,7 +30,17 @@ const Launch = () => {
           <div className="mt-4 z-20 flex flex-col justify-start w-[380px] gap-2 font-semibold">
             <div className="flex flex-col gap-1">
               <small>Give your fly a name</small>
-              <input type="text" className="input" />
+              <input
+                type="text"
+                className="input placeholder:opacity-40"
+                placeholder={placeholder}
+                value={name}
+                onChange={(e) =>
+                  setName(
+                    e.target.value.toLowerCase().trim().replaceAll(" ", "-")
+                  )
+                }
+              />
             </div>
           </div>
           <div className="mt-4 flex items-center gap-4 flex-col">
