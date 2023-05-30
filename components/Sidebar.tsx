@@ -1,3 +1,5 @@
+import { useFlyStore } from "@/stores/flyStore";
+import { useUserStore } from "@/stores/userStore";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -46,11 +48,16 @@ const Sidebar = () => {
       ),
     },
   ];
+
+  const { user } = useUserStore();
+
+  const flyName = window.location.pathname.split("/")[2];
+
   return (
     <div>
       {links.map((link, i) => (
         <Link
-          href={`${link.path}`}
+          href={`/${user?.username}/${flyName}${link.path}`}
           key={i}
           className={`flex items-center ${
             currentRoute === link.path ? "bg-gray-600" : "bg-transparent"
