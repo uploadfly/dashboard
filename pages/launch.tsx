@@ -20,7 +20,7 @@ const Launch = () => {
   const createNewFly = async () => {
     try {
       setLoading(true);
-      const res = await axios.post("/api/fly/create", {
+      const res = await axios.post("/fly/create", {
         name: name || placeholder,
       });
       toast("Your fly was created successfully", toastSuccessConfig);
