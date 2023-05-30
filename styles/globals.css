@@ -96,3 +96,7 @@
 .uf-gradient {
   @apply bg-gradient-to-r from-[#0083cb] via-[#ffb564] to-[#a06eac];
 }
+
+.btn-disabled {
+  @apply disabled:opacity-50 disabled:cursor-not-allowed;
+}
