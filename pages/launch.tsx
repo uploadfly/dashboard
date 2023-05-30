@@ -1,9 +1,24 @@
 import { useEffect, useState } from "react";
 import generate from "boring-name-generator";
+import { axios } from "@/configs/axios";
+import toast from "react-hot-toast";
+import { toastErrorConfig, toastSuccessConfig } from "@/configs/toast";
+import { useRouter } from "next/router";
 
 const Launch = () => {
   const [name, setName] = useState<string>("");
   const [placeholder, setPlaceholder] = useState<string>(generate().dashed);
+
+  const createNewFly = () => {
+    try {
+      const res = axios.post("/fly/create", {
+        name: name || placeholder,
+      });
+      toast("Your fly was created successfully", toastSuccessConfig);
+    } catch (error) {
+      toast("Holy *#it! something went wrong. Try again", toastErrorConfig);
+    }
+  };
 
   return (
     <div className="bg-uf-dark relative h-screen text-uf-light overflow-x-hidden">
@@ -46,7 +61,7 @@ const Launch = () => {
           <div className="mt-4 flex items-center gap-4 flex-col">
             <button
               className="flex gap-2 bg-uf-light text-uf-dark rounded-md py-2 w-[380px] items-center justify-center font-bold hover:scale-105 transition-all"
-              // onClick={loginWithGithub}
+              onClick={createNewFly}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
