@@ -25,20 +25,17 @@ const Login = () => {
     }
 
     setLoading(true);
-
     try {
       const res = await axiosAuth.post("/login", {
         email,
         password,
       });
-      console.log(res);
       toast("Login successful", toastSuccessConfig);
-      router.push(`/${res?.data?.user?.username}`);
+      // router.push(`/${res?.data?.user?.username}`);
       localStorage.setItem("user", JSON.stringify(res?.data?.user));
       setUser(res?.data?.user);
       setLoading(false);
     } catch (error: any) {
-      console.log(error.response);
       toast(error.response.data.message, toastErrorConfig);
       setLoading(false);
     }
