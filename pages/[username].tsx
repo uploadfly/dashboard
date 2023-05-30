@@ -1,15 +1,22 @@
 import { useUserStore } from "@/stores/userStore";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Index = () => {
   const { user } = useUserStore();
+  const [currentUser, setCurrentUser] = useState<{ username: string }>({
+    username: "",
+  });
+
+  useEffect(() => {
+    setCurrentUser(user);
+  }, []);
   return (
     <div className="w-full bg-uf-dark h-screen text-uf-light">
       <div className="flex items-center px-10 py-4  justify-between">
         <h1 className="shiny-text text-xl">uploadfly</h1>
         <div className="flex gap-4 items-center">
-          {user.username}
+          <p>{currentUser?.username}</p>
           <Link
             href={"https://docs.uploadfly.io"}
             target="_blank"
