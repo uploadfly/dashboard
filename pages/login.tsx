@@ -34,7 +34,7 @@ const Login = () => {
       );
       console.log(res);
       toast("Login successful", toastSuccessConfig);
-      router.push("/");
+      router.push(`/${res?.data?.user?.username}`);
       setLoading(false);
     } catch (error: any) {
       console.log(error.response);
