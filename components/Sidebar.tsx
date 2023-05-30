@@ -8,10 +8,12 @@ const Sidebar = () => {
   const router = useRouter();
 
   const [currentRoute, setCurrentRoute] = useState("");
+  const [flyName, setFlyName] = useState("");
 
   useEffect(() => {
     const route = router.pathname.split("/")[3];
     setCurrentRoute(route ? `/${route}` : "/");
+    setFlyName(window.location.pathname.split("/")[2]);
   }, [router?.pathname]);
 
   const links = [
@@ -50,8 +52,6 @@ const Sidebar = () => {
   ];
 
   const { user } = useUserStore();
-
-  const flyName = window.location.pathname.split("/")[2];
 
   return (
     <div>
