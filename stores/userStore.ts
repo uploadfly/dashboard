@@ -1,14 +1,23 @@
+import { axios } from "@/configs/axios";
 import { create } from "zustand";
 
 interface UserStore {
   user: any;
-  setUser: (user: any) => void;
+  setUser: () => void;
 }
 
 export const useUserStore = create<UserStore>((set) => ({
-  user:
-    typeof window !== "undefined" && localStorage.getItem("user")
-      ? JSON.parse(localStorage.getItem("user") as string)
-      : null,
-  setUser: (user: any) => set({ user }),
+  user: null,
+  setUser: async () => {
+    if (!useUserStore.getState().user) {
+      try {
+        const res = await axios.get("/user");
+        const userData = res.data;
+        set({ user: userData });
+        console.log("User data:", userData);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    }
+  },
 }));
