@@ -7,15 +7,22 @@ import { useRouter } from "next/router";
 
 const Launch = () => {
   const [name, setName] = useState<string>("");
-  const [placeholder, setPlaceholder] = useState<string>(generate().dashed);
+  const [placeholder, setPlaceholder] = useState<string>("");
+  const router = useRouter();
 
-  const createNewFly = () => {
+  useEffect(() => {
+    setPlaceholder(generate().dashed);
+  }, []);
+
+  const createNewFly = async () => {
     try {
-      const res = axios.post("/fly/create", {
+      const res = await axios.post("/fly/create", {
         name: name || placeholder,
       });
       toast("Your fly was created successfully", toastSuccessConfig);
+      router.push(res.data.redirect);
     } catch (error) {
+      console.log(error);
       toast("Holy *#it! something went wrong. Try again", toastErrorConfig);
     }
   };
