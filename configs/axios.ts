@@ -6,7 +6,7 @@ const axiosAuthInstance = axios.create({
 });
 
 const axiosInstance = axios.create({
-  baseURL: "/",
+  baseURL: "/api",
   withCredentials: true,
 });
 
