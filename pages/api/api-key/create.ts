@@ -40,17 +40,24 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(404).json({ message: "Invalid Fly id" });
     }
 
-    const key = generateApiKey();
+    const public_key = generateApiKey();
+    const secret_key = generateApiKey();
 
     await prisma.apiKey.create({
       data: {
-        key,
+        public_key: `pk_${public_key}`,
+        secret_key: `sk_${secret_key}`,
         user_id,
         fly_id,
       },
     });
 
-    return res.status(201).json({ message: "API has been created", key });
+    return res
+      .status(201)
+      .json({
+        message: "API has been created",
+        keys: { public_key, secret_key },
+      });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Internal server error" });
