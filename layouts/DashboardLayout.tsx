@@ -10,7 +10,7 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
         <div className="w-[20%] p-5 bg-[#050505] sticky top-1">
           <Sidebar />
         </div>
-        <div className="w-[80%] p-5 overflow-auto mb-20">{children}</div>
+        <div className="w-[80%] py-5 px-20 overflow-auto mb-20">{children}</div>
       </div>
     </div>
   );
