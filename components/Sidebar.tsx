@@ -97,7 +97,7 @@ const Sidebar = () => {
           key={i}
           className={`flex items-center ${
             currentRoute === link.path ? "bg-gray-600" : "bg-transparent"
-          } h-12 rounded-md mb-4 hover:bg-gray-600 transition-colors duration-500`}
+          } h-12 rounded-md mb-6 hover:bg-gray-600 transition-colors duration-500`}
         >
           <div
             className={`bg-gradient-to-tr h-full w-[10px] mr-4 rounded-tl-md rounded-bl-md
