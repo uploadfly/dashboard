@@ -62,7 +62,7 @@ const DashboardIndex = () => {
                 </>
               ) : (
                 <div className="flex flex-col items-center">
-                  <div className="flex gap-4 items-center justify-center mt-8">
+                  <div className="grid gap-4 items-center justify-center mt-8 grid-cols-3">
                     {flies.map((fly) => {
                       return (
                         <FlyCard
