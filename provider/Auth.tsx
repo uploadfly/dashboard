@@ -13,7 +13,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     // Written by ChatGPT
     // Modified by @xing0x
 
-    if (!expCookie) {
+    if (!expCookie && router.asPath !== "/signup") {
       router.push("/login");
       return;
     }
