@@ -41,6 +41,7 @@ const ApiKeys = () => {
             complete access to your Uploadfly cloud.
           </p>
         </div>
+        <button>Regenerate</button>
       </div>
     </DashboardLayout>
   );
