@@ -68,14 +68,17 @@ const Signup = () => {
     setLoading(true);
 
     try {
-      const res = await axiosAuth.post("/verify", {
+      const res = await axiosAuth.put("/verify", {
         otp,
       });
       toast("Welcome to Uploadfly", toastSuccessConfig);
-      router;
       router.push(`/${res?.data?.user?.username}`);
     } catch (error: any) {
-      toast(error.response.data.message, toastErrorConfig);
+      toast(
+        error?.response?.data?.message || "Something went wrong",
+        toastErrorConfig
+      );
+      setLoading(false);
     }
   };
   return (
