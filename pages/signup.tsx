@@ -1,9 +1,10 @@
 import { toastErrorConfig, toastSuccessConfig } from "@/configs/toast";
 import AuthLayout from "@/layouts/AuthLayout";
 import React, { useState } from "react";
-import axios from "axios";
 import toast from "react-hot-toast";
 import OTPInput from "react-otp-input";
+import { axiosAuth } from "@/configs/axios";
+import { useRouter } from "next/router";
 
 const Signup = () => {
   const [email, setEmail] = useState<string>("");
@@ -36,14 +37,11 @@ const Signup = () => {
 
     setLoading(true);
     try {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_AUTH_URL}/signup`,
-        {
-          email,
-          password,
-          confirmPassword,
-        }
-      );
+      const res = await axiosAuth.post("/signup", {
+        email,
+        password,
+        confirmPassword,
+      });
       toast(res.data.message, toastSuccessConfig);
       setLoading(false);
       setShowOtpInput(true);
@@ -54,6 +52,32 @@ const Signup = () => {
     }
   };
 
+  const router = useRouter();
+
+  const completeSignup = async () => {
+    if (!otp) {
+      toast("OTP is required", toastErrorConfig);
+      return;
+    }
+
+    if (otp.length < 4) {
+      toast("Enter all 4 chracters", toastErrorConfig);
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const res = await axiosAuth.post("/verify", {
+        otp,
+      });
+      toast("Welcome to Uploadfly", toastSuccessConfig);
+      router;
+      router.push(`/${res?.data?.user?.username}`);
+    } catch (error: any) {
+      toast(error.response.data.message, toastErrorConfig);
+    }
+  };
   return (
     <AuthLayout
       text="Get started"
@@ -64,7 +88,11 @@ const Signup = () => {
         className="flex flex-col gap-8 z-40"
         onSubmit={(e) => {
           e.preventDefault();
-          signupWithEmail();
+          if (!showOtpInput) {
+            signupWithEmail();
+            return;
+          }
+          completeSignup();
         }}
       >
         {showOtpInput ? (
@@ -72,15 +100,16 @@ const Signup = () => {
             <h1 className="text-center mb-5 text-xl">
               An OTP has been sent your email
             </h1>
-            <div className="flex items-center gap-10 justify-center">
+            <div className="flex items-center justify-center">
               <OTPInput
                 value={otp}
                 onChange={(otp) => setOtp(otp)}
                 numInputs={4}
+                shouldAutoFocus
                 inputStyle={{
-                  width: "70px",
-                  height: "70px",
-                  margin: "0 5px",
+                  width: "50px",
+                  height: "50px",
+                  margin: "0 15px",
                   borderRadius: "10px",
                   backgroundColor: "#1e1e1e",
                   outlineColor: "#0083cb",
@@ -139,7 +168,9 @@ const Signup = () => {
               </svg>
             </span>
           ) : (
-            <span className="shadow-2xl">Continue</span>
+            <span className="shadow-2xl">
+              {showOtpInput ? "Complete signup" : "Continue"}
+            </span>
           )}
         </button>
       </form>
