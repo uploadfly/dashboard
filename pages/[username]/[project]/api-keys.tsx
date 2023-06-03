@@ -12,11 +12,14 @@ const ApiKeys = () => {
   });
 
   const fetchKeys = async () => {
+    const flyName = window.location.pathname.split("/")[2];
     try {
-      const res = await axios.get("/api-keys");
-      setKeys(res.data);
-    } catch {
+      const { data } = await axios.get(`/api-keys?fly_name=${flyName}`);
+      setKeys(data);
+      console.log(data);
+    } catch (error) {
       setKeys({ sk: "", pk: "" });
+      console.log(error);
     }
   };
 
@@ -26,21 +29,16 @@ const ApiKeys = () => {
 
   const { fly } = useFlyStore();
 
-  console.log(fly.uuid);
-
   const [loading, setLoading] = useState<boolean>(false);
 
   const regenerateKeys = async () => {
-    console.log(fly);
-    return;
-
     setLoading(true);
     try {
       const res = await axios.put("/api-keys/create", {
-        fly_id: fly,
+        fly_id: fly.uuid,
       });
       setKeys(res.data.keys);
-      toast("Keys successfully regenerate", toastSuccessConfig);
+      toast("Keys successfully regenerated", toastSuccessConfig);
       setLoading(false);
       console.log(res);
     } catch (error) {
@@ -61,7 +59,7 @@ const ApiKeys = () => {
           <h4>Public API Key</h4>
           <input
             type="text"
-            placeholder="pk_eu5h*************************"
+            placeholder={`${keys.pk.substring(0, 5)}************************`}
             className="input my-2"
             readOnly
             style={{
@@ -77,7 +75,7 @@ const ApiKeys = () => {
           <h4>Secret API Key</h4>
           <input
             type="text"
-            placeholder="sk_r3eq*************************"
+            placeholder={`${keys.sk.substring(0, 5)}************************`}
             className="input my-2"
             readOnly
             style={{
