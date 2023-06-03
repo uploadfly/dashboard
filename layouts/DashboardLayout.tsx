@@ -1,8 +1,31 @@
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
-import { ReactNode } from "react";
+import { axios } from "@/configs/axios";
+import { useFlyStore } from "@/stores/flyStore";
+import { ReactNode, useEffect, useState } from "react";
 
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
+  const { fly, setFly } = useFlyStore();
+  const [status, setStatus] = useState<number>();
+  useEffect(() => {
+    if (!fly.name || !fly.uuid) {
+      const flyName = window.location.pathname.split("/")[2];
+      (async () => {
+        try {
+          const { data, status } = await axios.get(
+            `/fly/get?fly_name=${flyName}`
+          );
+          setFly(data?.name, data?.uuid);
+          setStatus(status);
+        } catch (error: any) {
+          console.log(error);
+          setStatus(error?.response?.status);
+        }
+      })();
+      return;
+    }
+  }, []);
+
   return (
     <div className="bg-uf-dark text-uf-light h-screen overflow-hidden">
       <Navbar />
@@ -10,7 +33,17 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
         <div className="w-[20%] p-5 bg-[#050505] sticky top-1">
           <Sidebar />
         </div>
-        <div className="w-[80%] py-5 px-20 overflow-auto mb-20">{children}</div>
+        <div className="w-[80%] py-5 px-20 overflow-auto mb-20">
+          {status === 404 ? (
+            <h1>Not found</h1>
+          ) : status === 500 ? (
+            <>
+              <h1>Internal server error</h1>
+            </>
+          ) : (
+            <>{children}</>
+          )}
+        </div>
       </div>
     </div>
   );
