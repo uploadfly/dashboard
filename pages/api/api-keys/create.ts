@@ -42,7 +42,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const public_key = generateApiKey();
     const secret_key = generateApiKey();
 
-    await prisma.apiKey.create({
+    const newAPIKey = await prisma.apiKey.create({
       data: {
         public_key: `pk_${public_key}`,
         secret_key: `sk_${secret_key}`,
@@ -53,7 +53,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res.status(201).json({
       message: "API has been created",
-      keys: { pk: public_key, sk: secret_key },
+      keys: { pk: newAPIKey.public_key, sk: newAPIKey.secret_key },
     });
   } catch (error) {
     console.log(error);
