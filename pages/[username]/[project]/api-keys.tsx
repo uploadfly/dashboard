@@ -1,6 +1,7 @@
 import { axios } from "@/configs/axios";
 import { toastErrorConfig, toastSuccessConfig } from "@/configs/toast";
 import DashboardLayout from "@/layouts/DashboardLayout";
+import { useFlyStore } from "@/stores/flyStore";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
@@ -23,16 +24,27 @@ const ApiKeys = () => {
     fetchKeys();
   }, []);
 
+  const { fly } = useFlyStore();
+
+  console.log(fly.uuid);
+
   const [loading, setLoading] = useState<boolean>(false);
 
   const regenerateKeys = async () => {
+    console.log(fly);
+    return;
+
     setLoading(true);
     try {
-      const res = await axios.put("/api-keys/regenerate");
+      const res = await axios.put("/api-keys/create", {
+        fly_id: fly,
+      });
       setKeys(res.data.keys);
       toast("Keys successfully regenerate", toastSuccessConfig);
       setLoading(false);
+      console.log(res);
     } catch (error) {
+      console.log(error);
       toast("Error regenerating keys", toastErrorConfig);
       setLoading(false);
     }
@@ -78,7 +90,7 @@ const ApiKeys = () => {
           </p>
         </div>
         <button
-          className="flex items-center gap-2 bg-uf-light text-uf-dark px-5 py-3 rounded-md font-semibold"
+          className="flex items-center gap-2 bg-uf-light text-uf-dark px-5 py-3 rounded-md font-semibold disabled:opacity-70 disabled:cursor-not-allowed"
           onClick={regenerateKeys}
           disabled={loading}
         >
