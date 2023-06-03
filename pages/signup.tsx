@@ -11,7 +11,7 @@ const Signup = () => {
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [showOtpInput, setShowOtpInput] = useState<boolean>(true);
+  const [showOtpInput, setShowOtpInput] = useState<boolean>(false);
   const [otp, setOtp] = useState<string>("");
 
   const signupWithEmail = async () => {
