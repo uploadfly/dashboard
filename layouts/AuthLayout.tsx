@@ -6,7 +6,7 @@ const AuthLayout = ({
   children,
   text,
   type = "login",
-  isOtpInputVisible = true,
+  isOtpInputVisible = false,
 }: {
   children: ReactNode;
   text: string;
