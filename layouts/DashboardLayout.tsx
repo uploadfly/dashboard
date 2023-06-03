@@ -7,6 +7,7 @@ import { ReactNode, useEffect, useState } from "react";
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
   const { fly, setFly } = useFlyStore();
   const [status, setStatus] = useState<number>();
+
   useEffect(() => {
     if (!fly.name || !fly.uuid) {
       const flyName = window.location.pathname.split("/")[2];
@@ -22,7 +23,6 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
           setStatus(error?.response?.status);
         }
       })();
-      return;
     }
   }, []);
 
