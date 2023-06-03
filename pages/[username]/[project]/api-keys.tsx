@@ -1,6 +1,8 @@
 import { axios } from "@/configs/axios";
+import { toastErrorConfig, toastSuccessConfig } from "@/configs/toast";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 
 const ApiKeys = () => {
   const [keys, setKeys] = useState<{ sk: string; pk: string }>({
@@ -21,7 +23,20 @@ const ApiKeys = () => {
     fetchKeys();
   }, []);
 
-  const regenerateKeys = async () => {};
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const regenerateKeys = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.put("/api-keys/regenerate");
+      setKeys(res.data.keys);
+      toast("Keys successfully regenerate", toastSuccessConfig);
+      setLoading(false);
+    } catch (error) {
+      toast("Error regenerating keys", toastErrorConfig);
+      setLoading(false);
+    }
+  };
 
   return (
     <DashboardLayout>
@@ -62,12 +77,16 @@ const ApiKeys = () => {
             complete access to your Uploadfly cloud.
           </p>
         </div>
-        <button className="flex items-center gap-4 bg-uf-light text-uf-dark px-3 py-3 rounded-md font-semibold">
+        <button
+          className="flex items-center gap-2 bg-uf-light text-uf-dark px-5 py-3 rounded-md font-semibold"
+          onClick={regenerateKeys}
+          disabled={loading}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"
-            className="w-5 h-5"
+            className={`w-5 h-5 ${loading && "animate-spin"}`}
           >
             <path
               fillRule="evenodd"
@@ -75,7 +94,7 @@ const ApiKeys = () => {
               clipRule="evenodd"
             />
           </svg>
-          Regenerate
+          {loading ? "Regenerating" : "Regenerate"}
         </button>
       </div>
     </DashboardLayout>
