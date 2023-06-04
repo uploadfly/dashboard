@@ -48,6 +48,26 @@ const ApiKeys = () => {
     }
   };
 
+  const copyToClipboard = (str: string) => {
+    const el = document.createElement("textarea");
+    el.value = str;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+  };
+  // Written by Amazon CodeWhisperer
+
+  const copyToClipboardPk = () => {
+    copyToClipboard(keys?.pk);
+    toast("Public API Key copied to clipboard", toastSuccessConfig);
+  };
+
+  const copyToClipboardSk = () => {
+    copyToClipboard(keys?.sk);
+    toast("Secret API Key copied to clipboard", toastSuccessConfig);
+  };
+
   return (
     <DashboardLayout>
       <h1 className="text-2xl font-semibold">API Keys</h1>
@@ -60,11 +80,12 @@ const ApiKeys = () => {
           <input
             type="text"
             placeholder={`${keys?.pk?.substring(0, 5)}************************`}
-            className="input my-2"
+            className="input my-2 cursor-pointer"
             readOnly
             style={{
               width: "100%",
             }}
+            onClick={copyToClipboardPk}
           />
           <p className="text-sm text-gray-400">
             Use this key for frontend services. This key can only be used to
@@ -76,11 +97,12 @@ const ApiKeys = () => {
           <input
             type="text"
             placeholder={`${keys?.sk?.substring(0, 5)}************************`}
-            className="input my-2"
+            className="cursor-pointer input my-2"
             readOnly
             style={{
               width: "100%",
             }}
+            onClick={copyToClipboardSk}
           />
           <p className="text-sm text-gray-400">
             Use this key for secure backend services. This key gives you
