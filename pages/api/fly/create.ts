@@ -4,6 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { allowMethods } from "next-method-guard";
 import jwt from "jsonwebtoken";
 import generate from "boring-name-generator";
+import { generateApiKey } from "@/utils/generateApiKey";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -47,6 +48,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         user_id,
         name: name.toLowerCase().replaceAll(" ", "-") || generate().dashed,
         public_key: generateRandomKey(6),
+      },
+    });
+    const public_key = generateApiKey();
+    const secret_key = generateApiKey();
+
+    await prisma.apiKey.create({
+      data: {
+        public_key: `pk_${public_key}`,
+        secret_key: `sk_${secret_key}`,
+        user_id,
+        fly_id: fly.uuid,
       },
     });
 
