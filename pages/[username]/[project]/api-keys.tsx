@@ -59,7 +59,7 @@ const ApiKeys = () => {
           <h4>Public API Key</h4>
           <input
             type="text"
-            placeholder={`${keys.pk.substring(0, 5)}************************`}
+            placeholder={`${keys?.pk?.substring(0, 5)}************************`}
             className="input my-2"
             readOnly
             style={{
@@ -75,7 +75,7 @@ const ApiKeys = () => {
           <h4>Secret API Key</h4>
           <input
             type="text"
-            placeholder={`${keys.sk.substring(0, 5)}************************`}
+            placeholder={`${keys?.sk?.substring(0, 5)}************************`}
             className="input my-2"
             readOnly
             style={{
