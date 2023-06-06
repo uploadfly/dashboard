@@ -1,6 +1,75 @@
 import DashboardLayout from "@/layouts/DashboardLayout";
 import React, { useState } from "react";
 
+interface File {
+  id: number;
+  name: string;
+  mimetype: string;
+  size: number;
+  url: string;
+}
+
+const files: File[] = [
+  {
+    id: 1,
+    name: "file1.txt",
+    mimetype: "text/plain",
+    size: 1024,
+    url: "https://example.com/file1.txt",
+  },
+  {
+    id: 2,
+    name: "image.jpg",
+    mimetype: "image/jpeg",
+    size: 2048,
+    url: "https://example.com/image.jpg",
+  },
+  {
+    id: 3,
+    name: "document.pdf",
+    mimetype: "application/pdf",
+    size: 4096,
+    url: "https://example.com/document.pdf",
+  },
+  {
+    id: 4,
+    name: "presentation.pptx",
+    mimetype:
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+    size: 8192,
+    url: "https://example.com/presentation.pptx",
+  },
+  {
+    id: 5,
+    name: "spreadsheet.xlsx",
+    mimetype:
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    size: 16384,
+    url: "https://example.com/spreadsheet.xlsx",
+  },
+  {
+    id: 18,
+    name: "audio.mp3",
+    mimetype: "audio/mpeg",
+    size: 32768,
+    url: "https://example.com/audio.mp3",
+  },
+  {
+    id: 19,
+    name: "video.mp4",
+    mimetype: "video/mp4",
+    size: 65536,
+    url: "https://example.com/video.mp4",
+  },
+  {
+    id: 20,
+    name: "archive.zip",
+    mimetype: "application/zip",
+    size: 131072,
+    url: "https://example.com/archive.zip",
+  },
+];
+
 const Button = ({ text }: { text: string }) => {
   return (
     <button className="flex items-center gap-2 mb-3 px-4 py-2 bg-slate-900 w-full rounded-md">
@@ -73,7 +142,7 @@ const File = ({
 
 const Files = () => {
   const [showFileInfo, setShowFileInfo] = useState(false);
-  const [selectedFile, setSelectedFile] = useState({ name: "WOW.png" });
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   return (
     <DashboardLayout>
       <div className="h-screen flex gap-5">
@@ -92,47 +161,14 @@ const Files = () => {
         <div className="h-full w-full mb-3">
           <div className="w-full h-16"></div>
           <div className="">
-            <File
-              name="name"
-              size={100}
-              type="type"
-              onClick={() => {
-                setSelectedFile({ name: "animal-wow.png" });
-                setShowFileInfo(true);
-              }}
-            />
-            <File
-              name="name"
-              size={100}
-              type="type"
-              onClick={() => setSelectedFile({ name: "animal-wow.png" })}
-            />
-            <File
-              name="name"
-              size={100}
-              type="type"
-              onClick={() => {
-                setSelectedFile({ name: "animal-wow.png" });
-              }}
-            />
-            <File
-              name="name"
-              size={100}
-              type="type"
-              onClick={() => setSelectedFile({ name: "animal-wow.png" })}
-            />
-            <File
-              name="name"
-              size={100}
-              type="type"
-              onClick={() => setSelectedFile({ name: "animal-wow.png" })}
-            />
-            <File
-              name="name"
-              size={100}
-              type="type"
-              onClick={() => setSelectedFile({ name: "animal-wow.png" })}
-            />
+            {files.map((file) => (
+              <File
+                name="name"
+                size={100}
+                type="type"
+                onClick={() => setSelectedFile(file)}
+              />
+            ))}
           </div>
         </div>
         <div
