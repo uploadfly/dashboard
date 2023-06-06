@@ -166,7 +166,7 @@ const File = ({
   const [showCheckIcon, setShowCheckIcon] = useState(false);
   return (
     <div
-      className="flex items-center cursor-pointer gap-2 justify-between mb-3 px-4 py-2 bg-uf-dark w-full rounded-md hover:scale-105 transition-all duration-300"
+      className="flex items-center cursor-pointer gap-2 justify-between mb-3 px-4 py-2 bg-[#050505] w-full rounded-md hover:scale-105 transition-all duration-300"
       onClick={() => {
         setShowCheckIcon(!showCheckIcon);
         onClick();
@@ -207,7 +207,6 @@ const File = ({
 };
 
 const Files = () => {
-  const [showFileInfo, setShowFileInfo] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   return (
     <DashboardLayout>
