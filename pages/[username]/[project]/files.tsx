@@ -166,7 +166,7 @@ const File = ({
   const [showCheckIcon, setShowCheckIcon] = useState(false);
   return (
     <div
-      className="flex items-center cursor-pointer gap-2 justify-between mb-3 px-4 py-2 bg-[#050505] w-full rounded-md hover:shadow-2xl transition-all duration-300 overflow-y-hidden"
+      className="flex items-center cursor-pointer gap-2 justify-between mb-3 px-4 py-2 bg-[#050505] w-full rounded-md transition-all duration-300"
       onClick={() => {
         setShowCheckIcon(!showCheckIcon);
         onClick();
@@ -210,10 +210,10 @@ const Files = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   return (
     <DashboardLayout>
-      <div className="flex gap-5 overflow-y-hidden">
-        <div className="h-fit w-[35%] p-1 flex flex-col items-end">
+      <div className="flex gap-5">
+        <div className="h-full w-[35%] p-1 flex flex-col items-end">
           <Button text="Root" />
-          <div className="w-[90%]">
+          <div className="w-[90%] h-fit">
             <Button text="Root" />
             <Button text="Root" />
             <Button text="Root" />
@@ -223,11 +223,12 @@ const Files = () => {
             <Button text="Root" />
           </div>
         </div>
-        <div className="h-screen overflow-y-scroll w-full mb-3">
+        <div className="h-full w-full mb-10">
           <div className="w-full h-16"></div>
-          <div className="">
+          <div className="h-screen py-3 overflow-y-scroll">
             {files.map((file) => (
               <File
+                key={file.id}
                 name={file.name}
                 size={file.size}
                 type={file.mimetype}
