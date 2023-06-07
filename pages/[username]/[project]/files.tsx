@@ -138,7 +138,7 @@ const files: File[] = [
 
 const Button = ({ text }: { text: string }) => {
   return (
-    <button className="flex items-center gap-2 mb-3 px-4 py-2 bg-slate-900 w-full rounded-md">
+    <button className="flex items-center gap-2 mb-3 px-4 py-2 bg-[#050505] w-full rounded-md">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
@@ -172,17 +172,17 @@ const File = ({
         onClick();
       }}
     >
-      <div className="flex">
+      <div className="flex items-center">
         <img
           src="https://icon-library.com/images/icon-images-for-windows/icon-images-for-windows-8.jpg"
           alt=""
-          className="w-14 h-14 mr-2"
+          className="w-10 h-10 mr-5"
         />
         <div className="">
-          <p className="text-lg">{name}</p>
+          <p className="text-lg mb-1">{name}</p>
           <div className="flex gap-3 items-center">
-            <p className="text-sm text-slate-400">Uploaded 2 days ago</p>
-            <p className="text-sm text-slate-400">{size}kb</p>
+            <p className="text-xs text-slate-400">Uploaded 2 days ago</p>
+            <p className="text-xs text-slate-400">{size}kb</p>
           </div>
         </div>
       </div>
@@ -210,8 +210,8 @@ const Files = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   return (
     <DashboardLayout>
-      <div className="h-screen flex gap-5">
-        <div className="h-full w-[35%] p-1 flex flex-col items-end">
+      <div className="flex gap-5 overflow-y-hidden bg-blue-500">
+        <div className="h-fit bg-red-500 w-[35%] p-1 flex flex-col items-end">
           <Button text="Root" />
           <div className="w-[90%]">
             <Button text="Root" />
@@ -223,7 +223,7 @@ const Files = () => {
             <Button text="Root" />
           </div>
         </div>
-        <div className="h-full w-full mb-3">
+        <div className="h-screen overflow-y-scroll w-full mb-3">
           <div className="w-full h-16"></div>
           <div className="">
             {files.map((file) => (
