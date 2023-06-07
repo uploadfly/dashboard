@@ -27,13 +27,13 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <div className="bg-uf-dark text-uf-light h-screen overflow-y-hidden">
+    <div className="bg-uf-dark text-uf-light overflow-y-hidden">
       <Navbar />
       <div className="h-screen flex w-full">
-        <div className="w-[20%] p-5 bg-[#050505] sticky top-1">
+        <div className="w-[20%] p-5 bg-[#050505] sticky top-1 h-screen">
           <Sidebar />
         </div>
-        <div className="w-[80%] py-5 px-10 overflow-auto mb-20">
+        <div className="w-[80%] py-5 px-10 overflow-auto overflow-y-hidden mb-20">
           {status === 404 ? (
             <h1>Not found</h1>
           ) : status === 500 ? (
