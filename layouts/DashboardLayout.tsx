@@ -33,16 +33,16 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
         <div className="w-[20%] p-5 bg-[#050505] sticky top-1">
           <Sidebar />
         </div>
-        <div className="w-[80%] py-5 px-10 overflow-hidden mb-20">
-          {status === 404 ? (
+        <div className="w-[80%] py-5 px-10 overflow-y-scroll mb-20">
+          {/* {status === 404 ? (
             <h1>Not found</h1>
           ) : status === 500 ? (
             <>
               <h1>Internal server error</h1>
             </>
-          ) : (
-            <>{children}</>
-          )}
+          ) : ( */}
+          <>{children}</>
+          {/* )} */}
         </div>
       </div>
     </div>
