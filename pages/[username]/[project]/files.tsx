@@ -207,7 +207,7 @@ const File = ({
 };
 
 const Files = () => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File[]>([]);
   return (
     <DashboardLayout>
       <div className="flex gap-5">
@@ -233,11 +233,11 @@ const Files = () => {
                 size={file.size}
                 type={file.mimetype}
                 onClick={() => {
-                  if (selectedFile?.id === file.id) {
-                    setSelectedFile(null);
+                  if (selectedFile.includes(file)) {
+                    setSelectedFile(selectedFile.filter((f) => f !== file));
                     return;
                   }
-                  setSelectedFile(file);
+                  setSelectedFile([...selectedFile, file]);
                 }}
               />
             ))}
@@ -245,11 +245,20 @@ const Files = () => {
         </div>
         <div
           className={`transition-all duration-500 ease-in-out h-full ${
-            selectedFile !== null ? "w-[45%]" : "w-0"
+            selectedFile.length > 0 ? "w-[45%]" : "w-0"
           }`}
         >
-          <p>{selectedFile?.name}</p>
-          <p>{selectedFile?.size}</p>
+          {selectedFile?.length > 1 ? (
+            <>
+              <p>{selectedFile?.length} files selected</p>
+              <p>{selectedFile?.reduce((acc, curr) => acc + curr.size, 0)}kb</p>
+            </>
+          ) : (
+            <>
+              <p>{selectedFile?.[0]?.name}</p>
+              <p>{selectedFile?.[0]?.size}</p>
+            </>
+          )}
         </div>
       </div>
     </DashboardLayout>
