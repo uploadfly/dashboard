@@ -33,7 +33,7 @@ const File = ({
   const [showCheckIcon, setShowCheckIcon] = useState(false);
   return (
     <div
-      className="flex items-center cursor-pointer gap-2 justify-between mb-3 px-4 py-2 bg-[#050505] w-[220px] rounded-md transition-all duration-300 relative"
+      className="flex items-center cursor-pointer gap-2 justify-between mb-3 px-4 py-2 bg-[#050505] w-[235px] rounded-md transition-all duration-300 relative"
       onClick={() => {
         setShowCheckIcon(!showCheckIcon);
         onClick();
@@ -86,8 +86,17 @@ const Files = () => {
           </div>
         </div>
         <div className="h-full w-full">
-          <div className="w-full h-16 sticky top-0 z-10 bg-uf-dark">
+          <div className="w-full h-16 sticky border-b border-slate-700 bg-[#050505] top-0 z-10 flex items-center px-2 mb-3">
             <div className="">
+              <p>{files.length} files</p>
+              <p>{files.reduce((acc, curr) => acc + curr.size, 0)} bytes</p>
+            </div>
+            <div
+              className={`-translate-y-20 z-20 transition-all duration-300 w-full h-full bg-[#050505] px-3 flex items-center absolute top-0 left-0 ${
+                selectedFile.length > 0 &&
+                "-translate-y-0 transition-all duration-300"
+              }`}
+            >
               {selectedFile?.length > 1 ? (
                 <>
                   <p>{selectedFile?.length} files selected</p>
