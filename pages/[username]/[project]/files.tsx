@@ -86,15 +86,35 @@ const Files = () => {
           </div>
         </div>
         <div className="h-full w-full">
-          <div className="w-full h-16 sticky border-b border-slate-700 bg-[#050505] top-0 z-10 flex items-center px-2 mb-3">
-            <div className="">
-              <p>{files.length} files</p>
-              <p>{files.reduce((acc, curr) => acc + curr.size, 0)} bytes</p>
+          <div className="w-full h-16 sticky bg-[#050505] top-0 z-10 flex items-center px-2 mb-3">
+            <div className="flex justify-between w-full items-center">
+              <div className="">
+                <p>{files.length} files</p>
+                <p>{files.reduce((acc, curr) => acc + curr.size, 0)} bytes</p>
+              </div>
+              <div className="flex items-center">
+                <button></button>
+                <button></button>
+                <button className="bg-uf-light text-uf-dark flex items-center py-2 px-4 font-semibold gap-2 rounded-md">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10.5 3.75a6 6 0 00-5.98 6.496A5.25 5.25 0 006.75 20.25H18a4.5 4.5 0 002.206-8.423 3.75 3.75 0 00-4.133-4.303A6.001 6.001 0 0010.5 3.75zm2.03 5.47a.75.75 0 00-1.06 0l-3 3a.75.75 0 101.06 1.06l1.72-1.72v4.94a.75.75 0 001.5 0v-4.94l1.72 1.72a.75.75 0 101.06-1.06l-3-3z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  Upload
+                </button>
+              </div>
             </div>
             <div
-              className={`-translate-y-20 z-20 transition-all duration-300 w-full h-full bg-[#050505] px-3 flex items-center absolute top-0 left-0 ${
-                selectedFile.length > 0 &&
-                "-translate-y-0 transition-all duration-300"
+              className={`z-10 transition-all duration-300 w-full h-full bg-[#050505] px-3 flex items-center absolute top-0 left-0 ${
+                selectedFile.length > 0 ? "-translate-y-0" : "-translate-y-20"
               }`}
             >
               {selectedFile?.length > 1 ? (
