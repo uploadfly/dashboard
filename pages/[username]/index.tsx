@@ -47,7 +47,7 @@ const DashboardIndex = () => {
                     Welcome to the cloud
                   </h1>
                   <p className="text-center mt-3 text-gray-300 text-xl font-semibold">
-                    You're ready to create your first fly.
+                    {`You're ready to create your first fly.`}
                   </p>
 
                   <h1 className="text-9xl my-16">⛈️</h1>
