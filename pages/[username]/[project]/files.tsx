@@ -23,21 +23,19 @@ const File = ({
   name,
   size,
   type,
+  selected,
   onClick,
 }: {
   name: string;
   size: number;
   type: string;
+  selected: boolean;
   onClick: () => void;
 }) => {
-  const [showCheckIcon, setShowCheckIcon] = useState(false);
   return (
     <div
       className="flex items-center cursor-pointer gap-2 justify-between mb-3 px-4 py-2 bg-[#050505] w-[235px] rounded-md transition-all duration-300 relative"
-      onClick={() => {
-        setShowCheckIcon(!showCheckIcon);
-        onClick();
-      }}
+      onClick={onClick}
     >
       <div className="flex items-center">
         <div className="">
@@ -49,7 +47,7 @@ const File = ({
         </div>
       </div>
       <div className="bg-slate-700 w-5 h-5 rounded-md flex items-center justify-center absolute right-2 top-2">
-        {showCheckIcon && (
+        {selected && (
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
@@ -70,6 +68,15 @@ const File = ({
 
 const Files = () => {
   const [selectedFile, setSelectedFile] = useState<File[]>([]);
+
+  const selection = (type?: "all") => {
+    if (type === "all") {
+      setSelectedFile([...files]);
+      return;
+    }
+    setSelectedFile([]);
+  };
+
   return (
     <DashboardLayout>
       <div className="flex gap-5">
@@ -94,7 +101,7 @@ const Files = () => {
               </div>
               <div className="flex items-center">
                 <button></button>
-                <button></button>
+                <button onClick={() => selection("all")}>Select all</button>
                 <button className="bg-uf-light text-uf-dark flex items-center py-2 px-4 font-semibold gap-2 rounded-md">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -139,6 +146,7 @@ const Files = () => {
                 name={file.name}
                 size={file.size}
                 type={file.mimetype}
+                selected={selectedFile.includes(file)}
                 onClick={() => {
                   if (selectedFile.includes(file)) {
                     setSelectedFile(selectedFile.filter((f) => f !== file));
