@@ -1,4 +1,3 @@
-import { useFlyStore } from "@/stores/flyStore";
 import { useUserStore } from "@/stores/userStore";
 import Link from "next/link";
 import { useRouter } from "next/router";
