@@ -1,4 +1,4 @@
-export interface File {
+export interface FileProps {
   id: number;
   name: string;
   mimetype: string;
