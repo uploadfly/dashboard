@@ -3086,6 +3086,13 @@ update-browserslist-db@^1.0.10:
     escalade "^3.1.1"
     picocolors "^1.0.0"
 
+"uploadfly-react@file:../react":
+  version "0.0.0"
+  resolved "file:../react"
+  dependencies:
+    react "^18.2.0"
+    react-dom "^18.2.0"
+
 uri-js@^4.2.2:
   version "4.4.1"
   resolved "https://registry.npmjs.org/uri-js/-/uri-js-4.4.1.tgz"
