@@ -62,7 +62,10 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           name="password"
         />
-        <button className="uf-gradient w-full rounded-md py-2 h-10 flex items-center justify-center text-[#1e1e1e] font-bold hover:scale-105 transition-all">
+        <button
+          className="uf-gradient w-full rounded-md py-2 h-10 flex items-center justify-center text-[#1e1e1e] font-bold hover:scale-105 transition-all disabled:cursor-not-allowed"
+          disabled={loading}
+        >
           {loading ? (
             <span className="animate-slide w-1/2">
               <svg
