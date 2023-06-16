@@ -28,7 +28,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
 
-    res.json(flies);
+    const fliesWithUsedStorageAsNumber = flies.map((fly) => ({
+      ...fly,
+      used_storage: Number(fly.used_storage),
+    }));
+
+    res.json(fliesWithUsedStorageAsNumber);
   } catch (error) {
     res.status(500).json({ error });
   }
