@@ -7,6 +7,7 @@ import { ReactNode, useEffect, useState } from "react";
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
   const { fly, setFly } = useFlyStore();
   const [status, setStatus] = useState<number>();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!fly.name || !fly.uuid) {
@@ -18,8 +19,9 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
           );
           setFly(data?.name, data?.uuid);
           setStatus(status);
+          setLoading(false);
         } catch (error: any) {
-          console.log(error);
+          setLoading(false);
           setStatus(error?.response?.status);
         }
       })();
@@ -28,21 +30,27 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
 
   return (
     <div className="bg-uf-dark text-uf-light h-screen overflow-y-hidden">
-      <Navbar />
+      {loading ? <>Loading navbar</> : <Navbar />}
       <div className="h-screen flex w-full">
         <div className="w-[20%] p-5 bg-[#050505] sticky top-1">
-          <Sidebar />
+          {loading ? <>Sidebar loading</> : <Sidebar />}
         </div>
         <div className="w-[80%] mt-5 px-10 overflow-y-scroll mb-20">
-          {/* {status === 404 ? (
-            <h1>Not found</h1>
-          ) : status === 500 ? (
+          {loading ? (
+            <>Loading page</>
+          ) : (
             <>
-              <h1>Internal server error</h1>
+              {status === 404 ? (
+                <h1>Not found</h1>
+              ) : status === 500 ? (
+                <>
+                  <h1>Internal server error</h1>
+                </>
+              ) : (
+                <>{children}</>
+              )}
             </>
-          ) : ( */}
-          <>{children}</>
-          {/* )} */}
+          )}
         </div>
       </div>
     </div>
