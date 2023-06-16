@@ -5,7 +5,7 @@ import { axios } from "@/configs/axios";
 import { useUserStore } from "@/stores/userStore";
 import { Card, Metric } from "@tremor/react";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const DashboardIndex = () => {
   const { user } = useUserStore();
