@@ -40,7 +40,6 @@ const ApiKeys = () => {
       setKeys(res.data.keys);
       toast("Keys successfully regenerated", toastSuccessConfig);
       setLoading(false);
-      console.log(res);
     } catch (error) {
       console.log(error);
       toast("Error regenerating keys", toastErrorConfig);
