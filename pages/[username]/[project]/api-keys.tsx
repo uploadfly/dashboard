@@ -19,7 +19,6 @@ const ApiKeys = () => {
       console.log(data);
     } catch (error) {
       setKeys({ sk: "", pk: "" });
-      console.log(error);
     }
   };
 
