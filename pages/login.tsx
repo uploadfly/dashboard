@@ -68,9 +68,7 @@ const Login = () => {
           disabled={loading}
         >
           {loading ? (
-            <span className="animate-spin text-2xl">
-              <RiLoader5Fill />
-            </span>
+            <RiLoader5Fill className="animate-spin text-2xl" />
           ) : (
             <span className="shadow-2xl">Login</span>
           )}
