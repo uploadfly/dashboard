@@ -7,10 +7,11 @@ import { ReactNode, useEffect, useState } from "react";
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
   const { fly, setFly } = useFlyStore();
   const [status, setStatus] = useState<number>();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!fly.name || !fly.uuid) {
+      setLoading(true);
       const flyName = window.location.pathname.split("/")[2];
       (async () => {
         try {
@@ -25,6 +26,7 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
           setStatus(error?.response?.status);
         }
       })();
+      return;
     }
   }, []);
 
