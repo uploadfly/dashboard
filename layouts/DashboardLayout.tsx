@@ -42,19 +42,15 @@ const DashboardLayout = ({
 
   return (
     <>
-      {loading ? (
+      {loading && isChildLoading ? (
         <div className="bg-uf-dark text-uf-light h-screen overflow-y-hidden">
-          {loading ? <NavbarLoader /> : <Navbar />}
+          <NavbarLoader />
           <div className="h-screen flex w-full">
             <div className="w-[20%] p-5 bg-[#050505] sticky top-1">
               <Sidebar loading={loading} />
             </div>
             <div className="w-[80%] mt-5 px-10 overflow-y-scroll mb-20">
-              {loading && isChildLoading ? (
-                <>{childLoadingComponent}</>
-              ) : (
-                <>{children}</>
-              )}
+              {childLoadingComponent}
             </div>
           </div>
         </div>
@@ -63,7 +59,7 @@ const DashboardLayout = ({
           <h1 className="text-center text-9xl font-bold">404</h1>
         </div>
       ) : status === 500 ? (
-        <></>
+        <>500</>
       ) : (
         <div className="bg-uf-dark text-uf-light h-screen overflow-y-hidden">
           {loading ? <NavbarLoader /> : <Navbar />}
