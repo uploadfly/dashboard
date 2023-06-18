@@ -10,7 +10,7 @@ import {
   HiCog8Tooth,
 } from "react-icons/hi2";
 
-const Sidebar = () => {
+const Sidebar = ({ loading }: { loading: boolean }) => {
   const router = useRouter();
 
   const [currentRoute, setCurrentRoute] = useState("");
@@ -53,7 +53,7 @@ const Sidebar = () => {
   const { user } = useUserStore();
 
   return (
-    <div>
+    <div className={loading ? "pointer-events-none" : ""}>
       {links.map((link, i) => (
         <Link
           href={`/${user?.username}/${flyName}${link.path}`}
