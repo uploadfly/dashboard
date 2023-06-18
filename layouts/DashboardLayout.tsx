@@ -6,7 +6,15 @@ import { axios } from "@/configs/axios";
 import { useFlyStore } from "@/stores/flyStore";
 import { ReactNode, useEffect, useState } from "react";
 
-const DashboardLayout = ({ children }: { children: ReactNode }) => {
+const DashboardLayout = ({
+  children,
+  isChildLoading,
+  childLoadingComponent,
+}: {
+  children: ReactNode;
+  isChildLoading?: boolean;
+  childLoadingComponent?: ReactNode;
+}) => {
   const { fly, setFly } = useFlyStore();
   const [status, setStatus] = useState<number>();
   const [loading, setLoading] = useState(false);
@@ -42,7 +50,11 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
               <Sidebar loading={loading} />
             </div>
             <div className="w-[80%] mt-5 px-10 overflow-y-scroll mb-20">
-              {loading ? <>Loading page</> : <>{children}</>}
+              {loading && isChildLoading ? (
+                <>{childLoadingComponent}</>
+              ) : (
+                <>{children}</>
+              )}
             </div>
           </div>
         </div>
@@ -60,7 +72,7 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
               <Sidebar loading={loading} />
             </div>
             <div className="w-[80%] mt-5 px-10 overflow-y-scroll mb-20">
-              {loading ? <>Loading page</> : <>{children}</>}
+              {children}
             </div>
           </div>
         </div>
