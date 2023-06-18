@@ -42,7 +42,7 @@ const DashboardLayout = ({
 
   return (
     <>
-      {loading && isChildLoading ? (
+      {loading || isChildLoading ? (
         <div className="bg-uf-dark text-uf-light h-screen overflow-y-hidden">
           <NavbarLoader />
           <div className="h-screen flex w-full">
