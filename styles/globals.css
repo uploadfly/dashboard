@@ -100,3 +100,37 @@
 .btn-disabled {
   @apply disabled:opacity-50 disabled:cursor-not-allowed;
 }
+
+.shiny-div {
+  position: relative;
+  overflow: hidden;
+}
+
+.shiny-div::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    -75deg,
+    rgba(0, 0, 0, 0.6) 30%,
+    #000 50%,
+    rgba(0, 0, 0, 0.6) 70%
+  );
+  background-size: 200%;
+  animation: shimmer 2s linear infinite alternate;
+}
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: 200px 0;
+  }
+}
+
+.loading {
+  @apply shiny-div bg-gray-200;
+}
