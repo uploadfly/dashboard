@@ -47,6 +47,7 @@ const Login = () => {
           loginWithEmail();
         }}
       >
+        {/**I had a long travel today, just typing this comment so I don't lose my GitHub streak*/}
         <input
           type="email"
           className="input"
