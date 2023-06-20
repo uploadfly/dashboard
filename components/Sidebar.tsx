@@ -54,26 +54,29 @@ const Sidebar = ({ loading }: { loading: boolean }) => {
 
   return (
     <div className={loading ? "pointer-events-none" : ""}>
-      {links.map((link, i) => (
-        <Link
-          href={`/${user?.username}/${flyName}${link.path}`}
-          key={i}
-          className={`flex items-center ${
-            currentRoute === link.path ? "bg-gray-600" : "bg-transparent"
-          } h-12 rounded-md mb-6 hover:bg-gray-600 transition-colors duration-500`}
-        >
-          <div
-            className={`bg-gradient-to-tr h-full w-[10px] mr-4 rounded-tl-md rounded-bl-md
-            ${
-              currentRoute === link.path &&
-              "from-[#0083cb] via-[#a06eac] to-[#ffb564]"
-            }
-            `}
-          ></div>
-          <div className="text-xl">{link.icon()}</div>
-          <span className="ml-2">{link.name}</span>
-        </Link>
-      ))}
+      {links.map((link, i) => {
+        const href = `/${user?.username}/${flyName}${link.path}`;
+        return (
+          <Link
+            href={user && flyName ? href : ""}
+            key={i}
+            className={`flex items-center ${
+              currentRoute === link.path ? "bg-gray-600" : "bg-transparent"
+            } h-12 rounded-md mb-6 hover:bg-gray-600 transition-colors duration-500`}
+          >
+            <div
+              className={`bg-gradient-to-tr h-full w-[10px] mr-4 rounded-tl-md rounded-bl-md
+              ${
+                currentRoute === link.path &&
+                "from-[#0083cb] via-[#a06eac] to-[#ffb564]"
+              }
+              `}
+            ></div>
+            <div className="text-xl">{link.icon()}</div>
+            <span className="ml-2">{link.name}</span>
+          </Link>
+        );
+      })}
     </div>
   );
 };
