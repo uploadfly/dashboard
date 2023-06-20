@@ -2,7 +2,7 @@ import { axios } from "@/configs/axios";
 import { create } from "zustand";
 
 interface UserStore {
-  user: any;
+  user: { username: string; email: string } | null;
   setUser: () => void;
 }
 
@@ -13,6 +13,8 @@ export const useUserStore = create<UserStore>((set) => ({
       try {
         const res = await axios.get("/user");
         const userData = res.data;
+        console.log(res.data);
+
         set({ user: userData });
       } catch (error) {
         console.error("Error fetching user data:", error);
