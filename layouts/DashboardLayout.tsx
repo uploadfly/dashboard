@@ -42,7 +42,7 @@ const DashboardLayout = ({
 
   return (
     <>
-      {loading || isChildLoading ? (
+      {isChildLoading ? (
         <div className="bg-uf-dark text-uf-light h-screen overflow-y-hidden">
           <Navbar />
           <div className="h-screen flex w-full">
@@ -62,7 +62,7 @@ const DashboardLayout = ({
         <>500</>
       ) : (
         <div className="bg-uf-dark text-uf-light h-screen overflow-y-hidden">
-          {loading ? <NavbarLoader /> : <Navbar />}
+          <Navbar />
           <div className="h-screen flex w-full">
             <div className="w-[20%] p-5 bg-[#050505] sticky top-1">
               <Sidebar loading={loading} />
