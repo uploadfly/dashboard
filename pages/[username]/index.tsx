@@ -8,8 +8,12 @@ import { useEffect, useState } from "react";
 
 const DashboardIndex = () => {
   const { user } = useUserStore();
-  const [currentUser, setCurrentUser] = useState<{ username: string }>({
+  const [currentUser, setCurrentUser] = useState<{
+    username: string;
+    email: string;
+  }>({
     username: "",
+    email: "",
   });
 
   const [loading, setLoading] = useState<boolean>(true);
@@ -17,19 +21,22 @@ const DashboardIndex = () => {
   const [flies, setFlies] = useState<any[]>([]);
 
   useEffect(() => {
-    setCurrentUser(user);
+    setCurrentUser(
+      user as {
+        username: string;
+        email: string;
+      }
+    );
     const getFlies = async () => {
       const res = await axios("/fly");
       setFlies(res?.data || []);
       setLoading(false);
-      console.log(res);
     };
     getFlies();
   }, []);
   return (
     <div className="w-full bg-uf-dark h-screen text-uf-light">
       <Navbar />
-
       <>
         {loading ? (
           <div className="flex gap-4 items-center justify-center mt-8 opacity-50">
