@@ -19,7 +19,7 @@ const Navbar = () => {
       ) : (
         <>
           <div className="sticky top-0 z-50 bg-uf-dark">
-            <div className="flex items-center px-10 py-4  justify-between">
+            <div className="flex items-center px-10 py-4 justify-between">
               <h1 className="shiny-text text-xl">uploadfly</h1>
               <div className="flex gap-4 items-center">
                 <p>{user?.username}</p>
