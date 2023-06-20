@@ -1,7 +1,5 @@
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
-import NavbarLoader from "@/components/loader/Navbar";
-import SidebarLoader from "@/components/loader/Sidebar";
 import { axios } from "@/configs/axios";
 import { useFlyStore } from "@/stores/flyStore";
 import { ReactNode, useEffect, useState } from "react";
