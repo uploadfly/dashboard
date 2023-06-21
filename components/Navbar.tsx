@@ -2,6 +2,7 @@ import { useUserStore } from "@/stores/userStore";
 import Link from "next/link";
 import { useEffect } from "react";
 import NavbarLoader from "./loader/Navbar";
+import Profile from "./Profile";
 
 const Navbar = () => {
   const { user, setUser } = useUserStore();
@@ -30,18 +31,7 @@ const Navbar = () => {
                 >
                   Docs
                 </Link>
-                <div className="">
-                  <div
-                    className="w-10 h-10 uf-gradient rounded-full p-[2px]"
-                    role="button"
-                  >
-                    <img
-                      src="https://avatars.githubusercontent.com/u/54487532?v=4"
-                      alt=""
-                      className="w-full h-full object-cover rounded-full"
-                    />
-                  </div>
-                </div>
+                <Profile />
               </div>
             </div>
             <div className="uf-gradient w-full h-[2px] opacity-70"></div>
