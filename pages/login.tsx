@@ -13,6 +13,9 @@ const Login = () => {
   const router = useRouter();
 
   const loginWithEmail = async () => {
+    const { query } = router;
+    const returnTo = query.returnTo ? query.returnTo.toString() : null;
+
     if (!email) {
       toast("Email is required", toastErrorConfig);
       return;
@@ -24,16 +27,26 @@ const Login = () => {
     }
 
     setLoading(true);
+
     try {
-      const res = await axiosAuth.post("/login", {
+      const response = await axiosAuth.post("/login", {
         email,
         password,
       });
-      toast("Login successful", toastSuccessConfig);
-      router.push(`/${res?.data?.user?.username}`);
-      setLoading(false);
+      const userData = response?.data?.user;
+      if (userData && userData.username) {
+        toast("Login successful", toastSuccessConfig);
+        if (returnTo) {
+          router.push(returnTo);
+          return;
+        }
+        router.push(`/${userData.username}`);
+        return;
+      }
     } catch (error: any) {
-      toast(error.response.data.message, toastErrorConfig);
+      const errorMessage = error.response?.data?.message || "Login failed";
+      toast(errorMessage, toastErrorConfig);
+    } finally {
       setLoading(false);
     }
   };
