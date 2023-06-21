@@ -5,6 +5,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
+    const currentPathname = window.location.pathname;
     const cookies = document.cookie.split(";");
 
     const expCookie = cookies.find((cookie) =>
@@ -14,10 +15,13 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     // Modified by @xing0x
 
     if (!expCookie && router.asPath !== "/signup") {
-      router.push("/login");
+      const returnTo = encodeURIComponent(currentPathname);
+
+      router.push(`/login?returnTo=${returnTo}`);
       return;
     }
   }, []);
+
   return <>{children}</>;
 };
 
