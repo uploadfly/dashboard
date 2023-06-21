@@ -1,8 +1,25 @@
+import { axiosAuth } from "@/configs/axios";
 import { useState } from "react";
 import { IoLogOutOutline } from "react-icons/io5";
+import { useRouter } from "next/router";
+import { toast } from "react-hot-toast";
+import { toastSuccessConfig } from "@/configs/toast";
 
 const Profile = () => {
   const [open, setOpen] = useState(false);
+
+  const router = useRouter();
+
+  const logout = async () => {
+    const res = await axiosAuth.post("/logout");
+    toast.loading("Logging out...", { id: "logout" });
+    if (res.data === "OK") {
+      router.push("/login");
+      toast.dismiss("logout");
+      toast("Logged out successfully", toastSuccessConfig);
+    }
+  };
+
   return (
     <div className="relative flex flex-col items-end">
       <div
@@ -25,7 +42,7 @@ const Profile = () => {
         }
         `}
       >
-        <button className="flex gap-2 items-center w-full">
+        <button className="flex gap-2 items-center w-full" onClick={logout}>
           <IoLogOutOutline className="text-lg" /> Logout
         </button>
       </div>
