@@ -14,13 +14,15 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     // Written by ChatGPT
     // Modified by @xing0x
 
-    if (!expCookie && router.asPath !== "/signup") {
+    if (
+      !expCookie &&
+      router.asPath !== "/signup" &&
+      router.asPath !== "/login"
+    ) {
       const returnTo = encodeURIComponent(currentPathname);
-
       router.push(`/login?returnTo=${returnTo}`);
-      return;
     }
-  }, []);
+  }, [router.asPath]);
 
   return <>{children}</>;
 };
