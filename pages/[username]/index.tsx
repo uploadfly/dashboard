@@ -76,6 +76,7 @@ const DashboardIndex = () => {
                           used={fly.used_storage}
                           updated={fly.updated_at}
                           uuid={fly.uuid}
+                          storage={fly.storage}
                         />
                       );
                     })}
