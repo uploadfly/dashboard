@@ -134,3 +134,21 @@
 .loading {
   @apply shiny-div bg-gray-200;
 }
+.react-calendar-heatmap .color-scale-1 {
+  fill: #14181d;
+}
+.react-calendar-heatmap .color-scale-2 {
+  fill: #0e442a;
+}
+.react-calendar-heatmap .color-scale-3 {
+  fill: #006e32;
+}
+.react-calendar-heatmap .color-scale-4 {
+  fill: #25a641;
+}
+.react-calendar-heatmap .color-scale-4 {
+  fill: #38d352;
+}
+.react-calendar-heatmap .color-scale-0 {
+  fill: #161b21;
+}
