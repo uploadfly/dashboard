@@ -3,6 +3,9 @@ import Link from "next/link";
 import { ReactNode, useEffect, useState } from "react";
 import { RiLoader5Fill } from "react-icons/ri";
 import { SiGithub } from "react-icons/si";
+import { useRouter } from "next/router";
+import { toast } from "react-hot-toast";
+
 const AuthLayout = ({
   children,
   text,
@@ -20,6 +23,15 @@ const AuthLayout = ({
   const handleKeyPress = (e: KeyboardEvent) => {
     e.key === "Enter" && setHide(true);
   };
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.asPath === "/login?status=failed") {
+      setHide(true);
+      toast.error("Login failed");
+    }
+  }, []);
 
   useEffect(() => {
     const handleKeyDown: EventListener = (e: Event) => {
