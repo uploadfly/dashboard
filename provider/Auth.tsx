@@ -1,11 +1,11 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
+  const [path, setPath] = useState<string[]>([]);
   useEffect(() => {
-    const currentPathname = window.location.pathname;
     const cookies = document.cookie.split(";");
 
     const expCookie = cookies.find((cookie) =>
@@ -13,13 +13,13 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     );
     // Written by ChatGPT
     // Modified by @xing0x
-
+    setPath([...path, router.asPath]);
     if (
       !expCookie &&
       router.asPath !== "/signup" &&
       router.asPath !== "/login"
     ) {
-      const returnTo = encodeURIComponent(currentPathname);
+      const returnTo = encodeURIComponent(path[1]);
       router.push(`/login?returnTo=${returnTo}`);
     }
   }, [router.asPath]);
