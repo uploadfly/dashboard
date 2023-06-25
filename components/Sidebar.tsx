@@ -26,27 +26,27 @@ const Sidebar = ({ loading }: { loading: boolean }) => {
     {
       name: "Overview",
       path: "/",
-      icon: () => <HiSquares2X2 />,
+      icon: <HiSquares2X2 />,
     },
     {
       name: "Files",
       path: "/files",
-      icon: () => <HiFolderOpen />,
+      icon: <HiFolderOpen />,
     },
     {
       name: "API Keys",
       path: "/api-keys",
-      icon: () => <HiKey />,
+      icon: <HiKey />,
     },
     {
       name: "Rules",
       path: "/rules",
-      icon: () => <HiShieldCheck />,
+      icon: <HiShieldCheck />,
     },
     {
       name: "Settings",
       path: "/settings",
-      icon: () => <HiCog8Tooth />,
+      icon: <HiCog8Tooth />,
     },
   ];
 
@@ -71,7 +71,7 @@ const Sidebar = ({ loading }: { loading: boolean }) => {
               }
               `}
             ></div>
-            <div className="text-xl">{link.icon()}</div>
+            <div className="text-xl">{link.icon}</div>
             <span className="ml-2">{link.name}</span>
           </Link>
         );
