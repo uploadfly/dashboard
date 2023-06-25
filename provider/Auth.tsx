@@ -17,6 +17,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (
       !expCookie &&
       router.asPath !== "/signup" &&
+      router.asPath !== "/login?status=failed" &&
       router.asPath !== "/login"
     ) {
       const returnTo = encodeURIComponent(path[1]);
