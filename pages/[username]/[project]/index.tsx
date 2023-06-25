@@ -1,32 +1,32 @@
 import { ContributionGraph } from "@/components/GH";
+import { axios } from "@/configs/axios";
 import DashboardLayout from "@/layouts/DashboardLayout";
+import { useFlyStore } from "@/stores/flyStore";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import fileSize from "file-size";
 
 const Project = () => {
-  const generateContributionData = () => {
-    const data = [];
-    for (let i = 0; i < 365; i++) {
-      const date = new Date();
-      date.setDate(date.getDate() - i);
-      const count = Math.floor(Math.random() * 4);
+  const { fly } = useFlyStore();
 
-      data.push({ date, count });
+  const [overview, setOverview] = useState({
+    files: 0,
+    used_storage: 0,
+    contributions: [],
+  });
+
+  const fetchOverview = async () => {
+    try {
+      const res = await axios(`/fly/overview?fly_id=${fly.uuid}`);
+      setOverview(res.data);
+    } catch (error) {
+      console.log(error);
     }
-    return data;
   };
 
-  const contributionData = generateContributionData();
-
-  const stats = [
-    {
-      title: "Total Files",
-      value: contributionData.reduce((a, b) => a + b.count, 0),
-    },
-    {
-      title: "Used storage",
-      value: "948 MB",
-    },
-  ];
+  useEffect(() => {
+    fetchOverview();
+  }, []);
 
   return (
     <DashboardLayout>
@@ -44,22 +44,21 @@ const Project = () => {
         </Link>
       </div>
       <div className="flex gap-5">
-        {stats?.map((stat, index) => (
-          <div
-            className="border border-gray-700 p-5 rounded-md w-1/2"
-            key={index}
-          >
-            <h1 className="text-2xl font-semibold">{stat.title}</h1>
-            <p className="text-4xl mt-3">{stat.value}</p>
-          </div>
-        ))}
+        <div className="border border-gray-700 p-5 rounded-md w-1/2">
+          <h1 className="text-2xl font-semibold">Total files</h1>
+          <p className="text-4xl mt-3">{overview.files}</p>
+        </div>
+        <div className="border border-gray-700 p-5 rounded-md w-1/2">
+          <h1 className="text-2xl font-semibold">Used storage</h1>
+          <p className="text-4xl mt-3">
+            {fileSize(overview.used_storage).to("MB")} MB
+          </p>
+        </div>
       </div>
       <div className="border border-gray-700 p-5 rounded-md mt-5">
         <h1 className="text-2xl font-semibold">Upload streak</h1>
-        <p className="my-3 font-semibold">
-          {contributionData.reduce((a, b) => a + b.count, 0)} uploads in 2023
-        </p>
-        <ContributionGraph contributionData={contributionData} />
+        <p className="my-3 font-semibold">{overview.files} uploads in 2023</p>
+        <ContributionGraph contributionData={overview.contributions} />
       </div>
     </DashboardLayout>
   );
