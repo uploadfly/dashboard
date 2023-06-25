@@ -5,6 +5,7 @@ import { useFlyStore } from "@/stores/flyStore";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import fileSize from "file-size";
+import { HiOutlineExternalLink } from "react-icons/hi";
 
 const Project = () => {
   const { fly } = useFlyStore();
@@ -30,19 +31,6 @@ const Project = () => {
 
   return (
     <DashboardLayout>
-      <div className="border border-gray-700 p-5 rounded-md mb-5">
-        <h1 className="text-2xl font-semibold">Documentation</h1>
-        <p className="my-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        </p>
-        <Link
-          href={"https://docs.uploadfly.io"}
-          target="_blank"
-          className="text-blue-500 font-semibold"
-        >
-          Go to docs
-        </Link>
-      </div>
       <div className="flex gap-5">
         <div className="border border-gray-700 p-5 rounded-md w-1/2">
           <h1 className="text-2xl font-semibold">Total files</h1>
@@ -51,7 +39,14 @@ const Project = () => {
         <div className="border border-gray-700 p-5 rounded-md w-1/2">
           <h1 className="text-2xl font-semibold">Used storage</h1>
           <p className="text-4xl mt-3">
-            {fileSize(overview.used_storage).to("MB")} MB
+            {fileSize(overview.used_storage).to(
+              Number(fileSize(overview.used_storage).to("MB")) > 999
+                ? "GB"
+                : "MB"
+            )}{" "}
+            {Number(fileSize(overview.used_storage).to("MB")) > 999
+              ? "GB"
+              : "MB"}
           </p>
         </div>
       </div>
