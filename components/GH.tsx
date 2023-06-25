@@ -24,6 +24,11 @@ const ContributionGraph = ({ contributionData }: { contributionData: any }) => {
         startDate={startDate as any}
         endDate={endDate as any}
         values={contributionData}
+        onClick={(value: any) => {
+          if (value) {
+            console.log(value.count);
+          }
+        }}
         classForValue={(value: any) => {
           if (!value) {
             return "color-scale-0";
