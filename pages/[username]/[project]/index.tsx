@@ -2,10 +2,8 @@ import { ContributionGraph } from "@/components/GH";
 import { axios } from "@/configs/axios";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import { useFlyStore } from "@/stores/flyStore";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import fileSize from "file-size";
-import { HiOutlineExternalLink } from "react-icons/hi";
 
 const Project = () => {
   const { fly } = useFlyStore();
