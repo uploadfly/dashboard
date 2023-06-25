@@ -11,8 +11,9 @@ const Project = () => {
   const [overview, setOverview] = useState({
     files: 0,
     used_storage: 0,
-    contributions: [],
   });
+
+  const [uploads, setUploads] = useState([]);
 
   const fetchOverview = async () => {
     try {
@@ -23,9 +24,21 @@ const Project = () => {
     }
   };
 
+  const fetchUploads = async () => {
+    try {
+      const res = await axios(`/analytics?fly_id=${fly.uuid}`);
+      setUploads(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    fetchOverview();
-  }, []);
+    if (fly?.uuid) {
+      fetchUploads();
+      fetchOverview();
+    }
+  }, [fly?.uuid]);
 
   return (
     <DashboardLayout>
@@ -51,7 +64,7 @@ const Project = () => {
       <div className="border border-gray-700 p-5 rounded-md mt-5">
         <h1 className="text-2xl font-semibold">Upload streak</h1>
         <p className="my-3 font-semibold">{overview.files} uploads in 2023</p>
-        <ContributionGraph contributionData={overview.contributions} />
+        <ContributionGraph contributionData={uploads} />
       </div>
     </DashboardLayout>
   );
