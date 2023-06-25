@@ -39,29 +39,29 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
 
-    const generateContributionData = async () => {
-      const data = [];
-      const currentDate = dayjs();
-      const currentYear = currentDate.year();
-      const startDate = dayjs(`${currentYear}-01-01`);
+    const generateContributionData = async (flyId: string) => {
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      const startDate = new Date(currentYear, 0, 1);
 
-      for (let i = 0; i < 365; i++) {
-        const date = startDate.add(i, "day");
-
-        const count = await prisma.file.count({
-          where: {
-            created_at: {
-              gte: date.startOf("day").toDate(),
-              lt: date.endOf("day").toDate(),
-            },
-            fly_id: fly_id as string,
+      const data = await prisma.file.groupBy({
+        by: ["created_at"],
+        _count: {
+          created_at: true,
+        },
+        where: {
+          created_at: {
+            gte: startDate,
+            lt: currentDate,
           },
-        });
+          fly_id: flyId,
+        },
+      });
 
-        data.push({ date: date.toDate(), count });
-      }
-
-      return data;
+      return data.map((entry) => ({
+        date: entry.created_at,
+        count: entry._count.created_at,
+      }));
     };
 
     if (!fly) return res.status(400).json({ message: "Invalid fly id" });
@@ -75,7 +75,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(200).json({
       files,
       used_storage: Number(fly.used_storage),
-      contributions: await generateContributionData(),
+      contributions: [],
     });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
