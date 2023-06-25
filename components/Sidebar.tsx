@@ -65,8 +65,7 @@ const Sidebar = ({ loading }: { loading: boolean }) => {
             } h-12 rounded-md mb-6 hover:bg-gray-600 transition-colors duration-500`}
           >
             <div
-              className={`bg-gradient-to-tr h-full w-[10px] mr-4 rounded-tl-md rounded-bl-md
-              ${
+              className={`bg-gradient-to-tr h-full w-[10px] mr-4 rounded-tl-md rounded-bl-md ${
                 currentRoute === link.path &&
                 "from-[#0083cb] via-[#a06eac] to-[#ffb564]"
               }
