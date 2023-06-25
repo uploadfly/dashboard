@@ -52,6 +52,11 @@ const Sidebar = ({ loading }: { loading: boolean }) => {
 
   const { user } = useUserStore();
 
+  const className = (link: string) =>
+    `bg-gradient-to-tr h-full w-[10px] mr-4 rounded-tl-md rounded-bl-md${
+      currentRoute === link ? "from-[#0083cb] via-[#a06eac] to-[#ffb564]" : ""
+    }`;
+
   return (
     <div className={loading ? "pointer-events-none" : ""}>
       {links.map((link, i) => {
@@ -64,13 +69,7 @@ const Sidebar = ({ loading }: { loading: boolean }) => {
               currentRoute === link.path ? "bg-gray-600" : "bg-transparent"
             } h-12 rounded-md mb-6 hover:bg-gray-600 transition-colors duration-500`}
           >
-            <div
-              className={`bg-gradient-to-tr h-full w-[10px] mr-4 rounded-tl-md rounded-bl-md ${
-                currentRoute === link.path &&
-                "from-[#0083cb] via-[#a06eac] to-[#ffb564]"
-              }
-              `}
-            ></div>
+            <div className={className(link.path)}></div>
             <div className="text-xl">{link.icon}</div>
             <span className="ml-2">{link.name}</span>
           </Link>
