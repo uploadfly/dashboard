@@ -41,11 +41,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res.status(200).json([
       { date: "2023-06-21", count: 10 },
-      { date: "2023-06-22", count: 20 },
+      { date: "2023-06-22", count: 90 },
       { date: "2023-06-23", count: 100 },
-      { date: "2023-06-24", count: 17 },
-      { date: "2023-06-25", count: 17 },
-      { date: "2023-06-26", count: 8 },
+      { date: "2023-06-24", count: 30 },
+      { date: "2023-06-25", count: 47 },
+      { date: "2023-06-26", count: 5 },
     ]);
   } catch (error) {
     console.log(error);
