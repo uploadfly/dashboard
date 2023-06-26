@@ -39,29 +39,25 @@ const ContributionGraph = ({ contributionData }: { contributionData: any }) => {
             console.log(value.count);
           }
         }}
-        classForValue={(value: { count: number }) => {
+        classForValue={(value) => {
           if (!value) {
             return "color-scale-0";
           }
-
           const { count } = value;
-
-          if (count < getMaxCount(contributionData) * 0.2) {
-            return "color-scale-1";
+          const maxCount = getMaxCount(contributionData);
+          const percentage = count / maxCount;
+          switch (true) {
+            case percentage < 0.2:
+              return "color-scale-1";
+            case percentage < 0.4:
+              return "color-scale-2";
+            case percentage < 0.6:
+              return "color-scale-3";
+            case percentage < 0.8:
+              return "color-scale-4";
+            default:
+              return "color-scale-5";
           }
-
-          if (count < getMaxCount(contributionData) * 0.4) {
-            return "color-scale-2";
-          }
-
-          if (count < getMaxCount(contributionData) * 0.6) {
-            return "color-scale-3";
-          }
-
-          if (count < getMaxCount(contributionData) * 0.8) {
-            return "color-scale-4";
-          }
-          return "color-scale-5";
         }}
       />
     </div>
