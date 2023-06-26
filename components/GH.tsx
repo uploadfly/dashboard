@@ -1,6 +1,7 @@
 import CalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
 import dayjs from "dayjs";
+import { useEffect } from "react";
 
 const ContributionGraph = ({ contributionData }: { contributionData: any }) => {
   const startDate = dayjs().startOf("year");
@@ -18,6 +19,15 @@ const ContributionGraph = ({ contributionData }: { contributionData: any }) => {
     return maxCount;
   };
 
+  useEffect(() => {
+    console.log(getMaxCount(contributionData));
+    console.log(getMaxCount(contributionData) * 0.2);
+    console.log(getMaxCount(contributionData) * 0.4);
+    console.log(getMaxCount(contributionData) * 0.6);
+    console.log(getMaxCount(contributionData) * 0.8);
+    console.log(getMaxCount(contributionData) * 1);
+  }, []);
+
   return (
     <div className="graph">
       <CalendarHeatmap
@@ -29,20 +39,29 @@ const ContributionGraph = ({ contributionData }: { contributionData: any }) => {
             console.log(value.count);
           }
         }}
-        classForValue={(value: any) => {
+        classForValue={(value: { count: number }) => {
           if (!value) {
             return "color-scale-0";
           }
 
           const { count } = value;
 
-          const maxCount = getMaxCount(contributionData);
+          if (count < getMaxCount(contributionData) * 0.2) {
+            return "color-scale-1";
+          }
 
-          const range = Math.ceil(maxCount / 5);
+          if (count < getMaxCount(contributionData) * 0.4) {
+            return "color-scale-2";
+          }
 
-          const scaleIndex = Math.floor(count / range);
+          if (count < getMaxCount(contributionData) * 0.6) {
+            return "color-scale-3";
+          }
 
-          return `color-scale-${scaleIndex}`;
+          if (count < getMaxCount(contributionData) * 0.8) {
+            return "color-scale-4";
+          }
+          return "color-scale-5";
         }}
       />
     </div>
