@@ -1,6 +1,6 @@
-import { File } from "./interfaces";
+import { FileProps } from "./interfaces";
 
-export const files: File[] = [
+export const files: FileProps[] = [
   {
     id: 1,
     name: "file1.txt",
