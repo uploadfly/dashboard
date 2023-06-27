@@ -19,18 +19,14 @@ const Project = () => {
     try {
       const res = await axios(`/fly/overview?fly_id=${fly.uuid}`);
       setOverview(res.data);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const fetchUploads = async () => {
     try {
       const res = await axios(`/analytics?fly_id=${fly.uuid}`);
       setUploads(res.data);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
