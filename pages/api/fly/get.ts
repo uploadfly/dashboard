@@ -5,11 +5,21 @@ import prisma from "@/prisma";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const { fly_name } = req.query as { fly_name: string };
+    const { fly_name, username } = req.query as {
+      fly_name: string;
+      username: string;
+    };
 
     if (!fly_name) {
       res.status(400).json({
         message: "Missing fly name",
+      });
+      return;
+    }
+
+    if (!username) {
+      res.status(400).json({
+        message: "Missing username",
       });
       return;
     }
@@ -32,6 +42,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (!user) {
       return res.status(404).json({ message: "Invalid user id" });
+    }
+
+    if (user.username !== username) {
+      return res.status(404).json({ message: "Invalid username" });
     }
 
     const fly = await prisma.fly.findFirst({
