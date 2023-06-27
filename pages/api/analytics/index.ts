@@ -46,7 +46,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const fileUploads = await prisma.file.groupBy({
       by: ["created_at"],
-      _count: { created_at: true }, // Use created_at instead of createdAt
+      _count: { created_at: true },
       where: {
         fly_id: fly?.uuid,
       },
