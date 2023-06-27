@@ -23,11 +23,12 @@ const DashboardLayout = ({
   useEffect(() => {
     if (!fly.name || !fly.uuid) {
       setLoading(true);
+      const username = window.location.pathname.split("/")[1];
       const flyName = window.location.pathname.split("/")[2];
       (async () => {
         try {
           const { data, status } = await axios.get(
-            `/fly/get?fly_name=${flyName}`
+            `/fly/get?fly_name=${flyName}&username=${username}`
           );
           setFly(data?.name, data?.uuid);
           setStatus(status);
