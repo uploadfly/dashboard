@@ -1,4 +1,4 @@
-import { ContributionGraph } from "@/components/GH";
+import { UploadsHeatmap } from "@/components/UploadsHeatmap";
 import { axios } from "@/configs/axios";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import { useFlyStore } from "@/stores/flyStore";
@@ -64,7 +64,7 @@ const Project = () => {
       <div className="border border-gray-700 p-5 rounded-md mt-5">
         <h1 className="text-2xl font-semibold">Upload streak</h1>
         <p className="my-3 font-semibold">{overview.files} uploads in 2023</p>
-        <ContributionGraph contributionData={uploads} />
+        <UploadsHeatmap uploadsData={uploads} />
       </div>
     </DashboardLayout>
   );
