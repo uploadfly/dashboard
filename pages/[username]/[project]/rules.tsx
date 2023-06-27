@@ -2,7 +2,7 @@ import DashboardLayout from "@/layouts/DashboardLayout";
 import React from "react";
 
 const Rules = () => {
-  return <DashboardLayout>Rules</DashboardLayout>;
+  return <DashboardLayout pageName="Rules">Rules</DashboardLayout>;
 };
 
 export default Rules;

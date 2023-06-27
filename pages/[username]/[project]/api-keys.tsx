@@ -74,6 +74,7 @@ const ApiKeys = () => {
     <DashboardLayout
       isChildLoading={loading}
       childLoadingComponent={<ApiKeysLoader />}
+      pageName="API Keys"
     >
       <h1 className="text-2xl font-semibold">API Keys</h1>
       <p className="mt-2 text-sm text-gray-400">

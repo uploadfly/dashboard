@@ -2,7 +2,7 @@ import DashboardLayout from "@/layouts/DashboardLayout";
 import React from "react";
 
 const Settings = () => {
-  return <DashboardLayout>Settings</DashboardLayout>;
+  return <DashboardLayout pageName="Settings">Settings</DashboardLayout>;
 };
 
 export default Settings;

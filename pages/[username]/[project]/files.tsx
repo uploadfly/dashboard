@@ -27,7 +27,7 @@ const Files = () => {
   };
 
   return (
-    <DashboardLayout>
+    <DashboardLayout pageName="Files">
       <div className="flex gap-5">
         <div className="h-full w-[35%] flex flex-col items-end sticky top-0">
           <Button text="Root" />

@@ -41,7 +41,7 @@ const Project = () => {
   }, [fly?.uuid]);
 
   return (
-    <DashboardLayout>
+    <DashboardLayout pageName="Overview">
       <div className="flex gap-5">
         <div className="border border-gray-700 p-5 rounded-md w-1/2">
           <h1 className="text-2xl font-semibold">Total files</h1>
@@ -50,14 +50,7 @@ const Project = () => {
         <div className="border border-gray-700 p-5 rounded-md w-1/2">
           <h1 className="text-2xl font-semibold">Used storage</h1>
           <p className="text-4xl mt-3">
-            {fileSize(overview.used_storage).to(
-              Number(fileSize(overview.used_storage).to("MB")) > 999
-                ? "GB"
-                : "MB"
-            )}{" "}
-            {Number(fileSize(overview.used_storage).to("MB")) > 999
-              ? "GB"
-              : "MB"}
+            {fileSize(overview.used_storage).human("si")}
           </p>
         </div>
       </div>
