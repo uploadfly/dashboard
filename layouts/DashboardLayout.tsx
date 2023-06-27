@@ -2,16 +2,19 @@ import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 import { axios } from "@/configs/axios";
 import { useFlyStore } from "@/stores/flyStore";
+import Head from "next/head";
 import { ReactNode, useEffect, useState } from "react";
 
 const DashboardLayout = ({
   children,
   isChildLoading,
   childLoadingComponent,
+  pageName,
 }: {
   children: ReactNode;
   isChildLoading?: boolean;
   childLoadingComponent?: ReactNode;
+  pageName: string;
 }) => {
   const { fly, setFly } = useFlyStore();
   const [status, setStatus] = useState<number>();
@@ -40,6 +43,9 @@ const DashboardLayout = ({
 
   return (
     <>
+      <Head>
+        <title>{pageName} | Uploadfly</title>
+      </Head>
       {isChildLoading ? (
         <div className="bg-uf-dark text-uf-light h-screen overflow-y-hidden">
           <Navbar />
