@@ -9,6 +9,7 @@ import {
   HiShieldCheck,
   HiCog8Tooth,
 } from "react-icons/hi2";
+import { RiPieChart2Fill } from "react-icons/ri";
 
 const Sidebar = ({ loading }: { loading: boolean }) => {
   const router = useRouter();
@@ -32,6 +33,11 @@ const Sidebar = ({ loading }: { loading: boolean }) => {
       name: "Files",
       path: "/files",
       icon: <HiFolderOpen />,
+    },
+    {
+      name: "Usage & Analytics",
+      path: "/usage-analytics",
+      icon: <RiPieChart2Fill />,
     },
     {
       name: "API Keys",
