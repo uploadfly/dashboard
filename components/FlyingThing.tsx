@@ -22,14 +22,12 @@ const FlyingThing = ({
       <small className="bg-[rgba(255,255,255,0.1)] border-[1px] border-solid rounded-md px-2">
         Beta ✧･ﾟ
       </small>
-      <div className="w-24 h-24 mt-4 bg-uf-light rounded-xl p-4 flex justify-center items-center">
-        <img
-          src="https://img.freepik.com/free-icon/kite_318-572724.jpg"
-          alt="logo"
-          className="w-20 drop-shadow-2xl"
-        />
-      </div>
-      <h1 className="text-5xl mt-10">
+      <img
+        src="/logo.svg"
+        alt="logo"
+        className="w-30 drop-shadow-2xl mb-6 mt-3"
+      />
+      <h1 className="text-5xl">
         File uploads that <span className="font-semibold shiny-text">fly</span>
       </h1>
       <p
