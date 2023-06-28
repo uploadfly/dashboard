@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 import NavbarLoader from "./loader/Navbar";
 import Profile from "./Profile";
+import Image from "next/image";
 
 const Navbar = () => {
   const { user, setUser } = useUserStore();
@@ -21,7 +22,12 @@ const Navbar = () => {
         <>
           <div className="sticky top-0 z-50 bg-uf-dark">
             <div className="flex items-center px-10 py-4 justify-between">
-              <h1 className="shiny-text text-xl">uploadfly</h1>
+              <Image
+                src={"/logo.svg"}
+                width={40}
+                height={40}
+                alt="Uploadfly logo"
+              />
               <div className="flex gap-4 items-center">
                 <p>{user?.username}</p>
                 <Link
