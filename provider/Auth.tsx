@@ -21,6 +21,10 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       router.asPath !== "/login"
     ) {
       const returnTo = encodeURIComponent(path[1]);
+      if (router.asPath === "/") {
+        router.push("/login");
+        return;
+      }
       router.push(`/login?returnTo=${returnTo}`);
     }
   }, [router.asPath]);
