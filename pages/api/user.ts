@@ -27,7 +27,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     });
     return res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({ message: "Something went wrong", error });
+    res.status(500).json({ message: "Internal server error", error });
     console.log(error);
   }
 };
