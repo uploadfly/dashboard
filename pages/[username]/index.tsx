@@ -3,6 +3,7 @@ import LoadingCard from "@/components/LoadingCard";
 import Navbar from "@/components/Navbar";
 import { axios } from "@/configs/axios";
 import { useUserStore } from "@/stores/userStore";
+import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -36,6 +37,9 @@ const DashboardIndex = () => {
   }, []);
   return (
     <div className="w-full bg-uf-dark h-screen text-uf-light">
+      <Head>
+        <title>{user?.username} | Overview</title>
+      </Head>
       <Navbar />
       <>
         {loading ? (
