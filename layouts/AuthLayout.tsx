@@ -5,6 +5,7 @@ import { RiLoader5Fill } from "react-icons/ri";
 import { SiGithub } from "react-icons/si";
 import { useRouter } from "next/router";
 import { toast } from "react-hot-toast";
+import Head from "next/head";
 
 const AuthLayout = ({
   children,
@@ -54,6 +55,9 @@ const AuthLayout = ({
 
   return (
     <div className="bg-uf-dark relative h-screen text-uf-light overflow-x-hidden">
+      <Head>
+        <title>{type === "login" ? "Login" : "Signup"} | Uploadfly</title>
+      </Head>
       <div
         className={`abosolute top-0 w-full h-full bg-uf-dark flex items-center justify-center`}
       >
