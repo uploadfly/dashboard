@@ -5,6 +5,7 @@ import { allowMethods } from "next-method-guard";
 import jwt from "jsonwebtoken";
 import generate from "boring-name-generator";
 import { generateApiKey } from "@/utils/generateApiKey";
+import validator from "validator";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -24,6 +25,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(400).json({
         message:
           "Fly names can contain up 100 alphanumeric lowercase characters. Hyphens can be used between the name but never at the start or end.",
+      });
+    }
+
+    if (project_url && !validator.isURL(project_url)) {
+      return res.status(400).json({
+        message: "Invalid project URL",
       });
     }
 
