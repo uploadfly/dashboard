@@ -78,7 +78,7 @@ const Login = () => {
           name="password"
         />
         <button
-          className="uf-gradient w-full rounded-md py-2 h-10 flex items-center justify-center text-[#1e1e1e] font-bold hover:scale-105 transition-all disabled:cursor-not-allowed"
+          className="bg-uf-accent w-full rounded-md py-2 h-10 flex items-center justify-center text-[#1e1e1e] font-bold hover:scale-105 transition-all disabled:cursor-not-allowed"
           disabled={loading}
         >
           {loading ? (
