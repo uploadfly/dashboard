@@ -23,11 +23,39 @@ const Launch = () => {
 
   const createNewFly = async () => {
     try {
-      setLoading(true);
+      const flyNameRegex = /^(?!-)(?!.*--)[a-z0-9-]{3,100}(?<!-)$/i;
+
+      if (name.length < 3) {
+        toast("Fly name must be at least 3 characters long", toastErrorConfig);
+        return;
+      }
+
+      if (name.length > 100) {
+        toast("Fly name must be less than 101 characters", toastErrorConfig);
+        return;
+      }
+
+      if (name.startsWith("-") || name.endsWith("-")) {
+        toast("Fly name cannot start or end with a dash", toastErrorConfig);
+        return;
+      }
+
+      if (name.includes("--")) {
+        toast("Fly name cannot contain consecutive dashes", toastErrorConfig);
+        return;
+      }
+
+      if (!flyNameRegex.test(name)) {
+        toast("Fly names cannot contain special characters", toastErrorConfig);
+        return;
+      }
+
       if (projectUrl && !validator.isURL(projectUrl)) {
         toast("Project URL is not valid", toastErrorConfig);
-        return setLoading(false);
+        return;
       }
+      setLoading(true);
+
       const res = await axios.post("/fly/create", {
         name: name || placeholder,
         project_url: projectUrl,
