@@ -61,16 +61,19 @@ const AuthLayout = ({
       <div
         className={`abosolute top-0 w-full h-full bg-uf-dark flex items-center justify-center`}
       >
-        <div className="bg-[#050505] w-[35%] h-full flex items-center justify-center">
+        <div
+          className="w-[35%] h-full flex items-center justify-center"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url(https://cdn.uploadfly.cloud/xCnc4L/grid-ev0zE8-UIn.png)",
+            backgroundSize: "cover",
+            backgroundPosition: "right",
+          }}
+        >
           <img src="/logo.svg" alt="" className="w-40 opacity-70" />
-          <div className="animate-breath absolute pointer-events-none flex items-center flex-wrap w-56 justify-center translate-x-[0%] top-[50%] -translate-y-[50%]">
-            <div className="h-28 w-28 rounded-full blur-2xl bg-[#0083cb]"></div>
-            <div className="h-28 w-28 rounded-full blur-2xl bg-[#a06eac]"></div>
-            <div className="h-28 w-28 rounded-full blur-2xl bg-[#ffb564]"></div>
-          </div>
         </div>
-        <div className="flex-col w-[65%] h-full flex relative items-center justify-center">
-          <div className="h-full w-full absolute magicpattern animate-opacity pointer-events-none"></div>
+        <div className="flex-col w-[65%] h-full bg-uf-dark flex relative items-center justify-center">
+          <div className="h-full w-full absolute animate-opacity pointer-events-none"></div>
           <div className="mb-8">
             <h1 className="shiny-text text-3xl">{text}</h1>
             <p className="text-center font-semibold text-gray-400">{`Let's fly`}</p>
