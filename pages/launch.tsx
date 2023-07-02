@@ -6,9 +6,13 @@ import { toastErrorConfig, toastSuccessConfig } from "@/configs/toast";
 import { useRouter } from "next/router";
 import { useUserStore } from "@/stores/userStore";
 import Link from "next/link";
+import { HiArrowNarrowLeft } from "react-icons/hi";
+import Head from "next/head";
+import validator from "validator";
 
 const Launch = () => {
   const [name, setName] = useState<string>("");
+  const [projectUrl, setProjectUrl] = useState<string>("");
   const [placeholder, setPlaceholder] = useState<string>("");
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
@@ -20,8 +24,13 @@ const Launch = () => {
   const createNewFly = async () => {
     try {
       setLoading(true);
+      if (projectUrl && !validator.isURL(projectUrl)) {
+        toast("Project URL is not valid", toastErrorConfig);
+        return setLoading(false);
+      }
       const res = await axios.post("/fly/create", {
         name: name || placeholder,
+        project_url: projectUrl,
       });
       toast("Your fly was created successfully", toastSuccessConfig);
       router.push(res.data.redirect);
@@ -38,67 +47,74 @@ const Launch = () => {
   const { user } = useUserStore();
   return (
     <div className="bg-uf-dark relative h-screen text-uf-light overflow-x-hidden">
+      <Head>
+        <title>Create a new fly | Uploadfly</title>
+      </Head>
       <div
         className={`abosolute top-0 w-full h-full bg-uf-dark flex items-center justify-center`}
       >
-        <div className="bg-[#050505] w-[35%] h-full">
-          <div
-            className="animate-breath absolute pointer-events-none flex items-center flex-wrap w-56 justify-center translate-x-[50%] top-[50%] translate-y-[-50%]
-  "
-          >
-            <div className="h-28 w-28 rounded-full blur-2xl bg-[#0083cb]"></div>
-            <div className="h-28 w-28 rounded-full blur-2xl bg-[#a06eac]"></div>
-            <div className="h-28 w-28 rounded-full blur-2xl bg-[#ffb564]"></div>
-          </div>
-          <div className="py-5 px-8">
+        <div
+          className="bg-uf-dark w-[35%] flex items-center justify-between flex-col h-full py-5"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url(https://cdn.uploadfly.cloud/xCnc4L/grid-ev0zE8-UIn.png)",
+            backgroundSize: "cover",
+            backgroundPosition: "right",
+          }}
+        >
+          <div className="w-full">
             <Link
               href={`/${user?.username}`}
-              className="flex  items-center font-semibold text-gray-400"
+              className="flex items-center font-semibold text-gray-400 ml-7"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-5 h-5 font-bold mr-3"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"
-                />
-              </svg>
-              back to dashboard
+              <HiArrowNarrowLeft className="mr-3" />
+              back to overview
             </Link>
           </div>
+          <img src="/logo.svg" alt="" className="w-40 opacity-70" />
+          <div />
         </div>
         <div className="flex-col w-[65%] h-full flex relative items-center justify-center">
-          <div className="h-full w-full absolute magicpattern animate-opacity pointer-events-none z-10"></div>
           <div className="mb-8">
             <h1 className="shiny-text text-3xl">Create a new fly</h1>
             <p className="font-semibold text-gray-400">{`Get ready to upload files in the cloud like breeze`}</p>
           </div>
 
           <div className="mt-4 z-20 flex flex-col justify-start w-[380px] gap-2 font-semibold">
-            <div className="flex flex-col gap-1">
-              <small>Give your fly a name</small>
-              <input
-                type="text"
-                className="input placeholder:opacity-40"
-                placeholder={placeholder}
-                value={name}
-                onChange={(e) =>
-                  setName(
-                    e.target.value.toLowerCase().trim().replaceAll(" ", "-")
-                  )
-                }
-              />
+            <div className="flex flex-col gap-3">
+              <div className="">
+                <small>Give your fly a name</small>
+                <input
+                  type="text"
+                  className="input placeholder:opacity-40"
+                  placeholder={placeholder}
+                  value={name}
+                  onChange={(e) =>
+                    setName(
+                      e.target.value.toLowerCase().trim().replaceAll(" ", "-")
+                    )
+                  }
+                />
+              </div>
+              <div className="">
+                <small>
+                  Project URL <span className="text-gray-600">(optional)</span>{" "}
+                </small>
+                <input
+                  type="text"
+                  className="input placeholder:opacity-40"
+                  placeholder={"awesome-saas.com"}
+                  value={projectUrl}
+                  onChange={(e) =>
+                    setProjectUrl(e.target.value.toLowerCase().trim())
+                  }
+                />
+              </div>
             </div>
           </div>
           <div className="mt-4 flex items-center gap-4 flex-col">
             <button
-              className="flex gap-2 bg-uf-light text-uf-dark rounded-md py-2 w-[380px] items-center justify-center font-bold hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex gap-2 bg-uf-accent text-uf-dark rounded-md py-2 w-[380px] items-center justify-center font-bold hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               onClick={createNewFly}
               disabled={loading}
             >
