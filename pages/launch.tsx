@@ -25,27 +25,27 @@ const Launch = () => {
     try {
       const flyNameRegex = /^(?!-)(?!.*--)[a-z0-9-]{3,100}(?<!-)$/i;
 
-      if (name.length < 3) {
+      if (name && name.length < 3) {
         toast("Fly name must be at least 3 characters long", toastErrorConfig);
         return;
       }
 
-      if (name.length > 100) {
+      if (name && name.length > 100) {
         toast("Fly name must be less than 101 characters", toastErrorConfig);
         return;
       }
 
-      if (name.startsWith("-") || name.endsWith("-")) {
+      if ((name && name.startsWith("-")) || name.endsWith("-")) {
         toast("Fly name cannot start or end with a dash", toastErrorConfig);
         return;
       }
 
-      if (name.includes("--")) {
+      if (name && name.includes("--")) {
         toast("Fly name cannot contain consecutive dashes", toastErrorConfig);
         return;
       }
 
-      if (!flyNameRegex.test(name)) {
+      if (name && !flyNameRegex.test(name)) {
         toast("Fly names cannot contain special characters", toastErrorConfig);
         return;
       }
