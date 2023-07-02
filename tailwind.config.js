@@ -11,8 +11,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        ["uf-dark"]: "#0b0b0b",
+        ["uf-dark"]: "#111111",
         ["uf-light"]: "#eeecee",
+        ["uf-accent"]: "#F35815",
       },
     },
   },
