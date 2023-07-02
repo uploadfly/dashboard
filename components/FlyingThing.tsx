@@ -12,13 +12,12 @@ const FlyingThing = ({
       className={`bg-uf-dark h-full w-full absolute top-0 flex justify-center items-center flex-col z-50 ${
         hide && "-translate-y-[200%]"
       } transition-all duration-1000`}
+      style={{
+        backgroundImage:
+          "linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url(https://cdn.uploadfly.cloud/xCnc4L/grid-ev0zE8-UIn.png)",
+        backgroundSize: "cover",
+      }}
     >
-      <div className="magicpattern pointer-events-none absolute opacity-10 animate-opacity"></div>
-      <div className="absolute opacity-70 scale-[200%] pointer-events-none flex items-center flex-wrap w-56 justify-center left-[50%] translate-x-[-50%] top-[50%] translate-y-[-50%]">
-        <div className="h-28 w-28 rounded-full blur-2xl bg-[#0083cb]"></div>
-        <div className="h-28 w-28 rounded-full blur-2xl bg-[#a06eac]"></div>
-        <div className="h-28 w-28 rounded-full blur-2xl bg-[#ffb564]"></div>
-      </div>
       <small className="bg-[rgba(255,255,255,0.1)] border-[1px] border-solid rounded-md px-2">
         Beta ✧･ﾟ
       </small>
@@ -27,8 +26,8 @@ const FlyingThing = ({
         alt="logo"
         className="w-30 drop-shadow-2xl mb-6 mt-3"
       />
-      <h1 className="text-5xl">
-        File uploads that <span className="font-semibold shiny-text">fly</span>
+      <h1 className="text-5xl font-semibold">
+        File uploads that <span className="">fly</span>
       </h1>
       <p
         className="text-xl  font-semibold mt-10 flex items-center"
