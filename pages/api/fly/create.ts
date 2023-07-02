@@ -8,11 +8,23 @@ import { generateApiKey } from "@/utils/generateApiKey";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const { name } = req.body as { name: string };
+    const { name, project_url } = req.body as {
+      name: string;
+      project_url: string;
+    };
     const token = req.cookies.access_token;
 
     if (!token) {
       return res.status(400).json({ message: "Token is missing in request" });
+    }
+
+    const flyNameRegex = /^(?!-)(?!.*--)[a-z0-9-]{3,100}(?<!-)$/i;
+
+    if (!flyNameRegex.test(name)) {
+      return res.status(400).json({
+        message:
+          "Fly names can contain up 100 alphanumeric lowercase characters. Hyphens can be used between the name but never at the start or end.",
+      });
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY as string) as {
@@ -48,6 +60,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         user_id,
         name: name.toLowerCase().replaceAll(" ", "-") || generate().dashed,
         public_key: generateRandomKey(6),
+        project_url,
       },
     });
     const public_key = generateApiKey();
