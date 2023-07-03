@@ -65,7 +65,7 @@ const AuthLayout = ({
           className="w-[35%] h-full flex items-center justify-center"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url(https://cdn.uploadfly.cloud/xCnc4L/grid-ev0zE8-UIn.png)",
+              "linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url(/grid-bg.png)",
             backgroundSize: "cover",
             backgroundPosition: "right",
           }}
