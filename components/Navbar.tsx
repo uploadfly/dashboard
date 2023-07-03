@@ -7,6 +7,7 @@ import Image from "next/image";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { useFlyStore } from "@/stores/flyStore";
 import { useRouter } from "next/router";
+import Sidebar from "./NavLinks";
 
 const Navbar = () => {
   const router = useRouter();
@@ -25,8 +26,8 @@ const Navbar = () => {
           <NavbarLoader />
         </>
       ) : (
-        <>
-          <div className="sticky top-0 z-50 bg-uf-dark">
+        <div className="z-50 bg-uf-dark">
+          <>
             <div className="flex items-center px-10 py-4 justify-between">
               <div className="flex items-center gap-5 font-semibold text-lg">
                 <Image
@@ -56,9 +57,14 @@ const Navbar = () => {
                 <Profile />
               </div>
             </div>
-            <div className="bg-uf-accent w-full h-[2px] opacity-50"></div>
-          </div>
-        </>
+            {fly?.name && router?.asPath.includes(fly?.name) && (
+              <div className="sticky top-0">
+                <Sidebar loading={user?.username ? false : true} />
+              </div>
+            )}
+          </>
+          <div className="bg-uf-accent w-full h-[2px] opacity-50"></div>
+        </div>
       )}
     </>
   );
