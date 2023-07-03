@@ -29,20 +29,8 @@ const Files = () => {
   return (
     <DashboardLayout pageName="Files">
       <div className="flex gap-5">
-        <div className="h-full w-[35%] flex flex-col items-end sticky top-0">
-          <Button text="Root" />
-          <div className="w-[90%] h-fit">
-            <Button text="Root" />
-            <Button text="Root" />
-            <Button text="Root" />
-            <Button text="Root" />
-            <Button text="Root" />
-            <Button text="Root" />
-            <Button text="Root" />
-          </div>
-        </div>
         <div className="h-full w-full">
-          <div className="w-full h-16 sticky bg-[#050505] top-0 z-10 flex items-center px-2 mb-3">
+          <div className="w-full h-16 sticky bg-[#050505] z-10 flex items-center px-2 mb-3">
             <div className="flex justify-between w-full items-center">
               <div className="">
                 <p>{files.length} files</p>
@@ -62,7 +50,7 @@ const Files = () => {
                 </button>
               </div>
             </div>
-            <div
+            {/* <div
               className={`z-10 transition-all duration-300 w-full h-full bg-[#050505] px-3 flex items-center absolute top-0 left-0 ${
                 selectedFile.length > 0 ? "-translate-y-0" : "-translate-y-20"
               }`}
@@ -94,7 +82,7 @@ const Files = () => {
                   <p>{selectedFile?.[0]?.size}</p>
                 </>
               )}
-            </div>
+            </div> */}
           </div>
           <div className="grid grid-cols-3 gap-2">
             {files.map((file) => (
