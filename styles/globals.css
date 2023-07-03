@@ -2,15 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@keyframes flow {
-  0% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-
 @keyframes opacity {
   0% {
     opacity: 0.05;
@@ -19,36 +10,10 @@
     opacity: 0.1;
   }
 }
-@keyframes breath {
-  0% {
-    opacity: 0.7;
-  }
-  100% {
-    opacity: 0.5;
-  }
-}
-
-.animate-flow {
-  animation: flow infinite 1s alternate-reverse;
-}
 
 .animate-opacity {
   animation: opacity infinite 1s alternate-reverse;
 }
-
-.animate-breath {
-  animation: breath infinite 1s alternate;
-}
-
-.magicpattern {
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center center;
-  background-repeat: repeat;
-  background-image: url("data:image/svg+xml;utf8,%3Csvg width=%222000%22 height=%221400%22 xmlns=%22http:%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath fill=%22none%22 d=%22M0 0h2000v1400H0z%22%2F%3E%3Cpath d=%22M0 155h0c79.388 2.168 158.776 4.336 231 5 72.224.664 137.283-.177 208-3 70.717-2.823 147.09-7.628 225-4s157.356 15.69 229 14c71.644-1.69 135.486-17.134 207-21 71.514-3.866 150.698 3.845 228 5 77.302 1.155 152.72-4.247 222-5 69.28-.753 132.422 3.143 216 3 83.578-.143 187.594-4.327 230-4 42.406.327 23.203 5.163 44 10%22 fill=%22none%22 stroke=%22%23f5f4f5%22 stroke-width=%222%22 stroke-linecap=%22round%22%2F%3E%3Cpath d=%22M0 311h0c70.652-1.544 141.303-3.089 218-7s159.438-10.19 231-7c71.562 3.19 131.944 15.848 207 21 75.056 5.152 164.787 2.798 242 1s141.907-3.038 213-5c71.093-1.962 148.583-4.644 226-9s154.761-10.384 223-8c68.239 2.384 127.372 13.18 207 13 79.628-.18 179.75-11.337 222-13 42.25-1.663 26.625 6.169 51 14%22 fill=%22none%22 stroke=%22%23f7f6f7%22 stroke-width=%222%22 stroke-linecap=%22round%22%2F%3E%3Cpath d=%22M0 466h0c72.295 4.066 144.59 8.132 217 9 72.41.868 144.936-1.462 218-5 73.064-3.538 146.665-8.285 224-9 77.335-.715 158.405 2.602 235 7s148.716 9.876 220 6c71.284-3.876 141.73-17.105 214-19 72.27-1.895 146.36 7.544 220 14 73.64 6.456 146.826 9.93 231 9 84.174-.93 179.335-6.266 218-9 38.665-2.734 20.832-2.867 43-3%22 fill=%22none%22 stroke=%22%23fbfafb%22 stroke-width=%222%22 stroke-linecap=%22round%22%2F%3E%3Cpath d=%22M0 622h0c68.845-1.705 137.69-3.41 211-5 73.31-1.59 151.086-3.063 226 2 74.914 5.063 146.968 16.661 220 16 73.032-.661 147.043-13.583 225-21s159.86-9.33 237-2c77.14 7.33 149.518 23.903 224 22 74.482-1.903 151.067-22.283 220-27 68.933-4.717 130.213 6.23 210 8 79.787 1.77 178.082-5.637 219-6 40.918-.363 24.459 6.319 48 13%22 fill=%22none%22 stroke=%22%23f7f6f7%22 stroke-width=%222%22 stroke-linecap=%22round%22%2F%3E%3Cpath d=%22M0 777h0c77.345 4.36 154.69 8.72 229 6 74.31-2.72 145.587-12.518 218-11 72.413 1.518 145.964 14.352 222 13 76.036-1.352 154.559-16.89 229-16 74.441.89 144.802 18.21 215 17 70.198-1.21 140.233-20.951 216-20 75.767.951 157.268 22.595 228 23 70.732.405 130.697-20.43 214-26s189.944 4.123 232 9c42.056 4.877 19.528 4.939 37 5%22 fill=%22none%22 stroke=%22%23fafafa%22 stroke-width=%222%22 stroke-linecap=%22round%22%2F%3E%3Cpath d=%22M0 933h0c75.175-.317 150.35-.634 223-4s142.775-9.782 217-4 152.551 23.763 228 22c75.449-1.763 148.02-23.271 224-28 75.98-4.729 155.367 7.32 228 10 72.633 2.68 138.512-4.011 213 0s157.584 18.725 228 19c70.416.275 128.15-13.887 212-17 83.85-3.113 193.814 4.825 236 7 42.186 2.175 16.593-1.412 31-5%22 fill=%22none%22 stroke=%22%23f5f4f5%22 stroke-width=%222%22 stroke-linecap=%22round%22%2F%3E%3Cpath d=%22M0 1088h0c70.38 1.46 140.76 2.92 213 7 72.24 4.08 146.342 10.779 222 5 75.658-5.779 152.871-24.036 226-25 73.129-.964 142.173 15.365 218 16 75.827.635 158.439-14.426 237-14 78.561.426 153.073 16.338 225 24 71.927 7.662 141.27 7.074 213 1 71.73-6.074 145.85-17.635 231-21 85.15-3.365 181.328 1.467 219 4s16.836 2.766 36 3%22 fill=%22none%22 stroke=%22%23f3f2f3%22 stroke-width=%222%22 stroke-linecap=%22round%22%2F%3E%3Cpath d=%22M0 1244h0c68.224 7.89 136.448 15.778 213 11 76.552-4.778 161.432-22.224 237-24 75.568-1.776 141.822 12.117 214 13 72.178.883 150.278-11.245 223-11 72.722.245 140.065 12.861 214 17 73.935 4.139 154.46-.2 234 1 79.54 1.2 158.093 7.94 227 5 68.907-2.94 128.167-15.56 212-19 83.833-3.44 192.238 2.303 234 5s16.881 2.348 32 2%22 fill=%22none%22 stroke=%22%23f0eef0%22 stroke-width=%222%22 stroke-linecap=%22round%22%2F%3E%3C%2Fsvg%3E");
-}
-/* Generated with https://www.magicpattern.design */
 
 .shiny-text {
   -webkit-animation: shine 2s linear infinite alternate;
@@ -93,10 +58,6 @@
   @apply w-[380px] h-12 border-none outline-none rounded-md bg-[#1e1e1e] pl-4 font-semibold text-gray-400;
 }
 
-.uf-gradient {
-  @apply bg-gradient-to-r from-[#0083cb] via-[#ffb564] to-[#a06eac];
-}
-
 .btn-disabled {
   @apply disabled:opacity-50 disabled:cursor-not-allowed;
 }
@@ -138,17 +99,17 @@
   fill: #14181d;
 }
 .react-calendar-heatmap .color-scale-1 {
-  fill: #0e442a;
+  fill: rgba(243, 88, 21, 0.2);
 }
 .react-calendar-heatmap .color-scale-2 {
-  fill: #006e32;
+  fill: rgba(243, 88, 21, 0.4);
 }
 .react-calendar-heatmap .color-scale-3 {
-  fill: #25a641;
+  fill: rgba(243, 88, 21, 0.6);
 }
 .react-calendar-heatmap .color-scale-4 {
-  fill: #38d352;
+  fill: rgba(243, 88, 21, 0.8);
 }
 .react-calendar-heatmap .color-scale-5 {
-  fill: #26db44;
+  fill: #f35815;
 }
