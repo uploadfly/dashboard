@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@badrap/bar-of-progress": "^0.2.2",
     "@heroicons/react": "^1.0.6",
     "@next/font": "13.4.3",
     "@prisma/client": "^4.14.1",
