@@ -23,7 +23,7 @@ const Profile = () => {
   return (
     <div className="relative flex flex-col items-end">
       <div
-        className="w-10 h-10 uf-gradient rounded-full p-[2px]"
+        className="w-12 h-12 border-2 border-uf-accent/70 hover:border-uf-accent transition-colors rounded-full p-[2px]"
         role="button"
         onClick={() => setOpen(!open)}
       >
