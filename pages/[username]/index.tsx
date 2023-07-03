@@ -79,8 +79,8 @@ const DashboardIndex = () => {
                       placeholder="Search for a fly"
                     />
                     <Link href={"/launch"} className="">
-                      <button className="flex gap-2 bg-uf-light text-uf-dark rounded-md py-2 px-4 w-full items-center justify-center font-bold hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
-                        <HiOutlineRocketLaunch className="text-xl" />
+                      <button className="flex gap-2 bg-uf-light hover:bg-uf-accent text-uf-dark rounded-md py-2 px-4 w-full items-center justify-center font-semibold transition-colors group disabled:opacity-50 disabled:cursor-not-allowed">
+                        <HiOutlineRocketLaunch className="text-xl group-hover:rotate-[360deg] transition-all duration-500" />
                         Create a new fly
                       </button>
                     </Link>
