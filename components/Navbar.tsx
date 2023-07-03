@@ -5,9 +5,14 @@ import NavbarLoader from "./loader/Navbar";
 import Profile from "./Profile";
 import Image from "next/image";
 import { HiOutlineExternalLink } from "react-icons/hi";
+import { useFlyStore } from "@/stores/flyStore";
+import { useRouter } from "next/router";
 
 const Navbar = () => {
+  const router = useRouter();
+
   const { user, setUser } = useUserStore();
+  const { fly } = useFlyStore();
 
   useEffect(() => {
     setUser();
@@ -30,7 +35,13 @@ const Navbar = () => {
                   height={40}
                   alt="Uploadfly logo"
                 />
-                <p>{user?.username}</p>
+                <Link href={`/${user?.username}`}>{user?.username}</Link>{" "}
+                {fly?.name && router?.asPath.includes(fly?.name) && (
+                  <>
+                    <span className="text-uf-accent/80">/</span>{" "}
+                    <p>{fly?.name}</p>
+                  </>
+                )}
               </div>
 
               <div className="flex gap-4 items-center">
