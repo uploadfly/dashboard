@@ -11,7 +11,7 @@ import {
 } from "react-icons/hi2";
 import { RiPieChart2Fill } from "react-icons/ri";
 
-const Sidebar = ({ loading }: { loading: boolean }) => {
+const NavLinks = ({ loading }: { loading: boolean }) => {
   const router = useRouter();
 
   const [currentRoute, setCurrentRoute] = useState("");
@@ -58,31 +58,33 @@ const Sidebar = ({ loading }: { loading: boolean }) => {
 
   const { user } = useUserStore();
 
-  const className = (link: string) =>
-    `bg-gradient-to-tr h-full w-[10px] mr-4 rounded-tl-md rounded-bl-md${
-      currentRoute === link ? "from-[#0083cb] via-[#a06eac] to-[#ffb564]" : ""
-    }`;
-
   return (
-    <div className={loading ? "pointer-events-none" : ""}>
-      {links.map((link, i) => {
-        const href = `/${user?.username}/${flyName}${link.path}`;
-        return (
-          <Link
-            href={user && flyName ? href : ""}
-            key={i}
-            className={`flex items-center ${
-              currentRoute === link.path ? "bg-gray-600" : "bg-transparent"
-            } h-12 rounded-md mb-6 hover:bg-gray-600 transition-colors duration-500`}
-          >
-            <div className={className(link.path)}></div>
-            <div className="text-xl">{link.icon}</div>
-            <span className="ml-2">{link.name}</span>
-          </Link>
-        );
-      })}
+    <div className="px-10">
+      <div className={loading ? "pointer-events-none" : "flex gap-12"}>
+        {links.map((link, i) => {
+          const href = `/${user?.username}/${flyName}${link.path}`;
+          return (
+            <Link
+              href={user && flyName ? href : ""}
+              key={i}
+              className={`flex items-center ${
+                currentRoute === link.path ? "" : "bg-transparent"
+              } p-3 rounded-md hover:bg-gray-600 transition-colors duration-500`}
+            >
+              <div className="">{link.icon}</div>
+              <span className="ml-2">{link.name}</span>
+            </Link>
+          );
+        })}
+      </div>
+      <div
+        className="h-1 bg-uf-accent"
+        style={{
+          width: ``,
+        }}
+      ></div>
     </div>
   );
 };
 
-export default Sidebar;
+export default NavLinks;
