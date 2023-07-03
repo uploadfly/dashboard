@@ -1,7 +1,7 @@
 import { useUserStore } from "@/stores/userStore";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   HiSquares2X2,
   HiFolderOpen,
@@ -16,12 +16,38 @@ const NavLinks = ({ loading }: { loading: boolean }) => {
 
   const [currentRoute, setCurrentRoute] = useState("");
   const [flyName, setFlyName] = useState("");
+  const [indicatorStyle, setIndicatorStyle] = useState({
+    width: "0px",
+    transform: "0px",
+  });
+  const activeLinkRef = useRef<HTMLAnchorElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const route = router.pathname.split("/")[3];
     setCurrentRoute(route ? `/${route}` : "/");
     setFlyName(window.location.pathname.split("/")[2]);
   }, [router?.pathname]);
+
+  useEffect(() => {
+    if (activeLinkRef.current && containerRef.current) {
+      const activeLinkLeft = activeLinkRef.current.offsetLeft;
+      const activeLinkWidth = activeLinkRef.current.offsetWidth;
+      const containerWidth = containerRef.current.offsetWidth;
+      const containerPadding = parseInt(
+        getComputedStyle(containerRef.current).paddingLeft
+      );
+      const indicatorLeft =
+        activeLinkLeft -
+        containerWidth / 2 +
+        activeLinkWidth / 2 -
+        containerPadding;
+      setIndicatorStyle({
+        transform: `translateX(${indicatorLeft}px)`,
+        width: `${activeLinkWidth}px`,
+      });
+    }
+  }, [currentRoute]);
 
   const links = [
     {
@@ -59,7 +85,7 @@ const NavLinks = ({ loading }: { loading: boolean }) => {
   const { user } = useUserStore();
 
   return (
-    <div className="px-10">
+    <div className="px-10" ref={containerRef}>
       <div className={loading ? "pointer-events-none" : "flex gap-12"}>
         {links.map((link, i) => {
           const href = `/${user?.username}/${flyName}${link.path}`;
@@ -67,21 +93,25 @@ const NavLinks = ({ loading }: { loading: boolean }) => {
             <Link
               href={user && flyName ? href : ""}
               key={i}
-              className={`flex items-center ${
-                currentRoute === link.path ? "" : "bg-transparent"
-              } p-3 rounded-md hover:bg-gray-600 transition-colors duration-500`}
+              passHref
+              legacyBehavior
             >
-              <div className="">{link.icon}</div>
-              <span className="ml-2">{link.name}</span>
+              <a
+                className={`flex items-center ${
+                  currentRoute === link.path ? "" : "bg-transparent"
+                } p-3 rounded-md hover:bg-gray-600 transition-colors duration-500`}
+                ref={currentRoute === link.path ? activeLinkRef : null}
+              >
+                <div className="">{link.icon}</div>
+                <span className="ml-2">{link.name}</span>
+              </a>
             </Link>
           );
         })}
       </div>
       <div
-        className="h-1 bg-uf-accent"
-        style={{
-          width: ``,
-        }}
+        className="h-1 bg-uf-accent transition-all duration-300 absolute bottom-0 left-1/2"
+        style={indicatorStyle}
       ></div>
     </div>
   );
