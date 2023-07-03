@@ -22,14 +22,17 @@ const Navbar = () => {
         <>
           <div className="sticky top-0 z-50 bg-uf-dark">
             <div className="flex items-center px-10 py-4 justify-between">
-              <Image
-                src={"/logo.svg"}
-                width={40}
-                height={40}
-                alt="Uploadfly logo"
-              />
-              <div className="flex gap-4 items-center">
+              <div className="flex items-center gap-5 font-semibold text-lg">
+                <Image
+                  src={"/logo.svg"}
+                  width={40}
+                  height={40}
+                  alt="Uploadfly logo"
+                />
                 <p>{user?.username}</p>
+              </div>
+
+              <div className="flex gap-4 items-center">
                 <Link
                   href={"https://docs.uploadfly.io"}
                   target="_blank"
