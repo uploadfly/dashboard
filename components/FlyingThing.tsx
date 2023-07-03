@@ -14,7 +14,7 @@ const FlyingThing = ({
       } transition-all duration-1000`}
       style={{
         backgroundImage:
-          "linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url(https://cdn.uploadfly.cloud/xCnc4L/grid-ev0zE8-UIn.png)",
+          "linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url(/grid-bg.png)",
         backgroundSize: "cover",
       }}
     >
@@ -30,7 +30,7 @@ const FlyingThing = ({
         File uploads that <span className="">fly</span>
       </h1>
       <p
-        className="text-xl  font-semibold mt-10 flex items-center"
+        className="text-xl font-semibold mt-10 flex items-center"
         role="button"
         onClick={() => setHide()}
       >
