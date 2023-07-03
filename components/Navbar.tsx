@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import NavbarLoader from "./loader/Navbar";
 import Profile from "./Profile";
 import Image from "next/image";
+import { HiOutlineExternalLink } from "react-icons/hi";
 
 const Navbar = () => {
   const { user, setUser } = useUserStore();
@@ -34,11 +35,12 @@ const Navbar = () => {
 
               <div className="flex gap-4 items-center">
                 <Link
-                  href={"https://docs.uploadfly.io"}
+                  href={"https://docs.uploadfly.cloud"}
                   target="_blank"
-                  className="font-semibold text-gray-300"
+                  className="font-semibold hover:text-uf-accent transition-colors flex items-center gap-1"
                 >
                   Docs
+                  <HiOutlineExternalLink />
                 </Link>
                 <Profile />
               </div>
