@@ -43,7 +43,7 @@ const NavLinks = ({ loading }: { loading: boolean }) => {
         activeLinkWidth / 2 -
         containerPadding;
       setIndicatorStyle({
-        transform: `translateX(${indicatorLeft}px)`,
+        transform: `translateX(${indicatorLeft - 10}px)`,
         width: `${activeLinkWidth}px`,
       });
     }
