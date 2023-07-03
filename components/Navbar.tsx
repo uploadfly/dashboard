@@ -37,7 +37,7 @@ const Navbar = () => {
                 <Link
                   href={"https://docs.uploadfly.cloud"}
                   target="_blank"
-                  className="font-semibold hover:text-uf-accent transition-colors flex items-center gap-1"
+                  className="hover:text-uf-accent transition-colors flex items-center gap-1"
                 >
                   Docs
                   <HiOutlineExternalLink />
