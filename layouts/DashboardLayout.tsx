@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import NotFound from "@/components/NotFound";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/NavLinks";
 import { axios } from "@/configs/axios";
 import { useFlyStore } from "@/stores/flyStore";
 import Head from "next/head";
