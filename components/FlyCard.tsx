@@ -27,18 +27,18 @@ const FlyCard = ({
   return (
     <Link
       href={`${user?.username}/${name}`}
-      className="border-[1px] w-[380px] border-gray-500 px-5 py-3 rounded-md hover:border-gray-400 transition-all hover:scale-105"
+      className="flex flex-col justify-between rounded p-3 text-primary shadow-md border border-gray-600 transition duration-150 hover:border-uf-accent"
       onClick={() => setFly(name, uuid)}
     >
       <h2 className="text-lg font-bold shiny-text">{name}</h2>
-      <div className="my-10">
+      <div className="my-14">
         <div className="flex justify-between mb-1">
-          <p>{usedStorage}MB</p>
-          <p>2GB</p>
+          <p>{filesize(used).human("si")}</p>
+          <p>{filesize(storage).human("si")}</p>
         </div>
         <div className="w-full h-2 bg-slate-200 rounded-full">
           <div
-            className="uf-gradient h-full rounded-full"
+            className="bg-uf-accent h-full rounded-full"
             style={{ width: `${usedStoragePercent}%` }}
           ></div>
         </div>
