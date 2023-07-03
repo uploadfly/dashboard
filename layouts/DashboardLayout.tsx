@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import NotFound from "@/components/NotFound";
 import Sidebar from "@/components/Sidebar";
 import { axios } from "@/configs/axios";
 import { useFlyStore } from "@/stores/flyStore";
@@ -55,9 +56,7 @@ const DashboardLayout = ({
           </div>
         </>
       ) : status === 404 ? (
-        <div className="flex items-center justify-center">
-          <h1 className="text-center text-9xl font-bold">404</h1>
-        </div>
+        <NotFound />
       ) : status === 500 ? (
         <>500</>
       ) : (
