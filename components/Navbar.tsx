@@ -43,7 +43,7 @@ const Navbar = () => {
                 <Profile />
               </div>
             </div>
-            <div className="uf-gradient w-full h-[2px] opacity-70"></div>
+            <div className="bg-uf-accent w-full h-[2px] opacity-50"></div>
           </div>
         </>
       )}
