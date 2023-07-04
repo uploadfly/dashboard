@@ -20,7 +20,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <>
+    <div className="sticky top-0 z-50 h-[120px]">
       {!user ? (
         <>
           <NavbarLoader />
@@ -66,7 +66,7 @@ const Navbar = () => {
           <div className="bg-uf-accent w-full h-[2px] opacity-50"></div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
