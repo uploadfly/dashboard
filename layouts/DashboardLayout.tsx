@@ -63,7 +63,9 @@ const DashboardLayout = ({
         <>
           <Navbar />
           <div className="w-full pb-10">
-            <div className="w-full mt-10 px-14">{children}</div>
+            <div className="w-full mt-10 px-14 min-h-[calc(100vh-150px)]">
+              {children}
+            </div>
           </div>
         </>
       )}
