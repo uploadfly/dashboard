@@ -1,47 +1,35 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import prisma from "@/prisma";
-import { AuthenticatedRequest } from "@/interfaces";
 
-const authMiddleware = async (
-  req: AuthenticatedRequest,
+const authenticateToken = async (
+  req: NextApiRequest,
   res: NextApiResponse,
   next: () => void
 ) => {
-  const token = req.headers.authorization;
-
+  const token = req.cookies.access_token;
   if (!token) {
     return res.status(400).json({ message: "Token is missing in request" });
   }
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY as string) as {
-      uuid: string;
-    };
-    const { uuid } = decoded;
+  const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY as string) as {
+    uuid: string;
+  };
 
-    if (!uuid) {
-      return res.status(400).json({ message: "Missing user id in payload" });
-    }
+  const user_id = decoded.uuid;
 
-    const user = await prisma.user.findUnique({
-      where: {
-        uuid: uuid,
-      },
-    });
+  if (!user_id)
+    return res.status(400).json({ message: "Missing user id in payload" });
 
-    if (!user) {
-      return res.status(400).json({ message: "Invalid user id" });
-    }
+  const user = await prisma.user.findUnique({
+    where: {
+      uuid: user_id,
+    },
+  });
 
-    // Attach the user object to the request for future middleware or route handlers
-    req.user = user;
+  req.user = user;
 
-    // Call the next middleware or route handler
-    next();
-  } catch (error) {
-    return res.status(400).json({ message: "Invalid token" });
-  }
+  next();
 };
 
-export default authMiddleware;
+export default authenticateToken;
