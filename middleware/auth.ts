@@ -1,9 +1,10 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import prisma from "@/prisma";
+import { ExtendedRequest, UserModel } from "@/interfaces";
 
 const authenticateToken = async (
-  req: NextApiRequest,
+  req: ExtendedRequest,
   res: NextApiResponse,
   next: () => void
 ) => {
@@ -21,11 +22,11 @@ const authenticateToken = async (
   if (!user_id)
     return res.status(400).json({ message: "Missing user id in payload" });
 
-  const user = await prisma.user.findUnique({
+  const user = (await prisma.user.findUnique({
     where: {
       uuid: user_id,
     },
-  });
+  })) as UserModel;
 
   req.user = user;
 
