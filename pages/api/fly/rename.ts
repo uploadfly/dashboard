@@ -1,19 +1,12 @@
+import { ExtendedRequest } from "@/interfaces";
 import authenticateToken from "@/middleware/auth";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiResponse } from "next";
 import { allowMethods } from "next-method-guard";
 
-type CustomNextApiRequest = NextApiRequest;
-type CustomNextApiResponse = NextApiResponse<any>;
+const handler = async (req: ExtendedRequest, res: NextApiResponse) => {};
 
-const handler = async (
-  req: CustomNextApiRequest,
-  res: CustomNextApiResponse
-) => {
-  res.send(req.user.username);
-};
-
-const middlewareChain = allowMethods(["GET"])(
-  (req: CustomNextApiRequest, res: CustomNextApiResponse) =>
+const middlewareChain = allowMethods(["POST"])(
+  (req: ExtendedRequest, res: NextApiResponse) =>
     authenticateToken(req, res, () => handler(req, res))
 );
 
