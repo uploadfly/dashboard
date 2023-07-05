@@ -1,8 +1,9 @@
 import DashboardLayout from "@/layouts/DashboardLayout";
 import { useFlyStore } from "@/stores/flyStore";
 import Link from "next/link";
+import { ReactNode, useEffect } from "react";
 
-const Settings = () => {
+const Settings = ({ children }: { children: ReactNode }) => {
   const { fly } = useFlyStore();
   const subSettingsPages = [
     {
@@ -18,6 +19,10 @@ const Settings = () => {
       route: "/advanced",
     },
   ];
+
+  useEffect(() => {
+    console.log(window.location.href.split("/"));
+  }, []);
   return (
     <DashboardLayout pageName="Settings">
       <div className="">
@@ -31,7 +36,7 @@ const Settings = () => {
             </Link>
           ))}
         </div>
-        <div className=""></div>
+        <div className="">{children}</div>
       </div>
     </DashboardLayout>
   );
