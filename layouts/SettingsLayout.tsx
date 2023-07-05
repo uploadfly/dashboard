@@ -2,6 +2,7 @@ import DashboardLayout from "@/layouts/DashboardLayout";
 import { useFlyStore } from "@/stores/flyStore";
 import { useUserStore } from "@/stores/userStore";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { ReactNode, useEffect, useState } from "react";
 
 const SettingsLayout = ({ children }: { children: ReactNode }) => {
@@ -23,21 +24,27 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
 
   const [baseRoute, setBaseRoute] = useState("");
   const { user } = useUserStore();
+  const router = useRouter();
 
   useEffect(() => {
-    setBaseRoute(
-      `${window?.location.origin}/${user?.username}/${fly?.name}/settings`
-    );
+    const base =
+      user && fly
+        ? `${window.location.origin}/${user.username}/${fly.name}`
+        : "";
+    setBaseRoute(`${base}/settings`);
   }, [fly, user]);
+
   return (
     <DashboardLayout pageName="Settings">
       <div className="flex">
         <div className={`flex flex-col gap-5`}>
-          {subSettingsPages.map((page) => (
-            <Link href={`${baseRoute}${page.route}`} key={page.title}>
-              {page.title}
-            </Link>
-          ))}
+          {subSettingsPages.map((page) => {
+            return (
+              <Link href={`${baseRoute}${page.route}`} key={page.title}>
+                {page.title}
+              </Link>
+            );
+          })}
         </div>
         <div className="ml-28">{children}</div>
       </div>
