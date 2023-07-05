@@ -8,6 +8,7 @@ import { HiOutlineExternalLink } from "react-icons/hi";
 import { useFlyStore } from "@/stores/flyStore";
 import { useRouter } from "next/router";
 import Sidebar from "./NavLinks";
+import SwitchFly from "./Navbar/SwitchFly";
 
 const Navbar = () => {
   const router = useRouter();
@@ -41,6 +42,7 @@ const Navbar = () => {
                   <>
                     <span className="text-uf-accent/80">/</span>{" "}
                     <p>{fly?.name}</p>
+                    <SwitchFly />
                   </>
                 )}
               </div>
