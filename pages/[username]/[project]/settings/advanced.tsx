@@ -1,10 +1,10 @@
-import Settings from ".";
+import SettingsLayout from "@/layouts/SettingsLayout";
 
 const Advanced = () => {
   return (
-    <Settings>
+    <SettingsLayout>
       <h1>Advanced</h1>
-    </Settings>
+    </SettingsLayout>
   );
 };
 
