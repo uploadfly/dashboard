@@ -3,6 +3,8 @@ import { useFlyStore } from "@/stores/flyStore";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { RiLoader5Fill } from "react-icons/ri";
+import toast from "react-hot-toast";
+import { toastSuccessConfig } from "@/configs/toast";
 
 const Name = () => {
   const { fly, setFly } = useFlyStore();
@@ -26,6 +28,7 @@ const Name = () => {
       setIsRenaming(false);
       const newPath = `/${paths[1]}/${name}/${paths[3]}`;
       router.replace(newPath);
+      toast.success("Fly renamed successfully", toastSuccessConfig);
     } catch (error: any) {
       console.log(error.response.data);
       setIsRenaming(false);
