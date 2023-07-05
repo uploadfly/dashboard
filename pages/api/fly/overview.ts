@@ -24,6 +24,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (!user_id)
       return res.status(400).json({ message: "Missing user id in payload" });
+
     const isUser = await prisma.user.findUnique({
       where: {
         uuid: user_id,
