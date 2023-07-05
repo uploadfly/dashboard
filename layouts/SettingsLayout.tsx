@@ -34,13 +34,25 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
     setBaseRoute(`${base}/settings`);
   }, [fly, user]);
 
+  const currentRoute = router.pathname.split("/")[4]
+    ? `/${router.pathname.split("/")[4]}`
+    : "/";
+
   return (
     <DashboardLayout pageName="Settings">
       <div className="flex">
         <div className={`flex flex-col gap-5`}>
           {subSettingsPages.map((page) => {
             return (
-              <Link href={`${baseRoute}${page.route}`} key={page.title}>
+              <Link
+                href={`${baseRoute}${page.route}`}
+                key={page.title}
+                className={`${
+                  currentRoute === page.route
+                    ? "text-uf-accent font-semibold"
+                    : "text-gray-500"
+                }`}
+              >
                 {page.title}
               </Link>
             );
