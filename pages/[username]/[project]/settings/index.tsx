@@ -1,7 +1,8 @@
 import DashboardLayout from "@/layouts/DashboardLayout";
 import { useFlyStore } from "@/stores/flyStore";
 import Link from "next/link";
-import { ReactNode, useEffect } from "react";
+import { useRouter } from "next/router";
+import { ReactNode, useEffect, useState } from "react";
 
 const Settings = ({ children }: { children: ReactNode }) => {
   const { fly } = useFlyStore();
@@ -19,19 +20,19 @@ const Settings = ({ children }: { children: ReactNode }) => {
       route: "/advanced",
     },
   ];
+  const router = useRouter();
+
+  const [baseRoute, setBaseRoute] = useState("");
 
   useEffect(() => {
-    console.log(window.location.href.split("/"));
-  }, []);
+    setBaseRoute(`${window?.location.origin}/${fly?.name}/settings`);
+  }, [fly]);
   return (
     <DashboardLayout pageName="Settings">
       <div className="">
         <div className={`flex flex-col gap-5`}>
           {subSettingsPages.map((page) => (
-            <Link
-              href={`${window.location.origin}/${fly?.name}/settings${page.route}`}
-              key={page.title}
-            >
+            <Link href={`${baseRoute}${page.route}`} key={page.title}>
               {page.title}
             </Link>
           ))}
