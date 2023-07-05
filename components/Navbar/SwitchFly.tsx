@@ -11,7 +11,7 @@ const SwitchFly = () => (
     </Popover.Trigger>
     <Popover.Portal>
       <Popover.Content
-        className="rounded p-5 w-[360px] bg-uf-dark/70 border border-uf-accent/30 backdrop-blur-md text-uf-light shadow-[0_10px_38px_-10px_hsla(206,22%,7%,.35),0_10px_20px_-15px_hsla(206,22%,7%,.2)] data-[state=open]:data-[side=top]:animate-slideDownAndFade data-[state=open]:data-[side=right]:animate-slideLeftAndFade data-[state=open]:data-[side=bottom]:animate-slideUpAndFade data-[state=open]:data-[side=left]:animate-slideRightAndFade z-50"
+        className="rounded p-5 w-[360px] bg-uf-dark/70 border border-uf-accent/30 backdrop-blur-md text-uf-light z-50"
         sideOffset={5}
       >
         <div className="flex flex-col gap-2.5">
