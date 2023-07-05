@@ -1,42 +1,21 @@
 import prisma from "@/prisma";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiResponse } from "next";
 import { allowMethods } from "next-method-guard";
-import jwt from "jsonwebtoken";
-import dayjs from "dayjs";
+import { ExtendedRequest } from "@/interfaces";
+import authenticateToken from "@/middleware/auth";
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
   try {
-    const token = req.cookies.access_token;
     const fly_id = req.query.fly_id;
-    if (!token) {
-      return res.status(400).json({ message: "Token is missing in request" });
-    }
 
     if (!fly_id) {
       return res.status(400).json({ message: "Fly id is missing in request" });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY as string) as {
-      uuid: string;
-    };
-
-    const user_id = decoded.uuid;
-
-    if (!user_id)
-      return res.status(400).json({ message: "Missing user id in payload" });
-
-    const isUser = await prisma.user.findUnique({
-      where: {
-        uuid: user_id,
-      },
-    });
-
-    if (!isUser) return res.status(400).json({ message: "Invalid user id" });
-
     const fly = await prisma.fly.findFirst({
       where: {
         uuid: fly_id as string,
-        user_id: user_id,
+        user_id: req.user.uuid,
       },
     });
 
@@ -57,4 +36,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default allowMethods(["GET"])(handler);
+const middlewareChain = allowMethods(["GET"])(
+  (req: ExtendedRequest, res: NextApiResponse) =>
+    authenticateToken(req, res, () => handler(req, res))
+);
+
+export default middlewareChain;
