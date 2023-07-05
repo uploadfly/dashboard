@@ -1,5 +1,6 @@
 import { axios } from "@/configs/axios";
 import { useFlyStore } from "@/stores/flyStore";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 const Name = () => {
@@ -7,7 +8,7 @@ const Name = () => {
 
   const [name, setName] = useState("");
   const [isRenaming, setIsRenaming] = useState<boolean>(false);
-
+  const router = useRouter();
   useEffect(() => {
     setName(fly?.name);
   }, [fly]);
@@ -15,10 +16,18 @@ const Name = () => {
   const rename = async () => {
     setIsRenaming(true);
     try {
-      const { data } = await axios.put("/fly/reaname");
-      console.log(data);
-    } catch (error) {
-      console.log(error);
+      await axios.put("/fly/rename", {
+        fly_id: fly?.uuid,
+        name: name,
+      });
+
+      setFly(name, fly?.uuid);
+      const paths = router.asPath.split("/");
+
+      const newPath = `/${paths[1]}/${name}/${paths[3]}`;
+      router.replace(newPath);
+    } catch (error: any) {
+      console.log(error.response.data);
     }
   };
 
