@@ -45,7 +45,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
   res.status(200).json({ message: "Fly name updated" });
 };
 
-const middlewareChain = allowMethods(["POST"])(
+const middlewareChain = allowMethods(["PUT"])(
   (req: ExtendedRequest, res: NextApiResponse) =>
     authenticateToken(req, res, () => handler(req, res))
 );
