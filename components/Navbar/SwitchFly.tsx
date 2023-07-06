@@ -20,12 +20,12 @@ const SwitchFly = () => (
           </p>
         </div>
         <Popover.Close
-          className="h-[25px] w-[25px] inline-flex items-center justify-center text-uf-light absolute top-[5px] right-[5px] outline-none cursor-default"
+          className="absolute top-[5px] right-[5px]"
           aria-label="Close"
         >
-          <GrFormClose className="text-2xl" />
+          <GrFormClose className="text-2xl text-uf-light" />
         </Popover.Close>
-        <Popover.Arrow className="fill-white" />
+        <Popover.Arrow className="fill-uf-accent" />
       </Popover.Content>
     </Popover.Portal>
   </Popover.Root>
