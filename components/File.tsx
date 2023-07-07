@@ -14,23 +14,20 @@ const File = ({
   onClick: () => void;
 }) => {
   return (
-    <div
-      className="flex items-center cursor-pointer gap-2 justify-between mb-3 px-4 py-2 bg-[#050505] w-[235px] rounded-md transition-all duration-300 relative"
-      onClick={onClick}
-    >
-      <div className="flex items-center">
-        <div className="">
-          <p className="text-lg mb-1">{name}</p>
-          <div className="flex gap-3 items-center">
-            <p className="text-xs text-slate-400">Uploaded 2 days ago</p>
-            <p className="text-xs text-slate-400">{size}kb</p>
-          </div>
-        </div>
-      </div>
-      <div className="bg-slate-700 w-5 h-5 rounded-md flex items-center justify-center absolute right-2 top-2">
-        {selected && <BsCheckLg />}
-      </div>
-    </div>
+    <tr>
+      <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
+        {name}
+      </td>
+      <td className="border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
+        {type}
+      </td>
+      <td className="border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
+        {size}
+      </td>
+      <td className="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400">
+        button
+      </td>
+    </tr>
   );
 };
 
