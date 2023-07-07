@@ -1,8 +1,11 @@
 import File from "@/components/File";
+import { axios } from "@/configs/axios";
 import { files } from "@/files";
 import { FileProps } from "@/interfaces";
 import DashboardLayout from "@/layouts/DashboardLayout";
-import { useState } from "react";
+import { useFlyStore } from "@/stores/flyStore";
+import { get } from "http";
+import { useEffect, useState } from "react";
 import { CgSoftwareUpload } from "react-icons/cg";
 import { HiFolderOpen } from "react-icons/hi2";
 
@@ -25,6 +28,21 @@ const Files = () => {
     }
     setSelectedFile([]);
   };
+
+  const { fly } = useFlyStore();
+
+  const getFiles = async (fly_id: string) => {
+    try {
+      const { data } = await axios(`/fly/files?fly_id${fly_id}`);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getFiles(fly?.uuid);
+  }, [fly?.uuid]);
 
   return (
     <DashboardLayout pageName="Files">
