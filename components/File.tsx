@@ -15,10 +15,17 @@ const File = ({
   selected: boolean;
   onClick: () => void;
 }) => {
+  const truncate = (str: string) => {
+    if (str.length > 20) {
+      return str.substring(0, 20) + "...";
+    }
+    str;
+  };
+
   return (
     <tr>
       <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
-        {name}
+        {truncate(name)}
       </td>
       <td className="border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
         2 hours ago
