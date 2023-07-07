@@ -49,6 +49,8 @@ const Files = () => {
     }
   }, [fly?.uuid]);
 
+  const tableHeads = ["Name", "Date uploaded", "Mime type", "File size", ""];
+
   return (
     <DashboardLayout pageName="Files">
       <div className="flex gap-5">
@@ -122,6 +124,7 @@ const Files = () => {
                 <th className="border-b dark:border-slate-600 font-medium p-4 pr-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
                   File size
                 </th>
+                <th></th>
               </tr>
             </thead>
             <tbody className="bg-white dark:bg-slate-800">
