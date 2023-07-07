@@ -75,39 +75,6 @@ const Files = () => {
                 </button>
               </div>
             </div>
-            {/* <div
-              className={`z-10 transition-all duration-300 w-full h-full bg-[#050505] px-3 flex items-center absolute top-0 left-0 ${
-                selectedFile.length > 0 ? "-translate-y-0" : "-translate-y-20"
-              }`}
-            >
-              {selectedFile?.length > 1 ? (
-                <div className="flex items-center justify-between w-full">
-                  <div className="">
-                    <p>{selectedFile?.length} files selected</p>
-                    <p>
-                      {selectedFile?.reduce((acc, curr) => acc + curr.size, 0)}
-                      kb
-                    </p>
-                  </div>
-                  <div className="flex gap-4">
-                    <button
-                      onClick={() => selection()}
-                      className="border border-gray-50 py-2 px-4 font-semibold rounded-md"
-                    >
-                      Deselect all
-                    </button>
-                    <button className="py-2 px-4 bg-red-600 font-semibold rounded-md text-uf-light">
-                      Delete all
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <p>{selectedFile?.[0]?.name}</p>
-                  <p>{selectedFile?.[0]?.size}</p>
-                </>
-              )}
-            </div> */}
           </div>
           <table className="border-collapse table-auto w-full text-sm">
             <thead>
