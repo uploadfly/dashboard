@@ -1,6 +1,6 @@
 import File from "@/components/File";
 import { axios } from "@/configs/axios";
-import { files } from "@/files";
+// import { files } from "@/files";
 import { FileProps } from "@/interfaces";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import { useFlyStore } from "@/stores/flyStore";
@@ -19,6 +19,8 @@ const Button = ({ text }: { text: string }) => {
 };
 
 const Files = () => {
+  const [files, setFiles] = useState<FileProps[]>([]);
+
   const [selectedFile, setSelectedFile] = useState<FileProps[]>([]);
 
   const selection = (type?: "all") => {
@@ -35,6 +37,7 @@ const Files = () => {
     try {
       const { data } = await axios(`/fly/files?fly_id=${fly_id}`);
       console.log(data);
+      setFiles(data?.files);
     } catch (error) {
       console.log(error);
     }
