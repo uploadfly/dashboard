@@ -46,9 +46,14 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
     },
   });
 
+  const filesWithSizeAsNumber = files.map((file) => ({
+    ...file,
+    size: Number(file.size),
+  }));
+
   res.status(200).json({
     message: "Files retrieved successfully",
-    files,
+    files: filesWithSizeAsNumber,
   });
 };
 
