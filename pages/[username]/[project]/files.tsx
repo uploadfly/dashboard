@@ -44,7 +44,9 @@ const Files = () => {
   };
 
   useEffect(() => {
-    getFiles(fly?.uuid);
+    if (fly?.uuid) {
+      getFiles(fly?.uuid);
+    }
   }, [fly?.uuid]);
 
   return (
@@ -105,24 +107,42 @@ const Files = () => {
               )}
             </div> */}
           </div>
-          <div className="grid grid-cols-3 gap-2">
-            {files.map((file) => (
-              <File
-                key={file.id}
-                name={file.name}
-                size={file.size}
-                type={file.mimetype}
-                selected={selectedFile.includes(file)}
-                onClick={() => {
-                  if (selectedFile.includes(file)) {
-                    setSelectedFile(selectedFile.filter((f) => f !== file));
-                    return;
-                  }
-                  setSelectedFile([...selectedFile, file]);
-                }}
-              />
-            ))}
-          </div>
+          <table className="border-collapse table-auto w-full text-sm">
+            <thead>
+              <tr>
+                <th className="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
+                  Name
+                </th>
+                <th className="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
+                  Date uploaded
+                </th>
+                <th className="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
+                  Mime type
+                </th>
+                <th className="border-b dark:border-slate-600 font-medium p-4 pr-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
+                  File size
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white dark:bg-slate-800">
+              {files.map((file) => (
+                <File
+                  key={file.id}
+                  name={file.name}
+                  size={file.size}
+                  type={file.mimetype}
+                  selected={selectedFile.includes(file)}
+                  onClick={() => {
+                    if (selectedFile.includes(file)) {
+                      setSelectedFile(selectedFile.filter((f) => f !== file));
+                      return;
+                    }
+                    setSelectedFile([...selectedFile, file]);
+                  }}
+                />
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </DashboardLayout>
