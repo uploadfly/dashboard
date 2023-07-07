@@ -33,7 +33,7 @@ const Files = () => {
 
   const getFiles = async (fly_id: string) => {
     try {
-      const { data } = await axios(`/fly/files?fly_id${fly_id}`);
+      const { data } = await axios(`/fly/files?fly_id=${fly_id}`);
       console.log(data);
     } catch (error) {
       console.log(error);
