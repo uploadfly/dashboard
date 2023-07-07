@@ -7,6 +7,13 @@ import { allowMethods } from "next-method-guard";
 const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
   const fly_id = req.query.fly_id;
 
+  if (!fly_id) {
+    res.status(400).json({
+      message: "Fly ID is missing in request",
+    });
+    return;
+  }
+
   const fly = await prisma.fly.findUnique({
     where: {
       uuid: fly_id as string,
@@ -45,7 +52,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
   });
 };
 
-const middlewareChain = allowMethods(["POST"])(
+const middlewareChain = allowMethods(["GET"])(
   (req: ExtendedRequest, res: NextApiResponse) =>
     authenticateToken(req, res, () => handler(req, res))
 );
