@@ -43,6 +43,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
       size: true,
       url: true,
       created_at: true,
+      name: true,
     },
   });
 
