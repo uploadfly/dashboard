@@ -81,7 +81,7 @@ const Files = () => {
               <tr>
                 {tableHeads.map((head, index) => (
                   <th
-                    className="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left"
+                    className="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left"
                     key={index}
                   >
                     {head}
@@ -89,7 +89,7 @@ const Files = () => {
                 ))}
               </tr>
             </thead>
-            <tbody className="bg-white dark:bg-slate-800">
+            <tbody className="">
               {files.map((file) => (
                 <File
                   key={file.id}
