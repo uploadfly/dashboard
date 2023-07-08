@@ -24,7 +24,10 @@ const File = ({
 
   return (
     <tr className="hover:bg-slate-800/30">
-      <td className="border-b border-slate-700 p-4  text-slate-400">
+      <td
+        className="border-b border-slate-700 p-4  text-slate-400"
+        title={name}
+      >
         {truncate(name)}
       </td>
       <td className="border-b border-slate-700 p-4 text-slate-400">
