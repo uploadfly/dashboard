@@ -44,6 +44,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
       url: true,
       created_at: true,
       name: true,
+      type: true,
     },
   });
 
