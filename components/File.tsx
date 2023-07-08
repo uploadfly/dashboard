@@ -30,7 +30,7 @@ const File = ({
       <td className="border-b border-slate-700 p-4 text-slate-400">
         2 hours ago
       </td>
-      <td className="border-b border-slate-700 p-4 text-slate-400">PNG</td>
+      <td className="border-b border-slate-700 p-4 text-slate-400">{type}</td>
       <td className="border-b border-slate-700 p-4 text-slate-400">
         {fileSize(size).human("si")}
       </td>
