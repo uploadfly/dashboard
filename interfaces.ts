@@ -6,7 +6,7 @@ export interface FileProps {
   type: string;
   size: number;
   url: string;
-  uploaded: Date;
+  created_at: Date;
 }
 
 export interface ExtendedRequest extends NextApiRequest {
