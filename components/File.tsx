@@ -7,6 +7,7 @@ const File = ({
   size,
   type,
   selected,
+  uploaded,
   onClick,
 }: {
   name: string;
@@ -14,6 +15,7 @@ const File = ({
   type: string;
   selected: boolean;
   onClick: () => void;
+  uploaded: Date;
 }) => {
   const truncate = (str: string) => {
     if (str.length > 20) {
