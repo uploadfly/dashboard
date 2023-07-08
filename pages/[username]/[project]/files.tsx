@@ -74,7 +74,7 @@ const Files = () => {
                   key={file.id}
                   name={file.name}
                   size={file.size}
-                  type={file.mimetype}
+                  type={file.type}
                   selected={selectedFile.includes(file)}
                   onClick={() => {
                     if (selectedFile.includes(file)) {
