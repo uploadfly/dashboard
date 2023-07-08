@@ -1,6 +1,7 @@
 import fileSize from "file-size";
 import { BsCheckLg } from "react-icons/bs";
 import { HiEllipsisVertical } from "react-icons/hi2";
+import dayjs from "dayjs";
 
 const File = ({
   name,
@@ -33,7 +34,7 @@ const File = ({
         {truncate(name)}
       </td>
       <td className="border-b border-slate-700 p-4 text-slate-400">
-        2 hours ago
+        {uploaded}
       </td>
       <td className="border-b border-slate-700 p-4 text-slate-400">{type}</td>
       <td className="border-b border-slate-700 p-4 text-slate-400">
