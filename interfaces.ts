@@ -3,7 +3,7 @@ import { NextApiRequest } from "next";
 export interface FileProps {
   id: number;
   name: string;
-  mimetype: string;
+  type: string;
   size: number;
   url: string;
   uploaded: Date;
