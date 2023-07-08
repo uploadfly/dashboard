@@ -69,5 +69,4 @@ model file {
   size             BigInt
   path             String
   fly_id           String
-  mime_type        String   @default("")
 }
