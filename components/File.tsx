@@ -4,6 +4,13 @@ import { HiEllipsisVertical } from "react-icons/hi2";
 import dayjs from "dayjs";
 import moment from "moment";
 
+export const truncate = (str: string, length: number = 20) => {
+  if (str.length > length) {
+    return str.substring(0, length) + "...";
+  }
+  return str;
+};
+
 const File = ({
   name,
   size,
@@ -19,13 +26,6 @@ const File = ({
   onClick: () => void;
   uploaded: Date;
 }) => {
-  const truncate = (str: string) => {
-    if (str.length > 20) {
-      return str.substring(0, 20) + "...";
-    }
-    return str;
-  };
-
   return (
     <tr className="hover:bg-slate-800/30" onClick={onClick}>
       <td
