@@ -28,7 +28,9 @@ const File = ({
 }) => {
   return (
     <tr
-      className={`${selected && "bg-slate-800/60"} hover:bg-slate-800/30`}
+      className={`${
+        selected && "bg-slate-800/60 hover:bg-slate-800/70"
+      } hover:bg-slate-800/30`}
       onClick={onClick}
     >
       <td
