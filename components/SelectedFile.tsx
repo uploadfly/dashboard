@@ -20,7 +20,7 @@ const SelectedFile = ({ files }: { files: FileProps[] }) => {
   const file = files?.[0];
   return (
     <div className="w-full h-full p-3 rounded-md">
-      {files.length === 1 ? (
+      {files.length === 1 && (
         <div className="flex gap-5 flex-col">
           {file && <h2 className="text-xl font-semibold">File details</h2>}
           <Flex title="Name" value={truncate(file.name, 45)} />
@@ -48,9 +48,10 @@ const SelectedFile = ({ files }: { files: FileProps[] }) => {
             </div>
           </div>
         </div>
-      ) : (
+      )}
+      {files.length > 1 && (
         <>
-          <p className="">Multiple files selected</p>
+          <p>Multiple files selected</p>
         </>
       )}
     </div>
