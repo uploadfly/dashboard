@@ -42,7 +42,7 @@ const Files = () => {
     <DashboardLayout pageName="Files">
       <div className="flex gap-5">
         <div
-          className={`h-full w-full flex relative ${
+          className={`h-full w-full flex relative transition-all ${
             selectedFiles.length > 0 ? "mr-96" : "mr-0"
           }`}
         >
@@ -81,7 +81,7 @@ const Files = () => {
             </tbody>
           </table>
           <div
-            className={`h-16 bg-slate-800 fixed right-5 ${
+            className={`h-16 bg-slate-800 fixed right-5 transition-all ${
               selectedFiles.length > 0 ? "w-96" : "w-0"
             }`}
           ></div>
