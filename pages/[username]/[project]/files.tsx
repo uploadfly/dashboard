@@ -82,7 +82,7 @@ const Files = () => {
             </tbody>
           </table>
           <div
-            className={`h-fit bg-slate-800 fixed right-5 transition-all rounded-md ${
+            className={`h-fit bg-gray-900/50 fixed right-5 transition-all rounded-md ${
               selectedFiles.length > 0 ? "w-96" : "w-0"
             }`}
           >
