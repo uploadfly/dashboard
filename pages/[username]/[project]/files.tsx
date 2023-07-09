@@ -1,4 +1,5 @@
 import File from "@/components/File";
+import SelectedFile from "@/components/SelectedFile";
 import { axios } from "@/configs/axios";
 import { FileProps } from "@/interfaces";
 import DashboardLayout from "@/layouts/DashboardLayout";
@@ -81,10 +82,12 @@ const Files = () => {
             </tbody>
           </table>
           <div
-            className={`h-16 bg-slate-800 fixed right-5 transition-all ${
+            className={`h-fit bg-slate-800 fixed right-5 transition-all rounded-md ${
               selectedFiles.length > 0 ? "w-96" : "w-0"
             }`}
-          ></div>
+          >
+            <SelectedFile files={selectedFiles} />
+          </div>
         </div>
       </div>
     </DashboardLayout>
