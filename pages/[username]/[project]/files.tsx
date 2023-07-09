@@ -1,22 +1,9 @@
 import File from "@/components/File";
 import { axios } from "@/configs/axios";
-// import { files } from "@/files";
 import { FileProps } from "@/interfaces";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import { useFlyStore } from "@/stores/flyStore";
-import { get } from "http";
 import { useEffect, useState } from "react";
-import { CgSoftwareUpload } from "react-icons/cg";
-import { HiFolderOpen } from "react-icons/hi2";
-
-const Button = ({ text }: { text: string }) => {
-  return (
-    <button className="flex items-center gap-2 mb-3 px-4 py-2 bg-[#050505] w-full rounded-md">
-      <HiFolderOpen />
-      {text}
-    </button>
-  );
-};
 
 const Files = () => {
   const [files, setFiles] = useState<FileProps[]>([]);
@@ -54,7 +41,7 @@ const Files = () => {
   return (
     <DashboardLayout pageName="Files">
       <div className="flex gap-5">
-        <div className="h-full w-full">
+        <div className="h-full w-full flex relative mr-96">
           <table className="border-collapse table-auto w-full text-sm">
             <thead>
               <tr>
@@ -88,6 +75,7 @@ const Files = () => {
               ))}
             </tbody>
           </table>
+          <div className="w-96 h-16 bg-slate-800 fixed right-5"></div>
         </div>
       </div>
     </DashboardLayout>
