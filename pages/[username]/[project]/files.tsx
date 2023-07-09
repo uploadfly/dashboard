@@ -8,14 +8,14 @@ import { useEffect, useState } from "react";
 const Files = () => {
   const [files, setFiles] = useState<FileProps[]>([]);
 
-  const [selectedFile, setSelectedFile] = useState<FileProps[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<FileProps[]>([]);
 
   const selection = (type?: "all") => {
     if (type === "all") {
-      setSelectedFile([...files]);
+      setSelectedFiles([...files]);
       return;
     }
-    setSelectedFile([]);
+    setSelectedFiles([]);
   };
 
   const { fly } = useFlyStore();
@@ -41,7 +41,11 @@ const Files = () => {
   return (
     <DashboardLayout pageName="Files">
       <div className="flex gap-5">
-        <div className="h-full w-full flex relative mr-96">
+        <div
+          className={`h-full w-full flex relative ${
+            selectedFiles.length > 0 ? "mr-96" : "mr-0"
+          }`}
+        >
           <table className="border-collapse table-auto w-full text-sm">
             <thead>
               <tr>
@@ -62,20 +66,25 @@ const Files = () => {
                   name={file.name}
                   size={file.size}
                   type={file.type}
-                  selected={selectedFile.includes(file)}
+                  selected={selectedFiles.includes(file)}
                   uploaded={file.created_at}
                   onClick={() => {
-                    if (selectedFile.includes(file)) {
-                      setSelectedFile(selectedFile.filter((f) => f !== file));
+                    console.log(selectedFiles);
+                    if (selectedFiles.includes(file)) {
+                      setSelectedFiles(selectedFiles.filter((f) => f !== file));
                       return;
                     }
-                    setSelectedFile([...selectedFile, file]);
+                    setSelectedFiles([...selectedFiles, file]);
                   }}
                 />
               ))}
             </tbody>
           </table>
-          <div className="w-96 h-16 bg-slate-800 fixed right-5"></div>
+          <div
+            className={`h-16 bg-slate-800 fixed right-5 ${
+              selectedFiles.length > 0 ? "w-96" : "w-0"
+            }`}
+          ></div>
         </div>
       </div>
     </DashboardLayout>
