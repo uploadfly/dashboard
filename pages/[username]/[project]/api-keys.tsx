@@ -6,6 +6,16 @@ import { useFlyStore } from "@/stores/flyStore";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
+export const copyToClipboard = (str: string) => {
+  const el = document.createElement("textarea");
+  el.value = str;
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand("copy");
+  document.body.removeChild(el);
+};
+// Written by Amazon CodeWhisperer
+
 const ApiKeys = () => {
   const [keys, setKeys] = useState<{ sk: string; pk: string }>({
     sk: "",
@@ -49,16 +59,6 @@ const ApiKeys = () => {
       setRegenerating(false);
     }
   };
-
-  const copyToClipboard = (str: string) => {
-    const el = document.createElement("textarea");
-    el.value = str;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand("copy");
-    document.body.removeChild(el);
-  };
-  // Written by Amazon CodeWhisperer
 
   const copyToClipboardPk = () => {
     copyToClipboard(keys?.pk);
