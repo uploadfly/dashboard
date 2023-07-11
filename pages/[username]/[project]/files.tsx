@@ -70,7 +70,6 @@ const Files = () => {
                   selected={selectedFiles.includes(file)}
                   uploaded={file.created_at}
                   onClick={() => {
-                    console.log(selectedFiles);
                     if (selectedFiles.includes(file)) {
                       setSelectedFiles(selectedFiles.filter((f) => f !== file));
                       return;
