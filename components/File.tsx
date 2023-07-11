@@ -1,8 +1,6 @@
 import fileSize from "file-size";
-import { BsCheckLg } from "react-icons/bs";
-import { HiEllipsisVertical } from "react-icons/hi2";
-import dayjs from "dayjs";
 import moment from "moment";
+import { BiRightArrow } from "react-icons/bi";
 
 export const truncate = (str: string, length: number = 20) => {
   if (str.length > length) {
@@ -48,9 +46,6 @@ const File = ({
       <td className="border-b border-slate-700 p-4 text-slate-400">{type}</td>
       <td className="border-b border-slate-700 p-4 text-slate-400">
         {fileSize(size).human("si")}
-      </td>
-      <td className="border-b border-slate-700 p-4 text-slate-400 text-xl">
-        <HiEllipsisVertical />
       </td>
     </tr>
   );
