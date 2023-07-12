@@ -40,6 +40,10 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
       fly_id: fly_id,
     },
   });
+
+  res.status(200).json({
+    message: "Fly deleted successfully",
+  });
 };
 
 const middlewareChain = allowMethods(["POST"])(
