@@ -1,8 +1,12 @@
+import DeleteModal from "@/components/Settings/DeleteModal";
 import SettingsLayout from "@/layouts/SettingsLayout";
+import { useState } from "react";
 
 const Advanced = () => {
+  const [showModal, setShowModal] = useState(false);
   return (
     <SettingsLayout>
+      <DeleteModal show={showModal} onClick={() => setShowModal(false)} />
       <div className="flex items-center gap-32">
         <div className="">
           <h1 className="font-semibold">Delete fly</h1>
@@ -11,7 +15,10 @@ const Advanced = () => {
             this.
           </p>
         </div>
-        <button className="border border-red-600 px-16 py-2 rounded-md font-semibold hover:bg-red-600 transition-colors">
+        <button
+          className="border border-red-600 px-16 py-2 rounded-md font-semibold hover:bg-red-600 transition-colors"
+          onClick={() => setShowModal(true)}
+        >
           Delete
         </button>
       </div>
