@@ -1,6 +1,7 @@
 import { ExtendedRequest } from "@/interfaces";
 import authenticateToken from "@/middleware/auth";
 import prisma from "@/prisma";
+import axios from "axios";
 import { NextApiResponse } from "next";
 import { allowMethods } from "next-method-guard";
 
@@ -29,21 +30,30 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
     return;
   }
 
-  await prisma.fly.delete({
-    where: {
-      uuid: fly_id,
-    },
-  });
+  await axios
+    .delete(`http://localhost:2001/delete/all?folder_id?${fly?.public_key}`)
+    .then(() => {
+      prisma.fly.delete({
+        where: {
+          uuid: fly_id,
+        },
+      });
 
-  await prisma.file.deleteMany({
-    where: {
-      fly_id: fly_id,
-    },
-  });
-
-  res.status(200).json({
-    message: "Fly deleted successfully",
-  });
+      prisma.file.deleteMany({
+        where: {
+          fly_id: fly_id,
+        },
+      });
+      res.status(200).json({
+        message: "Fly deleted successfully",
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Something went wrong",
+      });
+      console.log(err);
+    });
 };
 
 const middlewareChain = allowMethods(["POST"])(
