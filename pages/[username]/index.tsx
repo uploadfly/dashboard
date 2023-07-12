@@ -19,7 +19,7 @@ const DashboardIndex = () => {
   useEffect(() => {
     const getFlies = async () => {
       const res = await axios("/fly");
-      // setFlies(res?.data || []);
+      setFlies(res?.data || []);
       setLoading(false);
     };
     getFlies();
