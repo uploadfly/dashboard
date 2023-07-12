@@ -24,7 +24,6 @@ const Files = () => {
   const getFiles = async (fly_id: string) => {
     try {
       const { data } = await axios(`/fly/files?fly_id=${fly_id}`);
-      console.log(data);
       setFiles(data?.files);
     } catch (error) {
       console.log(error);
@@ -37,7 +36,7 @@ const Files = () => {
     }
   }, [fly?.uuid]);
 
-  const tableHeads = ["Name", "Date uploaded", "Mime type", "File size", ""];
+  const tableHeads = ["Name", "Date uploaded", "Mime type", "File size"];
 
   return (
     <DashboardLayout pageName="Files">
