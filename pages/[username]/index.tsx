@@ -4,38 +4,27 @@ import Navbar from "@/components/Navbar";
 import { axios } from "@/configs/axios";
 import { useUserStore } from "@/stores/userStore";
 import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { HiOutlineRocketLaunch } from "react-icons/hi2";
 
 const DashboardIndex = () => {
   const { user } = useUserStore();
-  const [currentUser, setCurrentUser] = useState<{
-    username: string;
-    email: string;
-  }>({
-    username: "",
-    email: "",
-  });
 
   const [loading, setLoading] = useState<boolean>(true);
 
   const [flies, setFlies] = useState<any[]>([]);
 
   useEffect(() => {
-    setCurrentUser(
-      user as {
-        username: string;
-        email: string;
-      }
-    );
     const getFlies = async () => {
       const res = await axios("/fly");
-      setFlies(res?.data || []);
+      // setFlies(res?.data || []);
       setLoading(false);
     };
     getFlies();
   }, []);
+
   return (
     <div className="w-full bg-uf-dark h-screen text-uf-light">
       <Head>
@@ -60,13 +49,17 @@ const DashboardIndex = () => {
                     {`You are ready to create your first fly.`}
                   </p>
 
-                  <h1 className="text-9xl my-16">⛈️</h1>
-
-                  {/* <small className="text-center">Here, projects a called flies</small> */}
+                  <Image
+                    src={"./logo.svg"}
+                    width={100}
+                    height={100}
+                    alt="Logo"
+                    className="my-10 opacity-90"
+                  />
 
                   <Link href={"/launch"}>
-                    <button className="border-[1px] rounded-md font-semibold w-[300px] text-xl h-[50px]">
-                      <span className="shiny-text">Create your fly</span>
+                    <button className="bg-uf-accent rounded-md font-semibold px-20 py-2 text-uf-light text-lg">
+                      Create your fly
                     </button>
                   </Link>
                 </>
