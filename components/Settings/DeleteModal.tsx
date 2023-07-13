@@ -24,11 +24,14 @@ const DeleteModal = ({
   const phrase = `${user?.username}/${fly?.name}`;
 
   const router = useRouter();
+
   const deleteFly = async () => {
+    setDeleting(true);
     try {
-      setDeleting(true);
       const { data } = await axios.delete(`/fly/delete?fly_id=${fly?.uuid}`);
-      console.log(data);
+      setTimeout(() => {
+        console.log("hey");
+      }, 500);
       setDeleting(false);
       router.push(`/${user?.username}`);
     } catch (error) {
@@ -48,6 +51,7 @@ const DeleteModal = ({
             className="bg-uf-dark rounded-md p-4 w-[500px] border border-uf-accent/20 flex flex-col items-center"
             onClick={(e) => e.stopPropagation()}
           >
+            {deleting ? "del..." : ""}
             <div className="flex justify-between items-center w-full">
               <h3 className="font-semibold">Delete {phrase}</h3>
               <button onClick={onClick} className="text-2xl">
@@ -113,13 +117,15 @@ const DeleteModal = ({
 
                   setWantToDelete(true);
                 }}
-                disabled={wantToDeleteFinal && deletePhrase !== phrase}
+                disabled={
+                  (wantToDeleteFinal && deletePhrase !== phrase) || deleting
+                }
               >
                 {wantToDelete && !wantToDeleteFinal ? (
                   "I have read the warning and want to proceed"
                 ) : wantToDeleteFinal ? (
                   "Delete this fly"
-                ) : deleting ? (
+                ) : deleting && wantToDeleteFinal ? (
                   <span className="flex items-center justify-center gap-2">
                     Deleting...{" "}
                     <RiLoader5Fill className="animate-spin text-xl" />
