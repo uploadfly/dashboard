@@ -30,8 +30,22 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
     return;
   }
 
+  const userApiKey = await prisma.apiKey.findFirst({
+    where: {
+      user_id: req.user.uuid,
+      active: true,
+    },
+    select: {
+      secret_key: true,
+    },
+  });
+
   await axios
-    .delete(`http://localhost:2001/delete/all?folder_id?${fly?.public_key}`)
+    .delete(`http://localhost:2001/delete/all?folder_id?${fly?.public_key}`, {
+      headers: {
+        Authorization: `Bearer ${userApiKey?.secret_key}`,
+      },
+    })
     .then(() => {
       prisma.fly.delete({
         where: {
