@@ -6,6 +6,7 @@ import { useState } from "react";
 import { axios } from "@/configs/axios";
 import { RiLoader5Fill } from "react-icons/ri";
 import { useRouter } from "next/router";
+import { IoFileTrayFull } from "react-icons/io5";
 
 const DeleteModal = ({
   show,
@@ -59,7 +60,7 @@ const DeleteModal = ({
             </div>
             <div className="w-full flex items-center gap-5 my-5 justify-center">
               <p className="flex items-center gap-1">
-                <BsDatabaseFill className="text-gray-300" />{" "}
+                <IoFileTrayFull className="text-gray-300" />{" "}
                 <span>10,000 files</span>
               </p>
               <p className="flex items-center gap-1">
