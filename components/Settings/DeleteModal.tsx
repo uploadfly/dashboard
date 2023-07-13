@@ -3,6 +3,7 @@ import { useUserStore } from "@/stores/userStore";
 import { IoClose, IoWarningOutline } from "react-icons/io5";
 import { BsCloudCheckFill, BsDatabaseFill } from "react-icons/bs";
 import { useState } from "react";
+import { axios } from "@/configs/axios";
 
 const DeleteModal = ({
   show,
@@ -16,8 +17,19 @@ const DeleteModal = ({
   const [wantToDelete, setWantToDelete] = useState(false);
   const [wantToDeleteFinal, setWantToDeleteFinal] = useState(false);
   const [deletePhrase, setDeletePhrase] = useState("");
+  const [deleting, setDeleting] = useState(true);
 
   const phrase = `${user?.username}/${fly?.name}`;
+
+  const deleteFly = async () => {
+    try {
+      const { data } = await axios.delete("/flies/delete");
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       {show && (
@@ -83,7 +95,7 @@ const DeleteModal = ({
                 }`}
                 onClick={() => {
                   if (wantToDeleteFinal) {
-                    console.log("Deleting...");
+                    deleteFly();
                     return;
                   }
 
@@ -96,11 +108,15 @@ const DeleteModal = ({
                 }}
                 disabled={wantToDeleteFinal && deletePhrase !== phrase}
               >
-                {wantToDelete && !wantToDeleteFinal
-                  ? "I have read the warning and want to proceed"
-                  : wantToDeleteFinal
-                  ? "Delete this fly"
-                  : "I want to delete this fly"}
+                {wantToDelete && !wantToDeleteFinal ? (
+                  "I have read the warning and want to proceed"
+                ) : wantToDeleteFinal ? (
+                  "Delete this fly"
+                ) : deleting ? (
+                  <>Deleting...</>
+                ) : (
+                  "I want to delete this fly"
+                )}
               </button>
             </>
           </div>
