@@ -9,6 +9,28 @@ import { useRouter } from "next/router";
 import { IoFileTrayFull } from "react-icons/io5";
 import fileSize from "file-size";
 
+const formatNumber = (number: number): string => {
+  if (number >= 0 && number <= 999) {
+    return number.toString();
+  }
+
+  if (number >= 1000 && number <= 999999) {
+    return number.toLocaleString();
+  }
+
+  if (number >= 1000000) {
+    let abbreviatedNumber: string;
+    if (number < 10000000) {
+      abbreviatedNumber = (number / 1000000).toFixed(2) + "M";
+    } else {
+      abbreviatedNumber = (number / 1000000).toFixed(1) + "M";
+    }
+    return abbreviatedNumber;
+  }
+
+  throw new Error("Invalid number");
+};
+
 const DeleteModal = ({
   show,
   onClick,
@@ -77,7 +99,7 @@ const DeleteModal = ({
             <div className="w-full flex items-center gap-5 my-5 justify-center">
               <p className="flex items-center gap-1">
                 <IoFileTrayFull className="text-gray-300" />{" "}
-                <span>{total?.files} files</span>
+                <span>{formatNumber(total?.files)} files</span>
               </p>
               <p className="flex items-center gap-1">
                 <BsDatabaseFill className="text-gray-300" />{" "}
