@@ -19,7 +19,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
   });
 
   if (!fly) {
-    res.status(400).json({ message: "Fly not found" });
+    res.status(400).json({ message: "Invalid fly ID" });
     return;
   }
 
