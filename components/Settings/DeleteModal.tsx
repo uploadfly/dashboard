@@ -26,18 +26,19 @@ const DeleteModal = ({
   const router = useRouter();
 
   const deleteFly = async () => {
-    setDeleting(true);
-    try {
-      const { data } = await axios.delete(`/fly/delete?fly_id=${fly?.uuid}`);
-      setTimeout(() => {
-        console.log("hey");
-      }, 500);
-      setDeleting(false);
-      router.push(`/${user?.username}`);
-    } catch (error) {
-      console.log(error);
-      setDeleting(false);
-    }
+    console.log(deleting);
+    setDeleting(!deleting);
+    // try {
+    //   //   const { data } = await axios.delete(`/fly/delete?fly_id=${fly?.uuid}`);
+    //   setTimeout(() => {
+    //     console.log("hey");
+    //   }, 500);
+
+    //   //   router.push(`/${user?.username}`);
+    // } catch (error) {
+    //   console.log(error);
+    //   setDeleting(false);
+    // }
   };
 
   return (
@@ -78,9 +79,9 @@ const DeleteModal = ({
                     <IoWarningOutline /> Read this before proceeding
                   </p>
                   <p className=" px-1 font-semibold text-sm mt-3 text-red-500">
-                    This will permanently delete this fly and all of its files.
-                    This action cannot be undone, everything will be deleted
-                    FOREVER!
+                    This will permanently delete this fly, all of its files and
+                    API keys. This action cannot be undone, everything will be
+                    deleted FOREVER!
                   </p>
                 </div>
               )}
@@ -117,19 +118,17 @@ const DeleteModal = ({
 
                   setWantToDelete(true);
                 }}
-                disabled={
-                  (wantToDeleteFinal && deletePhrase !== phrase) || deleting
-                }
+                disabled={wantToDeleteFinal && deletePhrase !== phrase}
               >
-                {wantToDelete && !wantToDeleteFinal ? (
-                  "I have read the warning and want to proceed"
-                ) : wantToDeleteFinal ? (
-                  "Delete this fly"
-                ) : deleting && wantToDeleteFinal ? (
+                {deleting ? (
                   <span className="flex items-center justify-center gap-2">
                     Deleting...{" "}
                     <RiLoader5Fill className="animate-spin text-xl" />
                   </span>
+                ) : wantToDelete && !wantToDeleteFinal ? (
+                  "I have read the warning and want to proceed"
+                ) : wantToDeleteFinal ? (
+                  "Delete this fly"
                 ) : (
                   "I want to delete this fly"
                 )}
