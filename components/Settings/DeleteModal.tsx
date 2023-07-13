@@ -72,20 +72,21 @@ const DeleteModal = ({
               <button
                 className="w-full mt-3 bg-uf-accent/50 text-white py-2 rounded-md font-semibold hover:bg-uf-accent transition-colors"
                 onClick={() => {
-                  if (wantToDelete) {
-                    setWantToDeleteFinal(true);
+                  if (wantToDeleteFinal) {
+                    console.log("Deleting...");
+
                     return;
                   }
 
-                  if (wantToDeleteFinal) {
-                    console.log("Deleteing...");
+                  if (wantToDelete) {
+                    setWantToDeleteFinal(true);
                     return;
                   }
 
                   setWantToDelete(true);
                 }}
               >
-                {wantToDelete
+                {wantToDelete && !wantToDeleteFinal
                   ? "I have read the warning and want to proceed"
                   : wantToDeleteFinal
                   ? "Delete this fly"
