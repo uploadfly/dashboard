@@ -1,6 +1,6 @@
 import { useFlyStore } from "@/stores/flyStore";
 import { useUserStore } from "@/stores/userStore";
-import { IoClose } from "react-icons/io5";
+import { IoClose, IoWarningOutline } from "react-icons/io5";
 import { BsCloudCheckFill, BsDatabaseFill } from "react-icons/bs";
 import { useState } from "react";
 
@@ -14,6 +14,7 @@ const DeleteModal = ({
   const { user } = useUserStore();
   const { fly } = useFlyStore();
   const [wantToDelete, setWantToDelete] = useState(false);
+  const [wantToDeleteFinal, setWantToDeleteFinal] = useState(false);
   return (
     <>
       {show && (
@@ -45,9 +46,52 @@ const DeleteModal = ({
                 <BsDatabaseFill className="text-gray-300" /> <span>20GB</span>
               </p>
             </div>
-            <button className="w-full bg-uf-accent/50 text-white py-2 rounded-md font-semibold hover:bg-uf-accent transition-colors">
-              I want to delete this fly
-            </button>
+
+            <>
+              {wantToDelete && !wantToDeleteFinal && (
+                <div className="mt-2 w-full">
+                  <p className="text-yellow-300 flex items-center gap-2 bg-yellow-500/10 w-full px-1 py-2 rounded-md justify-center">
+                    <IoWarningOutline /> Read this before proceeding
+                  </p>
+                  <p className=" px-1 font-semibold text-sm mt-3 text-red-500">
+                    This will permanently delete this fly and all of its files.
+                    This action cannot be undone, everything will be deleted
+                    FOREVER!
+                  </p>
+                </div>
+              )}
+
+              {wantToDeleteFinal && (
+                <>
+                  <input
+                    type="text"
+                    className="w-full border-2 outline-none pl-3 border-red-600/30 rounded-md py-2 bg-transparent"
+                  />
+                </>
+              )}
+              <button
+                className="w-full mt-3 bg-uf-accent/50 text-white py-2 rounded-md font-semibold hover:bg-uf-accent transition-colors"
+                onClick={() => {
+                  if (wantToDelete) {
+                    setWantToDeleteFinal(true);
+                    return;
+                  }
+
+                  if (wantToDeleteFinal) {
+                    console.log("Deleteing...");
+                    return;
+                  }
+
+                  setWantToDelete(true);
+                }}
+              >
+                {wantToDelete
+                  ? "I have read the warning and want to proceed"
+                  : wantToDeleteFinal
+                  ? "Delete this fly"
+                  : "I want to delete this fly"}
+              </button>
+            </>
           </div>
         </div>
       )}
