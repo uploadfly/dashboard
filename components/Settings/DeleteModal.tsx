@@ -2,7 +2,7 @@ import { useFlyStore } from "@/stores/flyStore";
 import { useUserStore } from "@/stores/userStore";
 import { IoClose, IoWarningOutline } from "react-icons/io5";
 import { BsCloudCheckFill, BsDatabaseFill } from "react-icons/bs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { axios } from "@/configs/axios";
 import { RiLoader5Fill } from "react-icons/ri";
 import { useRouter } from "next/router";
@@ -37,6 +37,21 @@ const DeleteModal = ({
       setDeleting(false);
     }
   };
+
+  const [total, setTotal] = useState({});
+
+  useEffect(() => {
+    if (fly?.uuid) {
+      (async () => {
+        try {
+          const { data } = await axios(`/fly/total?fly_id=${fly?.uuid}`);
+          console.log(data);
+        } catch (error) {
+          console.log(error);
+        }
+      })();
+    }
+  }, [fly?.uuid]);
 
   return (
     <>
