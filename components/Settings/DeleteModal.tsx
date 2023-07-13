@@ -52,7 +52,6 @@ const DeleteModal = ({
             className="bg-uf-dark rounded-md p-4 w-[500px] border border-uf-accent/20 flex flex-col items-center"
             onClick={(e) => e.stopPropagation()}
           >
-            {deleting ? "del..." : ""}
             <div className="flex justify-between items-center w-full">
               <h3 className="font-semibold">Delete {phrase}</h3>
               <button onClick={onClick} className="text-2xl">
@@ -118,7 +117,9 @@ const DeleteModal = ({
 
                   setWantToDelete(true);
                 }}
-                disabled={wantToDeleteFinal && deletePhrase !== phrase}
+                disabled={
+                  (wantToDeleteFinal && deletePhrase !== phrase) || deleting
+                }
               >
                 {deleting ? (
                   <span className="flex items-center justify-center gap-2">
