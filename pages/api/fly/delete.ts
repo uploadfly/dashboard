@@ -41,19 +41,19 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
   });
 
   await axios
-    .delete(`http://localhost:2001/delete/all?folder_id?${fly?.public_key}`, {
+    .delete(`http://localhost:2001/delete/all?folder_id=${fly?.public_key}`, {
       headers: {
         Authorization: `Bearer ${userApiKey?.secret_key}`,
       },
     })
-    .then(() => {
-      prisma.fly.delete({
+    .then(async () => {
+      await prisma.fly.delete({
         where: {
           uuid: fly_id,
         },
       });
 
-      prisma.file.deleteMany({
+      await prisma.file.deleteMany({
         where: {
           fly_id: fly_id,
         },
@@ -66,7 +66,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
       res.status(500).json({
         message: "Something went wrong",
       });
-      console.log(err);
+      console.log(err.response);
     });
 };
 
