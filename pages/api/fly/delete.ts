@@ -6,7 +6,7 @@ import { NextApiResponse } from "next";
 import { allowMethods } from "next-method-guard";
 
 const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
-  const fly_id = req.body.fly_id;
+  const fly_id = req.query.fly_id as string;
 
   if (!fly_id) {
     res.status(400).json({ message: "Fly ID is missing in request" });
@@ -23,7 +23,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
     return;
   }
 
-  if (fly.uuid !== req.user.uuid) {
+  if (fly.user_id !== req.user.uuid) {
     res
       .status(403)
       .json({ message: "You are not authorized to delete this fly" });
@@ -56,7 +56,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
     });
 };
 
-const middlewareChain = allowMethods(["POST"])(
+const middlewareChain = allowMethods(["DELETE"])(
   (req: ExtendedRequest, res: NextApiResponse) =>
     authenticateToken(req, res, () => handler(req, res))
 );
