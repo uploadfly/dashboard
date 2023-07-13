@@ -15,6 +15,9 @@ const DeleteModal = ({
   const { fly } = useFlyStore();
   const [wantToDelete, setWantToDelete] = useState(false);
   const [wantToDeleteFinal, setWantToDeleteFinal] = useState(false);
+  const [deletePhrase, setDeletePhrase] = useState("");
+
+  const phrase = `${user?.username}/${fly?.name}`;
   return (
     <>
       {show && (
@@ -27,9 +30,7 @@ const DeleteModal = ({
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center w-full">
-              <h3 className="font-semibold">
-                Delete {user?.username}/{fly?.name}
-              </h3>
+              <h3 className="font-semibold">Delete {phrase}</h3>
               <button onClick={onClick} className="text-2xl">
                 <IoClose />
               </button>
@@ -63,18 +64,26 @@ const DeleteModal = ({
 
               {wantToDeleteFinal && (
                 <>
+                  <p className="text-gray-300 mb-3">
+                    Type <span className="font-semibold">{`"${phrase}"`}</span>{" "}
+                    to confirm
+                  </p>
                   <input
                     type="text"
                     className="w-full border-2 outline-none pl-3 border-red-600/30 rounded-md py-2 bg-transparent"
+                    onChange={(e) => setDeletePhrase(e.target.value)}
                   />
                 </>
               )}
               <button
-                className="w-full mt-3 bg-uf-accent/50 text-white py-2 rounded-md font-semibold hover:bg-uf-accent transition-colors"
+                className={`w-full mt-3  text-white py-2 rounded-md font-semibold transition-colors disabled:cursor-not-allowed ${
+                  wantToDeleteFinal
+                    ? "bg-red-600 disabled:bg-red-600/40"
+                    : "bg-uf-accent/50 hover:bg-uf-accent"
+                }`}
                 onClick={() => {
                   if (wantToDeleteFinal) {
                     console.log("Deleting...");
-
                     return;
                   }
 
@@ -85,6 +94,7 @@ const DeleteModal = ({
 
                   setWantToDelete(true);
                 }}
+                disabled={wantToDeleteFinal && deletePhrase !== phrase}
               >
                 {wantToDelete && !wantToDeleteFinal
                   ? "I have read the warning and want to proceed"
