@@ -26,19 +26,15 @@ const DeleteModal = ({
   const router = useRouter();
 
   const deleteFly = async () => {
-    console.log(deleting);
-    setDeleting(!deleting);
-    // try {
-    //   //   const { data } = await axios.delete(`/fly/delete?fly_id=${fly?.uuid}`);
-    //   setTimeout(() => {
-    //     console.log("hey");
-    //   }, 500);
-
-    //   //   router.push(`/${user?.username}`);
-    // } catch (error) {
-    //   console.log(error);
-    //   setDeleting(false);
-    // }
+    try {
+      setDeleting(true);
+      await axios.delete(`/fly/delete?fly_id=${fly?.uuid}`);
+      setDeleting(false);
+      router.push(`/${user?.username}`);
+    } catch (error) {
+      console.log(error);
+      setDeleting(false);
+    }
   };
 
   return (
