@@ -4,6 +4,8 @@ import { IoClose, IoWarningOutline } from "react-icons/io5";
 import { BsCloudCheckFill, BsDatabaseFill } from "react-icons/bs";
 import { useState } from "react";
 import { axios } from "@/configs/axios";
+import { RiLoader5Fill } from "react-icons/ri";
+import { useRouter } from "next/router";
 
 const DeleteModal = ({
   show,
@@ -17,16 +19,21 @@ const DeleteModal = ({
   const [wantToDelete, setWantToDelete] = useState(false);
   const [wantToDeleteFinal, setWantToDeleteFinal] = useState(false);
   const [deletePhrase, setDeletePhrase] = useState("");
-  const [deleting, setDeleting] = useState(true);
+  const [deleting, setDeleting] = useState(false);
 
   const phrase = `${user?.username}/${fly?.name}`;
 
+  const router = useRouter();
   const deleteFly = async () => {
     try {
+      setDeleting(true);
       const { data } = await axios.delete("/flies/delete");
       console.log(data);
+      setDeleting(false);
+      router.push(`/${user?.username}`);
     } catch (error) {
       console.log(error);
+      setDeleting(false);
     }
   };
 
@@ -113,7 +120,10 @@ const DeleteModal = ({
                 ) : wantToDeleteFinal ? (
                   "Delete this fly"
                 ) : deleting ? (
-                  <>Deleting...</>
+                  <span className="flex items-center justify-center gap-2">
+                    Deleting...{" "}
+                    <RiLoader5Fill className="animate-spin text-xl" />
+                  </span>
                 ) : (
                   "I want to delete this fly"
                 )}
