@@ -7,6 +7,7 @@ import { axios } from "@/configs/axios";
 import { RiLoader5Fill } from "react-icons/ri";
 import { useRouter } from "next/router";
 import { IoFileTrayFull } from "react-icons/io5";
+import fileSize from "file-size";
 
 const DeleteModal = ({
   show,
@@ -38,14 +39,14 @@ const DeleteModal = ({
     }
   };
 
-  const [total, setTotal] = useState({});
+  const [total, setTotal] = useState({ files: 0, size: 0 });
 
   useEffect(() => {
     if (fly?.uuid) {
       (async () => {
         try {
           const { data } = await axios(`/fly/total?fly_id=${fly?.uuid}`);
-          console.log(data);
+          setTotal(data);
         } catch (error) {
           console.log(error);
         }
@@ -76,10 +77,11 @@ const DeleteModal = ({
             <div className="w-full flex items-center gap-5 my-5 justify-center">
               <p className="flex items-center gap-1">
                 <IoFileTrayFull className="text-gray-300" />{" "}
-                <span>10,000 files</span>
+                <span>{total?.files} files</span>
               </p>
               <p className="flex items-center gap-1">
-                <BsDatabaseFill className="text-gray-300" /> <span>20GB</span>
+                <BsDatabaseFill className="text-gray-300" />{" "}
+                <span>{fileSize(total?.size).human("si")}</span>
               </p>
             </div>
 
