@@ -27,7 +27,7 @@ const DeleteModal = ({
   const deleteFly = async () => {
     try {
       setDeleting(true);
-      const { data } = await axios.delete("/flies/delete");
+      const { data } = await axios.delete(`/fly/delete?fly_id=${fly?.uuid}`);
       console.log(data);
       setDeleting(false);
       router.push(`/${user?.username}`);
