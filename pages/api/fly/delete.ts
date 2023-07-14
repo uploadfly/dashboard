@@ -41,11 +41,14 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
   });
 
   await axios
-    .delete(`http://localhost:2001/delete/all?folder_id=${fly?.public_key}`, {
-      headers: {
-        Authorization: `Bearer ${userApiKey?.secret_key}`,
-      },
-    })
+    .delete(
+      `${process.env.NEXT_PUBLIC_UPLOADFLY_URL}/delete/all?folder_id=${fly?.public_key}`,
+      {
+        headers: {
+          Authorization: `Bearer ${userApiKey?.secret_key}`,
+        },
+      }
+    )
     .then(async () => {
       await prisma.fly.delete({
         where: {
