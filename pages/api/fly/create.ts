@@ -85,6 +85,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(201).json({
       message: "Fly created",
       redirect: `/${isUser.username}/${fly.name}`,
+      name: fly.name,
+      uuid: fly.uuid,
     });
   } catch (error) {
     console.log(error);
