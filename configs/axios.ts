@@ -10,4 +10,12 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
-export { axiosAuthInstance as axiosAuth, axiosInstance as axios };
+const axiosUploadflyInstance = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_UPLOADFLY_URL,
+});
+
+export {
+  axiosAuthInstance as axiosAuth,
+  axiosInstance as axios,
+  axiosUploadflyInstance as uploadfly,
+};
