@@ -9,6 +9,7 @@ import Link from "next/link";
 import { HiArrowNarrowLeft } from "react-icons/hi";
 import Head from "next/head";
 import validator from "validator";
+import { useFlyStore } from "@/stores/flyStore";
 
 const Launch = () => {
   const [name, setName] = useState<string>("");
@@ -16,6 +17,8 @@ const Launch = () => {
   const [placeholder, setPlaceholder] = useState<string>("");
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
+
+  const { setFly } = useFlyStore();
 
   useEffect(() => {
     setPlaceholder(generate().dashed);
@@ -56,12 +59,13 @@ const Launch = () => {
       }
       setLoading(true);
 
-      const res = await axios.post("/fly/create", {
+      const { data } = await axios.post("/fly/create", {
         name: name || placeholder,
         project_url: projectUrl,
       });
+      setFly(data.name, data.uuid);
       toast("Your fly was created successfully", toastSuccessConfig);
-      router.push(res.data.redirect);
+      router.push(data.redirect);
     } catch (error: any) {
       setLoading(false);
       toast(
