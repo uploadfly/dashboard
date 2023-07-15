@@ -81,9 +81,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
     });
 };
 
-const middlewareChain = allowMethods(["DELETE"])(
+export default allowMethods(["DELETE"])(
   (req: ExtendedRequest, res: NextApiResponse) =>
     authenticateToken(req, res, () => handler(req, res))
 );
-
-export default middlewareChain;
