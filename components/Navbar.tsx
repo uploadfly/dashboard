@@ -7,7 +7,7 @@ import Image from "next/image";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { useFlyStore } from "@/stores/flyStore";
 import { useRouter } from "next/router";
-import Sidebar from "./NavLinks";
+import NavLinks from "./NavLinks";
 import SwitchFly from "./Navbar/SwitchFly";
 
 const Navbar = () => {
@@ -59,9 +59,9 @@ const Navbar = () => {
                 <Profile />
               </div>
             </div>
-            {fly?.name && router?.asPath.includes(fly?.name) && (
+            {fly?.name && fly?.uuid && router?.asPath.includes(fly?.name) && (
               <div className="sticky top-0">
-                <Sidebar loading={user?.username ? false : true} />
+                <NavLinks loading={user?.username ? false : true} />
               </div>
             )}
           </>
