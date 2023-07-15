@@ -6,6 +6,7 @@ import generate from "boring-name-generator";
 import { generateApiKey } from "@/utils/generateApiKey";
 import validator from "validator";
 import { ExtendedRequest } from "@/interfaces";
+import authenticateToken from "@/middleware/auth";
 
 const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
   try {
@@ -29,7 +30,16 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
       });
     }
 
-    const user_id = req.user.uuid;
+    if (!req.user.uuid) {
+      res.status(400).json({
+        message: "User UUID is not found",
+      });
+      return;
+    }
+
+    const user_id = req.user?.uuid;
+
+    console.log(req.user);
 
     const userFlies = await prisma.fly.count({
       where: {
@@ -75,4 +85,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
   }
 };
 
-export default allowMethods(["POST"])(handler);
+export default allowMethods(["POST"])(
+  (req: ExtendedRequest, res: NextApiResponse) =>
+    authenticateToken(req, res, () => handler(req, res))
+);
