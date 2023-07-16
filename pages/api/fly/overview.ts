@@ -9,7 +9,8 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
     const fly_id = req.query.fly_id;
 
     if (!fly_id) {
-      return res.status(400).json({ message: "Fly id is missing in request" });
+      res.status(400).json({ message: "Fly id is missing in request" });
+      return;
     }
 
     const fly = await prisma.fly.findFirst({
@@ -27,7 +28,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
       },
     });
 
-    return res.status(200).json({
+    res.status(200).json({
       files,
       used_storage: Number(fly.used_storage),
     });
@@ -36,9 +37,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
   }
 };
 
-const middlewareChain = allowMethods(["GET"])(
+export default allowMethods(["GET"])(
   (req: ExtendedRequest, res: NextApiResponse) =>
     authenticateToken(req, res, () => handler(req, res))
 );
-
-export default middlewareChain;
