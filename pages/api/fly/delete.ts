@@ -56,11 +56,6 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
         },
       });
 
-      await prisma.file.deleteMany({
-        where: {
-          fly_id: fly_id,
-        },
-      });
       res.status(200).json({
         message: "Fly deleted successfully",
       });
@@ -72,7 +67,6 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
         user_id: req.user.uuid,
       },
     })
-
     .catch((err) => {
       res.status(500).json({
         message: "Something went wrong",
