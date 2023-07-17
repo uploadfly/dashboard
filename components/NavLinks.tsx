@@ -1,7 +1,7 @@
 import { useUserStore } from "@/stores/userStore";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   HiSquares2X2,
   HiFolderOpen,
