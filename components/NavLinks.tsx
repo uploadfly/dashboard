@@ -29,26 +29,6 @@ const NavLinks = ({ loading }: { loading: boolean }) => {
     setFlyName(window.location.pathname.split("/")[2]);
   }, [router?.pathname]);
 
-  useEffect(() => {
-    if (activeLinkRef.current && containerRef.current) {
-      const activeLinkLeft = activeLinkRef.current.offsetLeft;
-      const activeLinkWidth = activeLinkRef.current.offsetWidth;
-      const containerWidth = containerRef.current.offsetWidth;
-      const containerPadding = parseInt(
-        getComputedStyle(containerRef.current).paddingLeft
-      );
-      const indicatorLeft =
-        activeLinkLeft -
-        containerWidth / 2 +
-        activeLinkWidth / 2 -
-        containerPadding;
-      setIndicatorStyle({
-        transform: `translateX(${indicatorLeft - 10}px)`,
-        width: `${activeLinkWidth}px`,
-      });
-    }
-  }, [currentRoute]);
-
   const links = [
     {
       name: "Overview",
@@ -86,7 +66,7 @@ const NavLinks = ({ loading }: { loading: boolean }) => {
 
   return (
     <div className="px-10" ref={containerRef}>
-      <div className={loading ? "pointer-events-none" : "flex gap-12"}>
+      <div className={loading ? "pointer-events-none" : "flex gap-12 mt-3"}>
         {links.map((link, i) => {
           const href = `/${user?.username}/${flyName}${link.path}`;
           return (
@@ -98,9 +78,10 @@ const NavLinks = ({ loading }: { loading: boolean }) => {
             >
               <a
                 className={`flex items-center ${
-                  currentRoute === link.path ? "" : "bg-transparent"
-                } p-3 rounded-md hover:bg-gray-600 transition-colors duration-500`}
-                ref={currentRoute === link.path ? activeLinkRef : null}
+                  currentRoute === link.path
+                    ? "border-uf-accent"
+                    : "border-transparent hover:border-uf-accent/40"
+                } pb-2 px-3 border-b-4 transition-colors duration-500`}
               >
                 <div className="">{link.icon}</div>
                 <span className="ml-2">{link.name}</span>
@@ -109,10 +90,6 @@ const NavLinks = ({ loading }: { loading: boolean }) => {
           );
         })}
       </div>
-      <div
-        className="h-1 bg-uf-accent transition-all duration-300 absolute bottom-0 left-1/2"
-        style={indicatorStyle}
-      ></div>
     </div>
   );
 };
