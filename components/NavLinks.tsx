@@ -16,12 +16,6 @@ const NavLinks = ({ loading }: { loading: boolean }) => {
 
   const [currentRoute, setCurrentRoute] = useState("");
   const [flyName, setFlyName] = useState("");
-  const [indicatorStyle, setIndicatorStyle] = useState({
-    width: "0px",
-    transform: "0px",
-  });
-  const activeLinkRef = useRef<HTMLAnchorElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const route = router.pathname.split("/")[3];
@@ -65,7 +59,7 @@ const NavLinks = ({ loading }: { loading: boolean }) => {
   const { user } = useUserStore();
 
   return (
-    <div className="px-10" ref={containerRef}>
+    <div className="px-10">
       <div className={loading ? "pointer-events-none" : "flex gap-12 mt-3"}>
         {links.map((link, i) => {
           const href = `/${user?.username}/${flyName}${link.path}`;
