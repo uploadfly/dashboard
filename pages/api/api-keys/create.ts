@@ -6,7 +6,7 @@ import { allowMethods } from "next-method-guard";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const { fly_id } = req.body;
+    const { fly_id, permission } = req.body;
 
     const token = req.cookies.access_token;
     if (!token) {
@@ -39,21 +39,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(404).json({ message: "Invalid Fly id" });
     }
 
-    const public_key = generateApiKey();
-    const secret_key = generateApiKey();
-
-    const newAPIKey = await prisma.apiKey.create({
+    const newAPIKey = await prisma.apikey.create({
       data: {
-        public_key: `pk_${public_key}`,
-        secret_key: `sk_${secret_key}`,
+        key: `uf_${generateApiKey()}`,
         user_id,
         fly_id,
+        permission: permission || "upload",
       },
     });
 
     return res.status(201).json({
       message: "API has been created",
-      keys: { pk: newAPIKey.public_key, sk: newAPIKey.secret_key },
+      key: newAPIKey.key,
     });
   } catch (error) {
     console.log(error);
