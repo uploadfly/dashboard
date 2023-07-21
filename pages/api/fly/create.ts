@@ -61,17 +61,6 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
         project_url,
       },
     });
-    const public_key = generateApiKey();
-    const secret_key = generateApiKey();
-
-    await prisma.apiKey.create({
-      data: {
-        public_key: `pk_${public_key}`,
-        secret_key: `sk_${secret_key}`,
-        user_id,
-        fly_id: fly.uuid,
-      },
-    });
 
     res.status(201).json({
       message: "Fly created",
