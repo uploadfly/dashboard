@@ -30,22 +30,28 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
     return;
   }
 
-  const userApiKey = await prisma.apiKey.findFirst({
+  const userApiKey = await prisma.apikey.findFirst({
     where: {
       user_id: req.user.uuid,
       active: true,
+      permission: "full",
     },
     select: {
-      secret_key: true,
+      key: true,
     },
   });
 
+  if (!userApiKey)
+    return res.status(401).json({
+      message: "Create an API key with full access to carry out this action",
+    });
+
   await axios
     .delete(
-      `${process.env.NEXT_PUBLIC_UPLOADFLY_URL}/delete/all?folder_id=${fly?.public_key}`,
+      `${process.env.NEXT_PUBLIC_UPLOADFLY_URL}/delete/all?fly_id=${fly_id}`,
       {
         headers: {
-          Authorization: `Bearer ${userApiKey?.secret_key}`,
+          Authorization: `Bearer ${userApiKey?.key}`,
         },
       }
     )
@@ -61,7 +67,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
       });
     });
 
-  await prisma.apiKey
+  await prisma.apikey
     .deleteMany({
       where: {
         user_id: req.user.uuid,
