@@ -32,19 +32,6 @@ model fly {
   uuid         String   @unique @default(uuid())
   name         String
   public_key   String
-  project_url String @default("")
-}
-
-model apiKey {
-  id         Int      @id @unique @default(autoincrement())
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  active     Boolean  @default(true)
-  user_id    String
-  fly_id     String
-  uuid       String   @unique @default(uuid())
-  public_key String   @unique
-  secret_key String   @unique
 }
 
 model folder {
@@ -69,4 +56,21 @@ model file {
   size             BigInt
   path             String
   fly_id           String
+}
+
+model apikey {
+  id         Int               @id @unique(map: "apiKey_id_key") @default(autoincrement())
+  created_at DateTime          @default(now())
+  updated_at DateTime
+  active     Boolean           @default(true)
+  user_id    String
+  fly_id     String
+  uuid       String            @unique(map: "apiKey_uuid_key")
+  permission apikey_permission
+  key        String            @unique(map: "apiKey_key_key")
+}
+
+enum apikey_permission {
+  upload
+  full
 }
