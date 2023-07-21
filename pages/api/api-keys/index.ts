@@ -45,16 +45,22 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(404).json({ message: "Fly not found" });
     }
 
-    const apiKeys = await prisma.apiKey.findFirst({
+    const apiKeys = await prisma.apikey.findMany({
       where: {
         fly_id: fly.uuid,
       },
+      select: {
+        uuid: true,
+        key: true,
+      },
     });
-
-    res.status(200).json({
-      sk: apiKeys?.secret_key,
-      pk: apiKeys?.public_key,
+    const apiKeysWithTruncatedKeys = apiKeys.map((key) => {
+      return {
+        uuid: key.uuid,
+        key: key.key.substring(0, 10) + "...",
+      };
     });
+    res.status(200).json(apiKeysWithTruncatedKeys);
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   }
