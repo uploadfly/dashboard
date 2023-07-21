@@ -39,34 +39,6 @@ const ApiKeys = () => {
 
   const { fly } = useFlyStore();
 
-  const [regenerating, setRegenerating] = useState<boolean>(false);
-
-  const regenerateKeys = async () => {
-    setRegenerating(true);
-    try {
-      const res = await axios.put("/api-keys/create", {
-        fly_id: fly.uuid,
-      });
-      setKeys(res.data.keys);
-      toast("Keys successfully regenerated", toastSuccessConfig);
-      setRegenerating(false);
-    } catch (error) {
-      console.log(error);
-      toast("Error regenerating keys", toastErrorConfig);
-      setRegenerating(false);
-    }
-  };
-
-  // const copyToClipboardPk = () => {
-  //   copyToClipboard(keys?.pk);
-  //   toast("Public API Key copied to clipboard", toastSuccessConfig);
-  // };
-
-  // const copyToClipboardSk = () => {
-  //   copyToClipboard(keys?.sk);
-  //   toast("Secret API Key copied to clipboard", toastSuccessConfig);
-  // };
-
   return (
     <DashboardLayout
       isChildLoading={loading}
