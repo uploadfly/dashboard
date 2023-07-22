@@ -42,6 +42,7 @@ const ApiKeys = () => {
   const { fly } = useFlyStore();
   const [showModal, setShowModal] = useState(false);
 
+  const tableHeads = ["Name", "Key", "Permission", "Created", ""];
   return (
     <DashboardLayout
       isChildLoading={loading}
@@ -52,7 +53,22 @@ const ApiKeys = () => {
       {keys.length === 0 ? (
         <NoApiKeys onClick={() => setShowModal(true)} />
       ) : (
-        <>Keys</>
+        <div className="">
+          <table className="border-collapse table-auto w-full text-sm">
+            <thead>
+              <tr>
+                {tableHeads.map((head, index) => (
+                  <th
+                    className="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left"
+                    key={index}
+                  >
+                    {head}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+          </table>
+        </div>
       )}
     </DashboardLayout>
   );
