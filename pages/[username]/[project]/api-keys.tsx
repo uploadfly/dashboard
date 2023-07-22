@@ -5,8 +5,10 @@ import { axios } from "@/configs/axios";
 import { toastErrorConfig, toastSuccessConfig } from "@/configs/toast";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import { useFlyStore } from "@/stores/flyStore";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import { IoEllipsisVertical } from "react-icons/io5";
 
 export const copyToClipboard = (str: string) => {
   const el = document.createElement("textarea");
@@ -34,12 +36,14 @@ const ApiKeys = () => {
       setLoading(false);
     }
   };
+  const { fly } = useFlyStore();
 
   useEffect(() => {
-    fetchKeys();
-  }, []);
+    if (fly?.uuid) {
+      fetchKeys();
+    }
+  }, [fly?.uuid]);
 
-  const { fly } = useFlyStore();
   const [showModal, setShowModal] = useState(false);
 
   const tableHeads = ["Name", "Key", "Permission", "Created", ""];
@@ -49,6 +53,13 @@ const ApiKeys = () => {
       childLoadingComponent={<></>}
       pageName="API Keys"
     >
+      <button
+        onClick={() => {
+          setShowModal(true);
+        }}
+      >
+        Create key
+      </button>
       <CreateApiKey show={showModal} onClick={() => setShowModal(false)} />
       {keys.length === 0 ? (
         <NoApiKeys onClick={() => setShowModal(true)} />
@@ -67,6 +78,41 @@ const ApiKeys = () => {
                 ))}
               </tr>
             </thead>
+            <tbody className="">
+              {keys.map(
+                (key: {
+                  name: string;
+                  key: string;
+                  uuid: string;
+                  permission: "full" | "upload";
+                  created_at: Date;
+                }) => (
+                  <tr key={key.uuid}>
+                    <td className="border-b border-slate-700 p-4 text-slate-400">
+                      {key.name}
+                    </td>
+                    <td className="border-b border-slate-700 p-4 text-slate-400">
+                      {key.key}
+                    </td>
+                    <td className="border-b border-slate-700 p-4 text-slate-400">
+                      {key.permission} access
+                    </td>
+                    <td className="border-b border-slate-700 p-4 text-slate-400">
+                      {moment(key.created_at).fromNow()}
+                    </td>
+                    <td className="border-b border-slate-700 p-4 text-slate-400">
+                      <div className="dropdown">
+                        <IoEllipsisVertical />
+                        <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                          <li>Edit key</li>
+                          <li>Delete key</li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                )
+              )}
+            </tbody>
           </table>
         </div>
       )}
