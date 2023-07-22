@@ -1,3 +1,4 @@
+import CreateApiKey from "@/components/CreateApiKey";
 import NoApiKeys from "@/components/NoApiKeys";
 import ApiKeysLoader from "@/components/loader/ApiKeys";
 import { axios } from "@/configs/axios";
@@ -39,6 +40,7 @@ const ApiKeys = () => {
   }, []);
 
   const { fly } = useFlyStore();
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <DashboardLayout
@@ -46,7 +48,12 @@ const ApiKeys = () => {
       childLoadingComponent={<></>}
       pageName="API Keys"
     >
-      {keys.length === 0 ? <NoApiKeys /> : <>Keys</>}
+      <CreateApiKey show={showModal} onClick={() => setShowModal(false)} />
+      {keys.length === 0 ? (
+        <NoApiKeys onClick={() => setShowModal(true)} />
+      ) : (
+        <>Keys</>
+      )}
     </DashboardLayout>
   );
 };
