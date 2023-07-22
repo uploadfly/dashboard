@@ -4,7 +4,7 @@ const NoApiKeys = () => {
   return (
     <div className="flex items-center justify-center flex-col mt-20">
       <h1 className="text-2xl font-semibold mb-2">
-        You don't have any API Keys yet.
+        {`You don't have any API Keys yet.`}
       </h1>
       <p className="text mb-4 w-[450px] text-center">
         API Keys are randomly generated alpha-numeric strings that are used to
