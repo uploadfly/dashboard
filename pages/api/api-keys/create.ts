@@ -69,4 +69,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default allowMethods(["PUT"])(handler);
+export default allowMethods(["POST"])(handler);
