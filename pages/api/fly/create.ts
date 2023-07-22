@@ -3,7 +3,6 @@ import { generateRandomKey } from "@/utils/generateRandomKey";
 import { NextApiResponse } from "next";
 import { allowMethods } from "next-method-guard";
 import generate from "boring-name-generator";
-import { generateApiKey } from "@/utils/generateApiKey";
 import validator from "validator";
 import { ExtendedRequest } from "@/interfaces";
 import authenticateToken from "@/middleware/auth";
