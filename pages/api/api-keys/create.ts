@@ -3,10 +3,11 @@ import { generateApiKey } from "@/utils/generateApiKey";
 import jwt from "jsonwebtoken";
 import { NextApiRequest, NextApiResponse } from "next";
 import { allowMethods } from "next-method-guard";
+import generate from "boring-name-generator";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const { fly_id, permission } = req.body;
+    const { fly_id, permission, name } = req.body;
 
     const token = req.cookies.access_token;
     if (!token) {
@@ -17,6 +18,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       uuid: string;
     };
     const user_id = decoded.uuid;
+
+    const keyNameRegex = /^(?!-)(?!.*--)[a-z0-9-]{1,50}(?<!-)$/i;
+
+    if (name && !keyNameRegex.test(name)) {
+      return res.status(400).json({
+        message:
+          "Key names can contain up 50 alphanumeric lowercase characters. Hyphens can be used between the name but never at the start or end.",
+      });
+    }
 
     if (!fly_id) return res.status(400).json({ message: "Missing fly id" });
     const user = await prisma.user.findUnique({
@@ -41,6 +51,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const newAPIKey = await prisma.apikey.create({
       data: {
+        name: name || generate().dashed,
         key: `uf_${generateApiKey()}`,
         user_id,
         fly_id,
