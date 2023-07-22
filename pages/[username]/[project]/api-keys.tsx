@@ -1,3 +1,4 @@
+import NoApiKeys from "@/components/NoApiKeys";
 import ApiKeysLoader from "@/components/loader/ApiKeys";
 import { axios } from "@/configs/axios";
 import { toastErrorConfig, toastSuccessConfig } from "@/configs/toast";
@@ -42,14 +43,10 @@ const ApiKeys = () => {
   return (
     <DashboardLayout
       isChildLoading={loading}
-      childLoadingComponent={<ApiKeysLoader />}
+      childLoadingComponent={<></>}
       pageName="API Keys"
     >
-      <h1 className="text-2xl font-semibold">API Keys</h1>
-      <p className="mt-2 text-sm text-gray-400">
-        View and manage your Uploadfly API keys
-      </p>
-      {keys.length === 0 ? <>No keys</> : <>Keys</>}
+      {keys.length === 0 ? <NoApiKeys /> : <>Keys</>}
     </DashboardLayout>
   );
 };
