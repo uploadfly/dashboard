@@ -52,11 +52,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       select: {
         uuid: true,
         key: true,
+        permission: true,
+        created_at: true,
       },
     });
     const apiKeysWithTruncatedKeys = apiKeys.map((key) => {
       return {
-        uuid: key.uuid,
+        ...key,
         key: key.key.substring(0, 10) + "...",
       };
     });
