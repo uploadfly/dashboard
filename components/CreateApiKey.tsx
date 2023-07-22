@@ -24,6 +24,19 @@ const CreateApiKey = ({
                 <IoClose />
               </button>
             </div>
+            <form className="w-full flex flex-col items-center gap-4 mt-4">
+              <div className="w-full">
+                <p>Name</p>
+                <input
+                  type="text"
+                  className="w-full border-2 pl-3 bg-transparent py-1 rounded-md outline-none border-uf-accent/40 mt-2 focus:border-uf-accent/80"
+                />
+              </div>
+              <div className="w-full">
+                <p>Permission</p>
+                <input className="w-full border-2 pl-3 bg-transparent py-1 rounded-md outline-none border-uf-accent/40 mt-2 focus:border-uf-accent/80"/>
+              </div>
+            </form>
           </div>
         </div>
       )}
