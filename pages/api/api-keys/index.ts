@@ -54,6 +54,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         key: true,
         permission: true,
         created_at: true,
+        name: true,
       },
     });
     const apiKeysWithTruncatedKeys = apiKeys.map((key) => {
