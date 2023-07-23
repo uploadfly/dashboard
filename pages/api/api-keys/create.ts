@@ -64,6 +64,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       key: newAPIKey.key,
       uuid: newAPIKey.uuid,
       name: newAPIKey.name,
+      permission: newAPIKey.permission,
     });
   } catch (error) {
     console.log(error);
