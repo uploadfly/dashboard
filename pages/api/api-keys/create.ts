@@ -62,6 +62,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(201).json({
       message: "API has been created",
       key: newAPIKey.key,
+      uuid: newAPIKey.uuid,
+      name: newAPIKey.name,
     });
   } catch (error) {
     console.log(error);
