@@ -1,6 +1,10 @@
 import { axios } from "@/configs/axios";
-import { copyToClipboard } from "@/pages/[username]/[project]/api-keys";
+import {
+  KeyProps,
+  copyToClipboard,
+} from "@/pages/[username]/[project]/api-keys";
 import { useFlyStore } from "@/stores/flyStore";
+import { on } from "events";
 import { useState } from "react";
 import { BsQuestionCircle } from "react-icons/bs";
 import { IoClose, IoCopy, IoWarningOutline } from "react-icons/io5";
@@ -9,9 +13,11 @@ import { RiLoader5Fill } from "react-icons/ri";
 const CreateApiKey = ({
   show,
   onClick,
+  onKeyCreated,
 }: {
   show: boolean;
   onClick: () => void;
+  onKeyCreated: (newKey: KeyProps) => void;
 }) => {
   const [creating, setCreating] = useState(false);
   const [isCreated, setIsCreated] = useState(false);
@@ -32,6 +38,7 @@ const CreateApiKey = ({
       setCreating(false);
       setIsCreated(true);
       setData(data);
+      onKeyCreated(data);
       console.log(data);
     } catch (error: any) {
       setCreating(false);
