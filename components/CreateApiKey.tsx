@@ -40,12 +40,21 @@ const CreateApiKey = ({
   };
 
   const [dataTip, setDataTip] = useState("Copy");
+
+  const clearStates = () => {
+    onClick();
+    setData(null);
+    setIsCreated(false);
+    setPermission("full");
+    setName("");
+  };
+
   return (
     <>
       {show && (
         <div
           className="w-full h-full flex justify-center items-center bg-uf-dark/20 fixed top-0 right-0 z-50 backdrop-blur-md"
-          onClick={onClick}
+          onClick={clearStates}
         >
           <div
             className="bg-uf-dark rounded-md p-4 w-[500px] border border-uf-accent/20 flex flex-col items-center"
@@ -55,7 +64,7 @@ const CreateApiKey = ({
               <h3 className="font-semibold">
                 {isCreated ? "View" : "Create"} API key
               </h3>
-              <button onClick={onClick} className="text-2xl">
+              <button onClick={clearStates} className="text-2xl">
                 <IoClose />
               </button>
             </div>
