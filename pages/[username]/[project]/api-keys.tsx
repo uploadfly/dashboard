@@ -20,8 +20,16 @@ export const copyToClipboard = (str: string) => {
 };
 // Written by Amazon CodeWhisperer
 
+export interface KeyProps {
+  name: string;
+  uuid: string;
+  key: string;
+  permission: string;
+  created_at: string;
+}
+
 const ApiKeys = () => {
-  const [keys, setKeys] = useState([]);
+  const [keys, setKeys] = useState<KeyProps[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   const fetchKeys = async () => {
@@ -47,6 +55,11 @@ const ApiKeys = () => {
   const [showModal, setShowModal] = useState(false);
 
   const tableHeads = ["Name", "Key", "Permission", "Created", ""];
+
+  const handleNewKey = (newKeyData: KeyProps) => {
+    setKeys((prevKeys) => [...prevKeys, newKeyData]);
+  };
+
   return (
     <DashboardLayout
       isChildLoading={loading}
@@ -60,7 +73,11 @@ const ApiKeys = () => {
       >
         Create key
       </button>
-      <CreateApiKey show={showModal} onClick={() => setShowModal(false)} />
+      <CreateApiKey
+        show={showModal}
+        onClick={() => setShowModal(false)}
+        onKeyCreated={handleNewKey}
+      />
       {keys.length === 0 ? (
         <NoApiKeys onClick={() => setShowModal(true)} />
       ) : (
@@ -79,39 +96,31 @@ const ApiKeys = () => {
               </tr>
             </thead>
             <tbody className="">
-              {keys.map(
-                (key: {
-                  name: string;
-                  key: string;
-                  uuid: string;
-                  permission: "full" | "upload";
-                  created_at: Date;
-                }) => (
-                  <tr key={key.uuid}>
-                    <td className="border-b border-slate-700 p-4 text-slate-400">
-                      {key.name}
-                    </td>
-                    <td className="border-b border-slate-700 p-4 text-slate-400">
-                      {key.key}
-                    </td>
-                    <td className="border-b border-slate-700 p-4 text-slate-400">
-                      {key.permission} access
-                    </td>
-                    <td className="border-b border-slate-700 p-4 text-slate-400">
-                      {moment(key.created_at).fromNow()}
-                    </td>
-                    <td className="border-b border-slate-700 p-4 text-slate-400">
-                      <div className="dropdown">
-                        <IoEllipsisVertical />
-                        <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-                          <li>Edit key</li>
-                          <li>Delete key</li>
-                        </ul>
-                      </div>
-                    </td>
-                  </tr>
-                )
-              )}
+              {keys.map((key) => (
+                <tr key={key.uuid}>
+                  <td className="border-b border-slate-700 p-4 text-slate-400">
+                    {key.name}
+                  </td>
+                  <td className="border-b border-slate-700 p-4 text-slate-400">
+                    {key.key}
+                  </td>
+                  <td className="border-b border-slate-700 p-4 text-slate-400">
+                    {key.permission} access
+                  </td>
+                  <td className="border-b border-slate-700 p-4 text-slate-400">
+                    {moment(key.created_at).fromNow()}
+                  </td>
+                  <td className="border-b border-slate-700 p-4 text-slate-400">
+                    <div className="dropdown">
+                      <IoEllipsisVertical />
+                      <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                        <li>Edit key</li>
+                        <li>Delete key</li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
