@@ -30,15 +30,21 @@ const CreateApiKey = ({
   const createKey = async () => {
     setCreating(true);
     try {
-      const { data } = await axios.post("/api-keys/create?fly_id", {
-        fly_id: fly?.uuid,
-        name,
-        permission,
-      });
+      const { data }: { data: KeyProps } = await axios.post(
+        "/api-keys/create?fly_id",
+        {
+          fly_id: fly?.uuid,
+          name,
+          permission,
+        }
+      );
       setCreating(false);
       setIsCreated(true);
       setData(data);
-      onKeyCreated(data);
+      onKeyCreated({
+        ...data,
+        key: data.key.substring(0, 10) + "...",
+      });
       console.log(data);
     } catch (error: any) {
       setCreating(false);
