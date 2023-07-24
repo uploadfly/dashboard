@@ -91,7 +91,11 @@ const ApiKeys = () => {
       <DeleteApiKey
         keyObj={key}
         onClick={() => setKey(null)}
-        onKeyDeleted={() => setKey(null)}
+        onKeyDeleted={() => {
+          const updatedKeys = keys.filter((k) => k.uuid !== key?.uuid);
+          setKeys(updatedKeys);
+          setKey(null);
+        }}
       />
 
       {keys.length === 0 ? (
@@ -129,10 +133,7 @@ const ApiKeys = () => {
                   <td className="border-b border-slate-700 p-4 text-slate-400">
                     <button
                       className="p-2 hover:bg-slate-200/10 rounded"
-                      onClick={() => {
-                        setKey(key);
-                        console.log(key);
-                      }}
+                      onClick={() => setKey(key)}
                     >
                       <HiTrash />
                     </button>
