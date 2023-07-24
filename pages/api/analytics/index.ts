@@ -45,8 +45,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!fly) return res.status(400).json({ message: "Invalid fly id" });
 
     const fileUploads = await prisma.file.groupBy({
-      by: ["created_at"],
-      _count: { created_at: true },
+      by: ["date"],
+      _count: { date: true },
       where: {
         fly_id: fly?.uuid,
       },
@@ -54,30 +54,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const fileUploadAnalytics: FileUploadAnalytics[] = fileUploads.map(
       (item) => ({
-        date: item.created_at.toISOString().split("T")[0],
-        count: item._count.created_at,
+        date: item.date,
+        count: item._count.date,
       })
     );
 
-    const dailyCounts: { [date: string]: number } = {};
-
-    fileUploadAnalytics.forEach((item) => {
-      const { date, count } = item;
-      if (dailyCounts[date]) {
-        dailyCounts[date] += count;
-      } else {
-        dailyCounts[date] = count;
-      }
-    });
-
-    const result: FileUploadAnalytics[] = Object.keys(dailyCounts).map(
-      (date) => ({
-        date,
-        count: dailyCounts[date],
-      })
-    );
-
-    return res.status(200).json(result);
+    return res.status(200).json(fileUploadAnalytics);
   } catch (error) {
     console.log(error);
 
