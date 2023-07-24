@@ -1,6 +1,8 @@
 import { axios } from "@/configs/axios";
+import { toastSuccessConfig } from "@/configs/toast";
 import { KeyProps } from "@/pages/[username]/[project]/api-keys";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 import { RiLoader5Fill } from "react-icons/ri";
 
 const DeleteApiKey = ({
@@ -20,6 +22,7 @@ const DeleteApiKey = ({
       await axios.delete(`/api-keys/delete?key_id=${keyObj?.uuid}`);
       setDeleting(false);
       onKeyDeleted();
+      toast("API Key deleted successfully", toastSuccessConfig);
     } catch (error) {
       setDeleting(false);
       console.log(error);
