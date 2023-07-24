@@ -56,6 +56,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         created_at: true,
         name: true,
       },
+      orderBy: {
+        created_at: "desc",
+      },
     });
     const apiKeysWithTruncatedKeys = apiKeys.map((key) => {
       return {
