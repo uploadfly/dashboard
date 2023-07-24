@@ -58,6 +58,7 @@ model file {
   path             String
   fly_id           String
   uuid             String   @unique @default(uuid())
+  date             String
 }
 
 model apikey {
@@ -70,7 +71,7 @@ model apikey {
   uuid       String            @unique() @default(uuid())
   permission apikey_permission
   key        String            @unique()
-  name       String            
+  name       String           
 }
 
 enum apikey_permission {
