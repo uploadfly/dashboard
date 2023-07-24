@@ -8,6 +8,8 @@ import { RiLoader5Fill } from "react-icons/ri";
 import { useRouter } from "next/router";
 import { IoFileTrayFull } from "react-icons/io5";
 import fileSize from "file-size";
+import { toast } from "react-hot-toast";
+import { toastErrorConfig } from "@/configs/toast";
 
 const formatNumber = (number: number): string => {
   if (number >= 0 && number <= 999) {
@@ -55,9 +57,10 @@ const DeleteModal = ({
       await axios.delete(`/fly/delete?fly_id=${fly?.uuid}`);
       setDeleting(false);
       router.push(`/${user?.username}`);
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       setDeleting(false);
+      toast(error.response.data.message, toastErrorConfig);
     }
   };
 
