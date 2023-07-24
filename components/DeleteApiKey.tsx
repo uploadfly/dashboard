@@ -1,4 +1,7 @@
+import { axios } from "@/configs/axios";
 import { KeyProps } from "@/pages/[username]/[project]/api-keys";
+import { useState } from "react";
+import { RiLoader5Fill } from "react-icons/ri";
 
 const DeleteApiKey = ({
   keyObj,
@@ -9,6 +12,22 @@ const DeleteApiKey = ({
   onClick: () => void;
   onKeyDeleted: () => void;
 }) => {
+  const [deleting, setDeleting] = useState<boolean>(false);
+
+  const deleteKey = async () => {
+    setDeleting(true);
+    try {
+      await axios.delete(`/api-keys/delete?key_id=${keyObj?.uuid}`);
+      setDeleting(false);
+      onKeyDeleted();
+    } catch (error) {
+      setDeleting(false);
+      console.log(error);
+    }
+  };
+
+  const [phrase, setPhrase] = useState<string>("");
+
   return (
     <>
       {keyObj && (
@@ -33,13 +52,28 @@ const DeleteApiKey = ({
               <p>
                 Type <b>DELETE</b> to confirm
               </p>
-              <form>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  deleteKey();
+                  setPhrase("");
+                }}
+              >
                 <input
                   type="text"
-                  className="w-full rounded-md bg-transparent border-2 text-lg py-1 my-2 border-uf-accent/40"
+                  value={phrase}
+                  onChange={(e) => setPhrase(e.target.value)}
+                  className="w-full rounded-md bg-transparent border-2 text-lg font-semibold pl-3 py-1 my-2 border-uf-accent/40"
                 />
-                <button className="bg-red-600 text-uf-dark rounded-md px-6 font-semibold py-2">
-                  Delete
+                <button
+                  className="bg-red-600 text-uf-dark rounded-md px-6 font-semibold py-2 disabled:opacity-50"
+                  disabled={deleting || phrase !== "DELETE"}
+                >
+                  {deleting ? (
+                    <RiLoader5Fill className="animate-spin text-xl" />
+                  ) : (
+                    "Delete"
+                  )}
                 </button>
               </form>
             </div>
