@@ -126,6 +126,7 @@ const CreateApiKey = ({
                       setName(e.target.value.toLocaleLowerCase())
                     }
                     value={name}
+                    autoFocus
                   />
                 </div>
                 <div className="w-full">
