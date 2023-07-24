@@ -55,7 +55,10 @@ const ApiKeys = () => {
   const tableHeads = ["Name", "Key", "Permission", "Created", ""];
 
   const handleNewKey = (newKeyData: KeyProps) => {
-    setKeys((prevKeys) => [...prevKeys, newKeyData]);
+    setKeys((prevKeys) => {
+      prevKeys.unshift(newKeyData);
+      return [...prevKeys];
+    });
   };
 
   return (
