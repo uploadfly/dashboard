@@ -63,7 +63,7 @@ const DeleteApiKey = ({
                   type="text"
                   value={phrase}
                   onChange={(e) => setPhrase(e.target.value)}
-                  className="w-full rounded-md bg-transparent border-2 text-lg font-semibold pl-3 py-1 my-2 border-uf-accent/40"
+                  className="w-full rounded-md bg-transparent border-2 font-semibold pl-2 py-1 my-2 border-uf-accent/40"
                 />
                 <button
                   className="bg-red-600 text-uf-dark rounded-md px-6 font-semibold py-2 disabled:opacity-50"
