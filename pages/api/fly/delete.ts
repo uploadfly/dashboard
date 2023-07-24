@@ -65,6 +65,9 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
       res.status(200).json({
         message: "Fly deleted successfully",
       });
+    })
+    .catch((error) => {
+      res.status(500).json({ message: "Something went wrong." });
     });
 
   await prisma.apikey
