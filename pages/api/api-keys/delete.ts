@@ -5,7 +5,7 @@ import { NextApiResponse } from "next";
 import { allowMethods } from "next-method-guard";
 
 const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
-  const { key_id } = req.body;
+  const key_id = req.query.key_id as string;
 
   if (!key_id) {
     res.status(400).json({
