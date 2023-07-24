@@ -4,7 +4,6 @@ import {
   copyToClipboard,
 } from "@/pages/[username]/[project]/api-keys";
 import { useFlyStore } from "@/stores/flyStore";
-import { on } from "events";
 import { useState } from "react";
 import { BsQuestionCircle } from "react-icons/bs";
 import { IoClose, IoCopy, IoWarningOutline } from "react-icons/io5";
@@ -19,11 +18,11 @@ const CreateApiKey = ({
   onClick: () => void;
   onKeyCreated: (newKey: KeyProps) => void;
 }) => {
-  const [creating, setCreating] = useState(false);
-  const [isCreated, setIsCreated] = useState(false);
-  const [name, setName] = useState("");
-  const [permission, setPermission] = useState("full");
-  const [data, setData] = useState<any>(null);
+  const [creating, setCreating] = useState<boolean>(false);
+  const [isCreated, setIsCreated] = useState<boolean>(false);
+  const [name, setName] = useState<string>("");
+  const [permission, setPermission] = useState<"upload" | "full">("full");
+  const [data, setData] = useState<KeyProps | null>();
 
   const { fly } = useFlyStore();
 
@@ -103,7 +102,7 @@ const CreateApiKey = ({
                         setTimeout(() => {
                           setDataTip("Copy");
                         }, 500);
-                        copyToClipboard(data?.key);
+                        copyToClipboard(data?.key as string);
                       }}
                     />
                   </div>
@@ -141,7 +140,9 @@ const CreateApiKey = ({
                   </div>
                   <select
                     className="w-full border-2 pl-3 bg-transparent py-1 rounded-md outline-none border-uf-accent/40 mt-2 focus:border-uf-accent/80 font-semibold"
-                    onChange={(e) => setPermission(e.target.value)}
+                    onChange={(e) =>
+                      setPermission(e.target.value as "upload" | "full")
+                    }
                   >
                     <option value="full" className="bg-uf-dark" selected>
                       Full access
