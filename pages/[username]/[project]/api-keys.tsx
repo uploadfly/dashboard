@@ -1,4 +1,5 @@
 import CreateApiKey from "@/components/CreateApiKey";
+import DeleteApiKey from "@/components/DeleteApiKey";
 import NoApiKeys from "@/components/NoApiKeys";
 import ApiKeysLoader from "@/components/loader/ApiKeys";
 import { axios } from "@/configs/axios";
@@ -61,6 +62,8 @@ const ApiKeys = () => {
     });
   };
 
+  const [key, setKey] = useState<KeyProps | null>(null);
+
   return (
     <DashboardLayout
       isChildLoading={loading}
@@ -84,6 +87,13 @@ const ApiKeys = () => {
         onClick={() => setShowModal(false)}
         onKeyCreated={handleNewKey}
       />
+
+      <DeleteApiKey
+        keyObj={key}
+        onClick={() => setKey(null)}
+        onKeyDeleted={() => setKey(null)}
+      />
+
       {keys.length === 0 ? (
         <NoApiKeys onClick={() => setShowModal(true)} />
       ) : (
@@ -117,7 +127,13 @@ const ApiKeys = () => {
                     {moment(key.created_at).fromNow()}
                   </td>
                   <td className="border-b border-slate-700 p-4 text-slate-400">
-                    <button className="p-2 hover:bg-slate-200/10 rounded">
+                    <button
+                      className="p-2 hover:bg-slate-200/10 rounded"
+                      onClick={() => {
+                        setKey(key);
+                        console.log(key);
+                      }}
+                    >
                       <HiTrash />
                     </button>
                   </td>
