@@ -8,6 +8,7 @@ import { useFlyStore } from "@/stores/flyStore";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import { HiPlus, HiTrash } from "react-icons/hi2";
 import { IoEllipsisVertical } from "react-icons/io5";
 
 export const copyToClipboard = (str: string) => {
@@ -66,13 +67,18 @@ const ApiKeys = () => {
       childLoadingComponent={<></>}
       pageName="API Keys"
     >
-      <button
-        onClick={() => {
-          setShowModal(true);
-        }}
-      >
-        Create key
-      </button>
+      <div className="flex justify-between items-center mb-10">
+        <h1 className="text-2xl font-bold">API Keys</h1>
+        <button
+          className="flex gap-2 bg-uf-light text-uf-dark items-center px-3 font-semibold py-2 rounded-md hover:bg-uf-accent hover:text-uf-dark transition-colors"
+          onClick={() => {
+            setShowModal(true);
+          }}
+        >
+          <HiPlus />
+          Create a new key
+        </button>
+      </div>
       <CreateApiKey
         show={showModal}
         onClick={() => setShowModal(false)}
@@ -111,13 +117,9 @@ const ApiKeys = () => {
                     {moment(key.created_at).fromNow()}
                   </td>
                   <td className="border-b border-slate-700 p-4 text-slate-400">
-                    <div className="dropdown">
-                      <IoEllipsisVertical />
-                      <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-                        <li>Edit key</li>
-                        <li>Delete key</li>
-                      </ul>
-                    </div>
+                    <button className="p-2 hover:bg-slate-200/10 rounded">
+                      <HiTrash />
+                    </button>
                   </td>
                 </tr>
               ))}
