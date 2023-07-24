@@ -102,34 +102,27 @@ const ApiKeys = () => {
               </tr>
             </thead>
             <tbody className="">
-              {keys
-                .sort((a, b) => {
-                  return (
-                    new Date(b.created_at).getTime() -
-                    new Date(a.created_at).getTime()
-                  );
-                })
-                .map((key) => (
-                  <tr key={key.uuid}>
-                    <td className="border-b border-slate-700 p-4 text-slate-400">
-                      {key.name}
-                    </td>
-                    <td className="border-b border-slate-700 p-4 text-slate-400">
-                      {key.key}
-                    </td>
-                    <td className="border-b border-slate-700 p-4 text-slate-400">
-                      {key.permission} access
-                    </td>
-                    <td className="border-b border-slate-700 p-4 text-slate-400">
-                      {moment(key.created_at).fromNow()}
-                    </td>
-                    <td className="border-b border-slate-700 p-4 text-slate-400">
-                      <button className="p-2 hover:bg-slate-200/10 rounded">
-                        <HiTrash />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+              {keys.map((key) => (
+                <tr key={key.uuid}>
+                  <td className="border-b border-slate-700 p-4 text-slate-400">
+                    {key.name}
+                  </td>
+                  <td className="border-b border-slate-700 p-4 text-slate-400">
+                    {key.key}
+                  </td>
+                  <td className="border-b border-slate-700 p-4 text-slate-400">
+                    {key.permission} access
+                  </td>
+                  <td className="border-b border-slate-700 p-4 text-slate-400">
+                    {moment(key.created_at).fromNow()}
+                  </td>
+                  <td className="border-b border-slate-700 p-4 text-slate-400">
+                    <button className="p-2 hover:bg-slate-200/10 rounded">
+                      <HiTrash />
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
