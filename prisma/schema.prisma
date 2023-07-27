@@ -71,7 +71,28 @@ model apikey {
   uuid       String            @unique() @default(uuid())
   permission apikey_permission
   key        String            @unique()
-  name       String           
+  name       String            
+}
+
+model log {
+  id         Int               @id @unique() @default(autoincrement())
+  created_at DateTime          @default(now())
+  updated_at DateTime          @updatedAt
+  method     log_method
+  endpoint   String
+  status     Int
+  response_body   Json
+  request_body   Json
+  date       String
+  fly_id     String            @default("")
+  ip_address String           @default("0.0.0.0")
+}
+
+
+enum log_method {
+  post
+  get
+  delete
 }
 
 enum apikey_permission {
