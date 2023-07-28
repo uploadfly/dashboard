@@ -49,7 +49,10 @@ const Signup = () => {
     } catch (error: any) {
       console.log(error.response);
       setLoading(false);
-      toast(error.response?.data?.message, toastErrorConfig);
+      toast(
+        error.response?.data?.message || "Something went wrong",
+        toastErrorConfig
+      );
     }
   };
 
