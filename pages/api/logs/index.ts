@@ -37,6 +37,10 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
         created_at: true,
         endpoint: true,
         method: true,
+        status: true,
+      },
+      orderBy: {
+        created_at: "desc",
       },
     });
 
