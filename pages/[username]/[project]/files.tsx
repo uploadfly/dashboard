@@ -51,11 +51,11 @@ const Files = () => {
             }`}
           >
             <table className="border-collapse table-auto w-full text-sm">
-              <thead>
+              <thead className="bg-uf-accent/10">
                 <tr>
                   {tableHeads.map((head, index) => (
                     <th
-                      className="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left"
+                      className="border-b border-uf-accent/80 font-medium py-2 text-uf-light text-left pl-5"
                       key={index}
                     >
                       {head}
