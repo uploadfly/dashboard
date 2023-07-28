@@ -11,11 +11,13 @@ const DashboardLayout = ({
   isChildLoading,
   childLoadingComponent,
   pageName,
+  button,
 }: {
   children: ReactNode;
   isChildLoading?: boolean;
   childLoadingComponent?: ReactNode;
   pageName: string;
+  button?: ReactNode;
 }) => {
   const { fly, setFly } = useFlyStore();
   const [status, setStatus] = useState<number>();
@@ -62,8 +64,12 @@ const DashboardLayout = ({
       ) : (
         <>
           <Navbar />
-          <div className="w-full pb-10">
+          <div className="pb-10">
             <div className="w-full mt-10 px-14 min-h-[calc(100vh-150px)]">
+              <div className="flex justify-between items-center mb-10">
+                <h1 className="text-2xl font-bold">{pageName}</h1>
+                {button}
+              </div>
               {children}
             </div>
           </div>
