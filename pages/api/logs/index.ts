@@ -39,7 +39,12 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
         method: true,
       },
     });
-  } catch (error) {}
+    res.status(200).json(logs);
+  } catch (error) {
+    res.status(500).json({
+      message: "Something went wrong",
+    });
+  }
 };
 
 export default allowMethods(["GET"])(
