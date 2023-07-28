@@ -8,6 +8,7 @@ import {
   HiKey,
   HiShieldCheck,
   HiCog8Tooth,
+  HiQueueList,
 } from "react-icons/hi2";
 import { RiPieChart2Fill } from "react-icons/ri";
 
@@ -34,21 +35,26 @@ const NavLinks = ({ loading }: { loading: boolean }) => {
       path: "/files",
       icon: <HiFolderOpen />,
     },
+    // {
+    //   name: "Usage & Analytics",
+    //   path: "/usage-analytics",
+    //   icon: <RiPieChart2Fill />,
+    // },
     {
-      name: "Usage & Analytics",
-      path: "/usage-analytics",
-      icon: <RiPieChart2Fill />,
+      name: "Logs",
+      path: "/logs",
+      icon: <HiQueueList />,
     },
     {
       name: "API Keys",
       path: "/api-keys",
       icon: <HiKey />,
     },
-    {
-      name: "Rules",
-      path: "/rules",
-      icon: <HiShieldCheck />,
-    },
+    // {
+    //   name: "Rules",
+    //   path: "/rules",
+    //   icon: <HiShieldCheck />,
+    // },
     {
       name: "Settings",
       path: "/settings",
