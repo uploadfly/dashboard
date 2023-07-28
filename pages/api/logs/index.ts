@@ -33,8 +33,10 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
         fly_id: fly.uuid,
       },
       select: {
+        uuid: true,
+        created_at: true,
         endpoint: true,
-        ip_address: true,
+        method: true,
       },
     });
   } catch (error) {}
