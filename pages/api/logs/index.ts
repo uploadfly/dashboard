@@ -39,6 +39,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
         method: true,
       },
     });
+
     res.status(200).json(logs);
   } catch (error) {
     res.status(500).json({
