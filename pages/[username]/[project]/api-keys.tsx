@@ -69,21 +69,22 @@ const ApiKeys = () => {
       isChildLoading={loading}
       childLoadingComponent={<></>}
       pageName="API Keys"
+      button={
+        <>
+          {keys.length > 0 && (
+            <button
+              className="flex gap-2 bg-uf-light text-uf-dark items-center px-3 font-semibold py-2 rounded-md hover:bg-uf-accent hover:text-uf-dark transition-colors"
+              onClick={() => {
+                setShowModal(true);
+              }}
+            >
+              <HiPlus />
+              Create a new key
+            </button>
+          )}
+        </>
+      }
     >
-      <div className="flex justify-between items-center mb-10">
-        <h1 className="text-2xl font-bold">API Keys</h1>
-        {keys.length > 0 && (
-          <button
-            className="flex gap-2 bg-uf-light text-uf-dark items-center px-3 font-semibold py-2 rounded-md hover:bg-uf-accent hover:text-uf-dark transition-colors"
-            onClick={() => {
-              setShowModal(true);
-            }}
-          >
-            <HiPlus />
-            Create a new key
-          </button>
-        )}
-      </div>
       <CreateApiKey
         show={showModal}
         onClick={() => setShowModal(false)}
