@@ -27,14 +27,14 @@ const FlyCard = ({
   return (
     <Link
       href={`${user?.username}/${name}`}
-      className="flex flex-col justify-between rounded p-3 text-primary shadow-md border border-gray-600 transition duration-150 hover:border-uf-accent"
+      className="flex flex-col justify-between rounded p-3 text-primary shadow-md border border-gray-600 transition duration-150 hover:border-uf-accent w-full"
       onClick={() => setFly(name, uuid)}
     >
       <h2 className="text-lg font-bold shiny-text">{name}</h2>
       <div className="my-14">
         <div className="flex justify-between mb-1">
-          <p>{filesize(used).human("si")}</p>
-          <p>{filesize(storage).human("si")}</p>
+          <p className="text-uf-light">{filesize(used).human("si")}</p>
+          <p className="text-uf-light">{filesize(storage).human("si")}</p>
         </div>
         <div className="w-full h-2 bg-slate-200 rounded-full">
           <div
@@ -43,7 +43,7 @@ const FlyCard = ({
           ></div>
         </div>
       </div>
-      <p>{moment(updated).fromNow()}</p>
+      <p className="text-uf-light">{moment(updated).fromNow()}</p>
     </Link>
   );
 };
