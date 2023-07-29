@@ -62,7 +62,7 @@ const AuthLayout = ({
         className={`abosolute top-0 w-full h-full bg-uf-dark flex items-center justify-center`}
       >
         <div
-          className="w-[35%] h-full flex items-center justify-center"
+          className="w-[35%] h-full lg:flex hidden items-center justify-center"
           style={{
             backgroundImage:
               "linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url(/grid-bg.png)",
@@ -72,7 +72,7 @@ const AuthLayout = ({
         >
           <img src="/logo.svg" alt="" className="w-40 opacity-70" />
         </div>
-        <div className="flex-col w-[65%] h-full bg-uf-dark flex relative items-center justify-center">
+        <div className="flex-col w-[65%] h-full bg-uf-dark flex relative items-center lg:justify-center lg:mt-0 mt-48">
           <div className="h-full w-full absolute animate-opacity pointer-events-none"></div>
           <div className="mb-8">
             <h1 className="shiny-text text-3xl">{text}</h1>
