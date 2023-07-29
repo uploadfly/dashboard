@@ -10,15 +10,16 @@ import { useEffect, useState } from "react";
 const Files = () => {
   const [files, setFiles] = useState<FileProps[]>([]);
 
-  const [selectedFiles, setSelectedFiles] = useState<FileProps[]>([]);
+  // const [selectedFiles, setSelectedFiles] = useState<FileProps[]>([]);
+  const [selectedFile, setSelectedFile] = useState<FileProps | null>();
 
-  const selection = (type?: "all") => {
-    if (type === "all") {
-      setSelectedFiles([...files]);
-      return;
-    }
-    setSelectedFiles([]);
-  };
+  // const selection = (type?: "all") => {
+  //   if (type === "all") {
+  //     setSelectedFiles([...files]);
+  //     return;
+  //   }
+  //   setSelectedFiles([]);
+  // };
 
   const { fly } = useFlyStore();
 
@@ -47,7 +48,7 @@ const Files = () => {
         <div className="flex gap-5">
           <div
             className={`h-full w-full flex relative transition-all ${
-              selectedFiles.length > 0 ? "mr-96" : "mr-0"
+              selectedFile ? "mr-96" : "mr-0"
             }`}
           >
             <table className="border-collapse table-auto w-full text-sm">
@@ -70,16 +71,21 @@ const Files = () => {
                     name={file.name}
                     size={file.size}
                     type={file.type}
-                    selected={selectedFiles.includes(file)}
+                    selected={selectedFile == file}
                     uploaded={file.created_at}
                     onClick={() => {
-                      if (selectedFiles.includes(file)) {
-                        setSelectedFiles(
-                          selectedFiles.filter((f) => f !== file)
-                        );
+                      // if (selectedFiles.includes(file)) {
+                      //   setSelectedFiles(
+                      //     selectedFiles.filter((f) => f !== file)
+                      //   );
+                      //   return;
+                      // }
+                      // setSelectedFiles([...selectedFiles, file]);
+                      if (selectedFile === file) {
+                        setSelectedFile(null);
                         return;
                       }
-                      setSelectedFiles([...selectedFiles, file]);
+                      setSelectedFile(file);
                     }}
                   />
                 ))}
@@ -87,10 +93,10 @@ const Files = () => {
             </table>
             <div
               className={`h-fit bg-gray-900/50 fixed right-5 transition-all rounded-md ${
-                selectedFiles.length > 0 ? "w-96" : "w-0"
+                selectedFile ? "w-96" : "w-0"
               }`}
             >
-              <SelectedFile files={selectedFiles} />
+              <SelectedFile file={selectedFile} />
             </div>
           </div>
         </div>
