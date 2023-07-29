@@ -16,6 +16,7 @@ const FlyingThing = ({
         backgroundImage:
           "linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url(/grid-bg.png)",
         backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
     >
       <small className="bg-[rgba(255,255,255,0.1)] border-[1px] border-solid rounded-md px-2">
@@ -26,7 +27,7 @@ const FlyingThing = ({
         alt="logo"
         className="w-30 drop-shadow-2xl mb-6 mt-3"
       />
-      <h1 className="text-5xl font-semibold">
+      <h1 className="lg:text-5xl text-3xl text-center font-semibold">
         File uploads that <span className="">fly</span>
       </h1>
       <p
