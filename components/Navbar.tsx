@@ -29,7 +29,7 @@ const Navbar = () => {
       ) : (
         <div className="z-50 bg-uf-dark/70 backdrop-blur-md">
           <>
-            <div className="flex items-center px-10 py-4 justify-between">
+            <div className="flex items-center lg:px-10 px-3 py-4 justify-between">
               <div className="flex items-center gap-5 font-semibold text-lg">
                 <Image
                   src={"/logo.svg"}
