@@ -1,7 +1,9 @@
 import { axios } from "@/configs/axios";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import { useFlyStore } from "@/stores/flyStore";
+import { useUserStore } from "@/stores/userStore";
 import moment from "moment";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaAngleRight } from "react-icons/fa";
 
@@ -16,16 +18,21 @@ interface LogProps {
 const Logs = () => {
   const [logs, setLogs] = useState<LogProps[]>([]);
   const { fly } = useFlyStore();
+  const { user } = useUserStore();
   const tableHeads = ["Endpoint", "Status", "Method", "Created", ""];
 
   useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await axios(`/logs?fly_id=${fly.uuid}`);
-        setLogs(data);
-      } catch (error) {}
-    })();
+    if (fly?.uuid) {
+      (async () => {
+        try {
+          const { data } = await axios(`/logs?fly_id=${fly.uuid}`);
+          setLogs(data);
+        } catch (error) {}
+      })();
+    }
   }, [fly?.uuid]);
+
+  const link = `/${user?.username}/${fly?.name}`;
 
   return (
     <DashboardLayout pageName="Logs">
@@ -70,7 +77,9 @@ const Logs = () => {
                     {moment(log.created_at).fromNow()}
                   </td>
                   <td className="border-b border-slate-700 p-4 text-slate-400">
-                    <FaAngleRight />
+                    <Link href={`${link}/logs/${log.uuid}`}>
+                      <FaAngleRight />
+                    </Link>
                   </td>
                 </tr>
               ))}
