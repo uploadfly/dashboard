@@ -7,7 +7,7 @@ interface UserStore {
 }
 
 export const useUserStore = create<UserStore>((set) => ({
-  user: null,
+  user: { username: "akinkunmioye42", email: "akinkunmioye42@gmail.com" },
   setUser: async () => {
     if (!useUserStore.getState().user) {
       try {
