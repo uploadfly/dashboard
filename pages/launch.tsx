@@ -86,7 +86,7 @@ const Launch = () => {
         className={`abosolute top-0 w-full h-full bg-uf-dark flex items-center justify-center`}
       >
         <div
-          className="bg-uf-dark w-[35%] flex items-center justify-between flex-col h-full py-5"
+          className="bg-uf-dark w-[35%]  lg:flex hidden items-center justify-between flex-col h-full py-5"
           style={{
             backgroundImage:
               "linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url(https://cdn.uploadfly.cloud/xCnc4L/grid-ev0zE8-UIn.png)",
@@ -106,13 +106,20 @@ const Launch = () => {
           <img src="/logo.svg" alt="" className="w-40 opacity-70" />
           <div />
         </div>
-        <div className="flex-col w-[65%] h-full flex relative items-center justify-center">
+        <div className="flex-col lg:w-[65%] h-full flex relative items-center lg:justify-center mt-48">
+          <img
+            src="/logo.svg"
+            alt=""
+            className="w-20 my-5 opacity-70 lg:hidden"
+          />
           <div className="mb-8">
-            <h1 className="shiny-text text-3xl">Create a new fly</h1>
-            <p className="font-semibold text-gray-400">{`Get ready to upload files in the cloud like breeze`}</p>
+            <h1 className="shiny-text text-3xl text-center">
+              Create a new fly
+            </h1>
+            <p className="font-semibold text-gray-400 text-center">{`Get ready to upload files in the cloud like breeze`}</p>
           </div>
 
-          <div className="mt-4 z-20 flex flex-col justify-start w-[380px] gap-2 font-semibold">
+          <div className="mt-4 z-20 flex flex-col items-center justify-start w-[380px] gap-2 font-semibold">
             <div className="flex flex-col gap-3">
               <div className="">
                 <small>Give your fly a name</small>
