@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { axios } from "@/configs/axios";
 import moment from "moment";
-
+import { obsidian } from "react-syntax-highlighter/dist/esm/styles/hljs";
 interface LogProps {
   endpoint: string;
   created_at: Date;
@@ -74,7 +74,7 @@ const Log = () => {
       </div>
       <div className="my-10">
         <h2 className="font-semibold text-xl">Response body</h2>
-        <p>{JSON.stringify(log?.response_body)}</p>
+        <p>{JSON.stringify(JSON.parse(JSON.stringify(log?.response_body)))}</p>
       </div>
     </DashboardLayout>
   );
