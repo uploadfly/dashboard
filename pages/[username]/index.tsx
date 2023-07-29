@@ -7,23 +7,38 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { HiOutlineRocketLaunch } from "react-icons/hi2";
+import { HiOutlineRocketLaunch, HiPlus } from "react-icons/hi2";
 
 const DashboardIndex = () => {
   const { user } = useUserStore();
 
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const [flies, setFlies] = useState<any[]>([]);
+  const [flies, setFlies] = useState<any[]>([
+    {
+      name: "wooo",
+      uuid: "1f263da6-d689-4c7a-86fb-60454fd52ee9",
+      used_storage: 313351,
+      updated_at: "2023-07-29T01:13:56.709Z",
+      storage: 2000000000,
+    },
+    {
+      name: "wooo",
+      uuid: "1f263da6-dj49-4c7a-86fb-60454fd52ee9",
+      used_storage: 323351,
+      updated_at: "2023-07-29T01:13:56.709Z",
+      storage: 2000000000,
+    },
+  ]);
 
-  useEffect(() => {
-    const getFlies = async () => {
-      const res = await axios("/fly");
-      setFlies(res?.data || []);
-      setLoading(false);
-    };
-    getFlies();
-  }, []);
+  // useEffect(() => {
+  //   const getFlies = async () => {
+  //     const res = await axios("/fly");
+  //     setFlies(res?.data || []);
+  //     setLoading(false);
+  //   };
+  //   getFlies();
+  // }, []);
 
   return (
     <div className="w-full bg-uf-dark h-screen text-uf-light">
@@ -41,40 +56,45 @@ const DashboardIndex = () => {
           <>
             <div className="flex items-center flex-col">
               {!flies.length ? (
-                <>
-                  <h1 className="shiny-text font-semibold text-center text-5xl mt-8">
+                <div className="w-full px-5 flex flex-col items-center">
+                  <h1 className="shiny-text font-semibold text-center lg:text-5xl text-3xl lg:mt-8 mt-3">
                     Welcome to the cloud
                   </h1>
-                  <p className="text-center mt-3 text-gray-300 text-xl font-semibold">
+                  <p className="text-center lg:mt-3 text-gray-300 lg:text-xl font-semibold">
                     {`You are ready to create your first fly.`}
                   </p>
 
-                  <Image
-                    src={"./logo.svg"}
-                    width={100}
-                    height={100}
-                    alt="Logo"
-                    className="my-10 opacity-90"
-                  />
+                  <div className="flex w-full items-center justify-center">
+                    <Image
+                      src={"./logo.svg"}
+                      width={100}
+                      height={100}
+                      alt="Logo"
+                      className="my-10 opacity-90"
+                    />
+                  </div>
 
-                  <Link href={"/launch"}>
-                    <button className="bg-uf-accent rounded-md font-semibold px-20 py-2 text-uf-light text-lg">
+                  <Link href={"/launch"} className="w-full lg:w-fit">
+                    <button className="bg-uf-accent rounded-md font-semibold px-20 py-2 text-uf-light text-lg w-full lg:w-fit">
                       Create your fly
                     </button>
                   </Link>
-                </>
+                </div>
               ) : (
-                <div className="flex flex-col items-center w-screen px-10">
-                  <div className="mt-8 flex justify-between w-full">
+                <div className="flex flex-col items-center w-screen px-5 lg:px-10">
+                  <div className="mt-8 flex justify-between w-full gap-3 items-center">
                     <input
                       type="text"
-                      className="bg-transparent border border-gray-800 rounded-md pl-3 w-[450px] outline-uf-accent"
+                      className="bg-transparent border border-gray-800 rounded-md pl-3 lg:w-[450px] w-full py-2 outline-uf-accent"
                       placeholder="Search for a fly"
                     />
                     <Link href={"/launch"} className="">
                       <button className="flex gap-2 bg-uf-light hover:bg-uf-accent text-uf-dark rounded-md py-2 px-4 w-full items-center justify-center font-semibold transition-colors group disabled:opacity-50 disabled:cursor-not-allowed">
-                        <HiOutlineRocketLaunch className="text-xl group-hover:rotate-[360deg] transition-all duration-500" />
-                        Create a new fly
+                        <HiOutlineRocketLaunch className="hidden lg:block text-xl group-hover:rotate-[360deg] transition-all duration-500" />
+                        <HiPlus className="lg:hidden text-xl group-hover:rotate-[360deg] transition-all duration-500" />
+                        <span className="hidden lg:block">
+                          Create a new fly
+                        </span>
                       </button>
                     </Link>
                   </div>
