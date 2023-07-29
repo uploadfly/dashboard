@@ -38,12 +38,12 @@ const Project = () => {
 
   return (
     <DashboardLayout pageName="Overview">
-      <div className="flex gap-5">
-        <div className="border border-gray-700 p-5 rounded-md w-1/2">
+      <div className="flex gap-5 flex-wrap lg:flex-nowrap">
+        <div className="border border-gray-700 p-5 rounded-md lg:w-1/2 w-full">
           <h1 className="text-2xl font-semibold">Total files</h1>
           <p className="text-4xl mt-3">{overview.files}</p>
         </div>
-        <div className="border border-gray-700 p-5 rounded-md w-1/2">
+        <div className="border border-gray-700 p-5 rounded-md lg:w-1/2 w-full">
           <h1 className="text-2xl font-semibold">Used storage</h1>
           <p className="text-4xl mt-3">
             {fileSize(overview.used_storage).human("si")}
