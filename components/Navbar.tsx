@@ -30,7 +30,7 @@ const Navbar = () => {
         <div className="z-50 bg-uf-dark/70 backdrop-blur-md">
           <>
             <div className="flex items-center lg:px-10 px-3 py-4 justify-between">
-              <div className="flex items-center gap-5 font-semibold text-lg">
+              <div className="flex items-center lg:gap-5 gap-2">
                 <Image
                   src={"/logo.svg"}
                   width={40}
@@ -42,7 +42,7 @@ const Navbar = () => {
                   <>
                     <span className="text-uf-accent/80">/</span>{" "}
                     <p>{fly?.name}</p>
-                    <SwitchFly />
+                    {/* <SwitchFly /> */}
                   </>
                 )}
               </div>
