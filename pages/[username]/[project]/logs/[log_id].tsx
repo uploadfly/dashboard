@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { axios } from "@/configs/axios";
 import moment from "moment";
 import JSONPretty from "react-json-pretty";
+// import Monikia from "react-json-pretty/themes/monikai.css";
 
 interface LogProps {
   endpoint: string;
@@ -13,37 +14,53 @@ interface LogProps {
   status: number;
   uuid: string;
   ip_address: string;
-  request_body: JSON;
-  response_body: JSON;
+  request_body: any;
+  response_body: any;
 }
 
 const Log = () => {
   const { fly } = useFlyStore();
   const router = useRouter();
-  const [log, setLog] = useState<LogProps | null>(null);
+  const [log, setLog] = useState<LogProps | null>({
+    created_at: new Date("2023-07-28T10:05:59.571Z"),
+    ip_address: "0.0.0.0",
+    request_body: {},
+    response_body: {
+      url: "https://d19172n4opxkkj.cloudfront.net/n5oZ8g/JBfEIAOYE31D0Jjw.pdf",
+      name: "JBfEIAOYE31D0Jjw",
+      path: "n5oZ8g/JBfEIAOYE31D0Jjw.pdf",
+      size: "293.02 kB",
+      type: "application/pdf",
+    },
+    endpoint: "/upload",
+    method: "post",
+    status: 201,
+    uuid: "1108e7cc-d4bc-4ecd-a34d-8234eda87d6a",
+    // fly_id: "1f263da6-d689-4c7a-86fb-60454fd52ee9",
+  });
 
-  useEffect(() => {
-    if (router.query.log_id && fly?.uuid) {
-      (async () => {
-        const log_id = router.query.log_id;
+  // useEffect(() => {
+  //   if (router.query.log_id && fly?.uuid) {
+  //     (async () => {
+  //       const log_id = router.query.log_id;
 
-        const { data } = await axios(
-          `/log?log_id=${log_id}&fly_id=${fly.uuid}`
-        );
-        setLog(data);
-      })();
-    }
-  }, [router.query.log_id, fly?.uuid]);
+  //       const { data } = await axios(
+  //         `/log?log_id=${log_id}&fly_id=${fly.uuid}`
+  //       );
+  //       setLog(data);
+  //     })();
+  //   }
+  // }, [router.query.log_id, fly?.uuid]);
 
   return (
     <DashboardLayout pageName="Log Details">
-      <div className="flex items-center gap-24">
+      <div className="flex items-center lg:gap-24 gap-8 flex-wrap">
         <div className="">
           <p className="text-sm font-semibold mb-2">ENDPOINT</p>
           <span className="font-semibold my-14">{log?.endpoint}</span>
         </div>
         <div className="">
-          <p className="text-sm font-semibold">DATE</p>
+          <p className="text-sm font-semibold mb-2">DATE</p>
           <span className="font-semibold my-14">
             {moment(log?.created_at).fromNow()}
           </span>
@@ -69,21 +86,25 @@ const Log = () => {
           <span className="font-semibold my-14">{log?.ip_address}</span>
         </div>
       </div>
-      <div className="my-10">
-        <h2 className="font-semibold text-xl mb-5">Request body</h2>
-        <JSONPretty
-          id="json-pretty"
-          data={log?.request_body}
-          className="p-2 bg-[#1e1e1e] rounded-md"
-        ></JSONPretty>
-      </div>
-      <div className="my-10">
-        <h2 className="font-semibold text-xl mb-5">Response body</h2>
-        <JSONPretty
-          id="json-pretty"
-          data={log?.response_body}
-          className="p-2 bg-[#1e1e1e] rounded-md"
-        ></JSONPretty>
+      <div className="w-full">
+        <div className="my-10">
+          <h2 className="font-semibold text-xl mb-5">Request body</h2>
+          <JSONPretty
+            id="json-pretty"
+            data={log?.request_body}
+            className="p-2 bg-[#1e1e1e] rounded-md"
+            // theme={Monikia}
+          ></JSONPretty>
+        </div>
+        <div className="my-10">
+          <h2 className="font-semibold text-xl mb-5">Response body</h2>
+          <JSONPretty
+            id="json-pretty"
+            data={log?.response_body}
+            // theme={Monikia}
+            className="p-2 bg-[#1e1e1e] overflow-auto"
+          ></JSONPretty>
+        </div>
       </div>
     </DashboardLayout>
   );
