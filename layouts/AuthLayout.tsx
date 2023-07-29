@@ -72,7 +72,7 @@ const AuthLayout = ({
         >
           <img src="/logo.svg" alt="" className="w-40 opacity-70" />
         </div>
-        <div className="flex-col w-[65%] h-full bg-uf-dark flex relative items-center lg:justify-center lg:mt-0 mt-48">
+        <div className="flex-col lg:w-[65%] h-full bg-uf-dark flex relative items-center lg:justify-center lg:mt-0 mt-48">
           <div className="h-full w-full absolute animate-opacity pointer-events-none"></div>
           <div className="mb-8 flex flex-col items-center">
             <img
