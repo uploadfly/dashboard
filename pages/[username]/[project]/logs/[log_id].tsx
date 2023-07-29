@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { axios } from "@/configs/axios";
 import moment from "moment";
-import { obsidian } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import JSONPretty from "react-json-pretty";
+
 interface LogProps {
   endpoint: string;
   created_at: Date;
@@ -69,12 +70,20 @@ const Log = () => {
         </div>
       </div>
       <div className="my-10">
-        <h2 className="font-semibold text-xl">Request body</h2>
-        <p>{JSON.stringify(log?.request_body)}</p>
+        <h2 className="font-semibold text-xl mb-5">Request body</h2>
+        <JSONPretty
+          id="json-pretty"
+          data={log?.request_body}
+          className="p-2 bg-[#1e1e1e] rounded-md"
+        ></JSONPretty>
       </div>
       <div className="my-10">
-        <h2 className="font-semibold text-xl">Response body</h2>
-        <p>{JSON.stringify(JSON.parse(JSON.stringify(log?.response_body)))}</p>
+        <h2 className="font-semibold text-xl mb-5">Response body</h2>
+        <JSONPretty
+          id="json-pretty"
+          data={log?.response_body}
+          className="p-2 bg-[#1e1e1e] rounded-md"
+        ></JSONPretty>
       </div>
     </DashboardLayout>
   );
