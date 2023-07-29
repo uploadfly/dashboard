@@ -74,7 +74,12 @@ const AuthLayout = ({
         </div>
         <div className="flex-col w-[65%] h-full bg-uf-dark flex relative items-center lg:justify-center lg:mt-0 mt-48">
           <div className="h-full w-full absolute animate-opacity pointer-events-none"></div>
-          <div className="mb-8">
+          <div className="mb-8 flex flex-col items-center">
+            <img
+              src="/logo.svg"
+              alt=""
+              className="w-20 my-5 opacity-70 lg:hidden"
+            />
             <h1 className="shiny-text text-3xl">{text}</h1>
             <p className="text-center font-semibold text-gray-400">{`Let's fly`}</p>
           </div>
