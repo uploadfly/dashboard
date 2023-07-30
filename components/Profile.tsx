@@ -4,10 +4,11 @@ import { IoLogOutOutline } from "react-icons/io5";
 import { useRouter } from "next/router";
 import { toast } from "react-hot-toast";
 import { toastSuccessConfig } from "@/configs/toast";
+import { useUserStore } from "@/stores/userStore";
 
 const Profile = () => {
   const [open, setOpen] = useState(false);
-
+  const { user } = useUserStore();
   const router = useRouter();
 
   const logout = async () => {
@@ -28,7 +29,7 @@ const Profile = () => {
         onClick={() => setOpen(!open)}
       >
         <img
-          src="https://avatars.githubusercontent.com/u/54487532?v=4"
+          src={`https://api.dicebear.com/6.x/bottts/png?seed=${user?.username}`}
           alt=""
           className="w-full h-full object-cover rounded-full"
         />
