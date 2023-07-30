@@ -12,10 +12,10 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
       title: "General",
       route: "/",
     },
-    {
-      title: "Billing and Plans",
-      route: "/billing-plans",
-    },
+    // {
+    //   title: "Billing and Plans",
+    //   route: "/billing-plans",
+    // },
     {
       title: "Advanced",
       route: "/advanced",
@@ -40,8 +40,8 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
 
   return (
     <DashboardLayout pageName="Settings">
-      <div className="flex">
-        <div className={`flex flex-col gap-5`}>
+      <div className="flex lg:flex-row flex-col">
+        <div className={`flex flex-col lg:gap-5 gap-2`}>
           {subSettingsPages.map((page) => {
             return (
               <Link
@@ -58,7 +58,7 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
             );
           })}
         </div>
-        <div className="ml-28">{children}</div>
+        <div className="lg:ml-28 lg:mt-0 mt-8">{children}</div>
       </div>
     </DashboardLayout>
   );
