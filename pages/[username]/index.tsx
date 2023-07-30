@@ -14,31 +14,16 @@ const DashboardIndex = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  const [flies, setFlies] = useState<any[]>([
-    {
-      name: "wooo",
-      uuid: "1f263da6-d689-4c7a-86fb-60454fd52ee9",
-      used_storage: 313351,
-      updated_at: "2023-07-29T01:13:56.709Z",
-      storage: 2000000000,
-    },
-    {
-      name: "wooo",
-      uuid: "1f263da6-dj49-4c7a-86fb-60454fd52ee9",
-      used_storage: 323351,
-      updated_at: "2023-07-29T01:13:56.709Z",
-      storage: 2000000000,
-    },
-  ]);
+  const [flies, setFlies] = useState<any[]>([]);
 
-  // useEffect(() => {
-  //   const getFlies = async () => {
-  //     const res = await axios("/fly");
-  //     setFlies(res?.data || []);
-  //     setLoading(false);
-  //   };
-  //   getFlies();
-  // }, []);
+  useEffect(() => {
+    const getFlies = async () => {
+      const res = await axios("/fly");
+      setFlies(res?.data || []);
+      setLoading(false);
+    };
+    getFlies();
+  }, []);
 
   return (
     <div className="w-full bg-uf-dark h-screen text-uf-light">
