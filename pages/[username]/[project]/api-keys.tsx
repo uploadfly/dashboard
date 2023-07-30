@@ -3,32 +3,25 @@ import DeleteApiKey from "@/components/DeleteApiKey";
 import NoApiKeys from "@/components/NoApiKeys";
 import ApiKeysLoader from "@/components/loader/ApiKeys";
 import { axios } from "@/configs/axios";
+import { KeyProps } from "@/interfaces";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import { useFlyStore } from "@/stores/flyStore";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { HiPlus, HiTrash } from "react-icons/hi2";
 
-export const copyToClipboard = (str: string) => {
-  const el = document.createElement("textarea");
-  el.value = str;
-  document.body.appendChild(el);
-  el.select();
-  document.execCommand("copy");
-  document.body.removeChild(el);
-};
 // Written by Amazon CodeWhisperer
 
-export interface KeyProps {
-  name: string;
-  uuid: string;
-  key: string;
-  permission: string;
-  created_at: string;
-}
-
 const ApiKeys = () => {
-  const [keys, setKeys] = useState<KeyProps[]>([]);
+  const [keys, setKeys] = useState<KeyProps[]>([
+    {
+      uuid: "6eb2870b-a357-4af7-a649-e9dcfcc74d11",
+      key: "uf_edb19ad...",
+      permission: "upload",
+      created_at: "2023-07-28T09:38:13.520Z",
+      name: "upload",
+    },
+  ]);
   const [loading, setLoading] = useState<boolean>(false);
 
   const fetchKeys = async () => {
@@ -45,11 +38,11 @@ const ApiKeys = () => {
   };
   const { fly } = useFlyStore();
 
-  useEffect(() => {
-    if (fly?.uuid) {
-      fetchKeys();
-    }
-  }, [fly?.uuid]);
+  // useEffect(() => {
+  //   if (fly?.uuid) {
+  //     fetchKeys();
+  //   }
+  // }, [fly?.uuid]);
 
   const [showModal, setShowModal] = useState(false);
 
@@ -104,13 +97,13 @@ const ApiKeys = () => {
       {keys.length === 0 ? (
         <NoApiKeys onClick={() => setShowModal(true)} />
       ) : (
-        <div className="">
+        <div className="overflow-auto">
           <table className="border-collapse table-auto w-full text-sm">
-            <thead>
+            <thead className="bg-uf-accent/10">
               <tr>
                 {tableHeads.map((head, index) => (
                   <th
-                    className="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left"
+                    className="border-b border-uf-accent/80 font-medium py-2 text-uf-light text-left pl-5 whitespace-nowrap"
                     key={index}
                   >
                     {head}
@@ -127,10 +120,10 @@ const ApiKeys = () => {
                   <td className="border-b border-slate-700 p-4 text-slate-400">
                     {key.key}
                   </td>
-                  <td className="border-b border-slate-700 p-4 text-slate-400">
+                  <td className="border-b border-slate-700 p-4 text-slate-400 whitespace-nowrap">
                     {key.permission} access
                   </td>
-                  <td className="border-b border-slate-700 p-4 text-slate-400">
+                  <td className="border-b border-slate-700 p-4 text-slate-400 whitespace-nowrap">
                     {moment(key.created_at).fromNow()}
                   </td>
                   <td className="border-b border-slate-700 p-4 text-slate-400">
