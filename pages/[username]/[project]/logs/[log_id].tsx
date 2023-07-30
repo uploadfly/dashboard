@@ -21,36 +21,20 @@ interface LogProps {
 const Log = () => {
   const { fly } = useFlyStore();
   const router = useRouter();
-  const [log, setLog] = useState<LogProps | null>({
-    created_at: new Date("2023-07-28T10:05:59.571Z"),
-    ip_address: "0.0.0.0",
-    request_body: {},
-    response_body: {
-      url: "https://d19172n4opxkkj.cloudfront.net/n5oZ8g/JBfEIAOYE31D0Jjw.pdf",
-      name: "JBfEIAOYE31D0Jjw",
-      path: "n5oZ8g/JBfEIAOYE31D0Jjw.pdf",
-      size: "293.02 kB",
-      type: "application/pdf",
-    },
-    endpoint: "/upload",
-    method: "post",
-    status: 201,
-    uuid: "1108e7cc-d4bc-4ecd-a34d-8234eda87d6a",
-    // fly_id: "1f263da6-d689-4c7a-86fb-60454fd52ee9",
-  });
+  const [log, setLog] = useState<LogProps | null>(null);
 
-  // useEffect(() => {
-  //   if (router.query.log_id && fly?.uuid) {
-  //     (async () => {
-  //       const log_id = router.query.log_id;
+  useEffect(() => {
+    if (router.query.log_id && fly?.uuid) {
+      (async () => {
+        const log_id = router.query.log_id;
 
-  //       const { data } = await axios(
-  //         `/log?log_id=${log_id}&fly_id=${fly.uuid}`
-  //       );
-  //       setLog(data);
-  //     })();
-  //   }
-  // }, [router.query.log_id, fly?.uuid]);
+        const { data } = await axios(
+          `/log?log_id=${log_id}&fly_id=${fly.uuid}`
+        );
+        setLog(data);
+      })();
+    }
+  }, [router.query.log_id, fly?.uuid]);
 
   return (
     <DashboardLayout pageName="Log Details">
