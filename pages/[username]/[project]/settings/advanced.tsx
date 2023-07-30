@@ -7,7 +7,7 @@ const Advanced = () => {
   return (
     <SettingsLayout>
       <DeleteModal show={showModal} onClick={() => setShowModal(false)} />
-      <div className="flex items-center gap-32">
+      <div className="flex items-center lg:gap-32 lg:flex-row flex-col">
         <div className="">
           <h1 className="font-semibold">Delete fly</h1>
           <p className="text-sm text-gray-400">
@@ -16,7 +16,7 @@ const Advanced = () => {
           </p>
         </div>
         <button
-          className="border border-red-600 px-16 py-2 rounded-md font-semibold hover:bg-red-600 transition-colors"
+          className="border border-red-600 px-16 py-2 rounded-md font-semibold hover:bg-red-600 transition-colors lg:w-fit w-full lg:mt-0 mt-3"
           onClick={() => setShowModal(true)}
         >
           Delete
