@@ -5,6 +5,7 @@ import Head from "next/head";
 import { Toaster } from "react-hot-toast";
 import { Router } from "next/router";
 import Progress from "@badrap/bar-of-progress";
+import PlausibleProvider from "next-plausible";
 
 const progress = new Progress({
   className: "bar-of-progress",
@@ -18,7 +19,7 @@ Router.events.on("routeChangeError", () => progress.finish());
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <PlausibleProvider domain="beta.uploadfly.cloud">
       <Head>
         <link
           rel="shortcut icon"
@@ -29,6 +30,6 @@ export default function App({ Component, pageProps }: AppProps) {
         <Toaster />
         <Component {...pageProps} />
       </AuthProvider>
-    </>
+    </PlausibleProvider>
   );
 }
