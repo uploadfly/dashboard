@@ -76,7 +76,7 @@ const Log = () => {
           <JSONPretty
             id="json-pretty"
             data={log?.request_body}
-            className="p-2 bg-[#1e1e1e] rounded-md"
+            className="p-2 bg-[#1e1e1e] rounded-md overflow-auto"
             // theme={Monikia}
           ></JSONPretty>
         </div>
