@@ -1,3 +1,4 @@
+import NoLogs from "@/components/NoLogs";
 import { axios } from "@/configs/axios";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import { useFlyStore } from "@/stores/flyStore";
@@ -37,7 +38,7 @@ const Logs = () => {
   return (
     <DashboardLayout pageName="Logs">
       {logs.length === 0 ? (
-        <></>
+        <NoLogs />
       ) : (
         <div className="flex gap-5">
           <table className="border-collapse table-auto w-full text-sm">
