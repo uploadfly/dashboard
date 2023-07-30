@@ -99,7 +99,7 @@ const Logs = () => {
             <tbody>
               {logs.map((log) => (
                 <tr key={log.uuid}>
-                  <td className="border-b border-slate-700 p-4 text-slate-400 font-bold">
+                  <td className="border-b border-slate-700 p-4 text-slate-400 font-bold whitespace-nowrap">
                     {log.endpoint}
                   </td>
                   <td className="border-b border-slate-700 p-4 text-slate-400">
@@ -116,7 +116,7 @@ const Logs = () => {
                   <td className="border-b border-slate-700 p-4 text-slate-400 uppercase">
                     {log.method}
                   </td>
-                  <td className="border-b border-slate-700 p-4 text-slate-400">
+                  <td className="border-b border-slate-700 p-4 text-slate-400 whitespace-nowrap">
                     {moment(log.created_at).fromNow()}
                   </td>
                   <td className="border-b border-slate-700 p-4 text-slate-400">
