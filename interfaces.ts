@@ -27,3 +27,11 @@ export interface UserModel {
   auth_method?: string;
   github_id?: number;
 }
+
+export interface KeyProps {
+  name: string;
+  uuid: string;
+  key: string;
+  permission: string;
+  created_at: string;
+}
