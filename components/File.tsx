@@ -43,8 +43,10 @@ const File = ({
       >
         {moment(uploaded).fromNow()}
       </td>
-      <td className="border-b border-slate-700 p-4 text-slate-400">{type}</td>
       <td className="border-b border-slate-700 p-4 text-slate-400">
+        {truncate(type)}
+      </td>
+      <td className="border-b border-slate-700 p-4 text-slate-400 whitespace-nowrap">
         {fileSize(size).human("si")}
       </td>
     </tr>
