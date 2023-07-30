@@ -16,64 +16,21 @@ interface LogProps {
 }
 
 const Logs = () => {
-  const [logs, setLogs] = useState<LogProps[]>([
-    {
-      uuid: "1108e7cc-d4bc-4ecd-a34d-8234eda87d6a",
-      created_at: "2023-07-28T10:05:59.571Z",
-      endpoint: "/upload",
-      method: "post",
-      status: 201,
-    },
-    {
-      uuid: "6c7c48c4-a9be-41a9-bf28-c91edbd7a5ff",
-      created_at: "2023-07-28T10:05:59.057Z",
-      endpoint: "/upload",
-      method: "post",
-      status: 201,
-    },
-    {
-      uuid: "1857cfc1-a74f-4273-a2a9-4d87337cd7a5",
-      created_at: "2023-07-28T09:53:59.403Z",
-      endpoint: "/upload",
-      method: "post",
-      status: 201,
-    },
-    {
-      uuid: "7dc26ad0-bf73-4373-a9d9-8d19f3430954",
-      created_at: "2023-07-28T09:53:58.917Z",
-      endpoint: "/upload",
-      method: "post",
-      status: 201,
-    },
-    {
-      uuid: "e081883e-0b77-43bb-addd-9dc21575f1fa",
-      created_at: "2023-07-28T09:53:18.408Z",
-      endpoint: "/upload",
-      method: "delete",
-      status: 400,
-    },
-    {
-      uuid: "46278077-2622-4499-9572-7da5ba5524e2",
-      created_at: "2023-07-28T09:53:18.254Z",
-      endpoint: "/upload",
-      method: "delete",
-      status: 400,
-    },
-  ]);
+  const [logs, setLogs] = useState<LogProps[]>([]);
   const { fly } = useFlyStore();
   const { user } = useUserStore();
   const tableHeads = ["Endpoint", "Status", "Method", "Created", ""];
 
-  // useEffect(() => {
-  //   if (fly?.uuid) {
-  //     (async () => {
-  //       try {
-  //         const { data } = await axios(`/logs?fly_id=${fly.uuid}`);
-  //         setLogs(data);
-  //       } catch (error) {}
-  //     })();
-  //   }
-  // }, [fly?.uuid]);
+  useEffect(() => {
+    if (fly?.uuid) {
+      (async () => {
+        try {
+          const { data } = await axios(`/logs?fly_id=${fly.uuid}`);
+          setLogs(data);
+        } catch (error) {}
+      })();
+    }
+  }, [fly?.uuid]);
 
   const link = `/${user?.username}/${fly?.name}`;
 
