@@ -1,6 +1,6 @@
 import { axios } from "@/configs/axios";
 import { toastSuccessConfig } from "@/configs/toast";
-import { KeyProps } from "@/pages/[username]/[project]/api-keys";
+import { KeyProps } from "@/interfaces";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { RiLoader5Fill } from "react-icons/ri";
