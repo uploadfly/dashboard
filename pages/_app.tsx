@@ -25,10 +25,10 @@ export default function App({ Component, pageProps }: AppProps) {
           href="https://cdn.uploadfly.cloud/xCnc4L/favicon-orange-mPuTin-huL.png"
         />
       </Head>
-      {/* <AuthProvider> */}
-      <Toaster />
-      <Component {...pageProps} />
-      {/* </AuthProvider> */}
+      <AuthProvider>
+        <Toaster />
+        <Component {...pageProps} />
+      </AuthProvider>
     </>
   );
 }
