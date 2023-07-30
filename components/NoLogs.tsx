@@ -6,7 +6,7 @@ const NoLogs = () => {
     <div className="flex items-center justify-center flex-col mt-20">
       <h1 className="text-2xl font-semibold mb-2">No logs yet.</h1>
       <p className="text mb-4 lg:w-[450px] text-center">
-        Your logs will appear hear when you make API requests. Check out the
+        Your logs will appear here when you make API requests. Check out the
         docs to learn about Uploadfly API endpoints.
       </p>
       <Link href={"https://docs.uploadfly.cloud"} target="_blank">
