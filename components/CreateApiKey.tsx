@@ -1,9 +1,8 @@
 import { axios } from "@/configs/axios";
-import {
-  KeyProps,
-  copyToClipboard,
-} from "@/pages/[username]/[project]/api-keys";
+import { KeyProps } from "@/interfaces";
+
 import { useFlyStore } from "@/stores/flyStore";
+import { copyToClipboard } from "@/utils/copyToClipboard";
 import { useState } from "react";
 import { BsQuestionCircle } from "react-icons/bs";
 import { IoClose, IoCopy, IoWarningOutline } from "react-icons/io5";
