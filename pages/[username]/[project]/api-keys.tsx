@@ -13,15 +13,7 @@ import { HiPlus, HiTrash } from "react-icons/hi2";
 // Written by Amazon CodeWhisperer
 
 const ApiKeys = () => {
-  const [keys, setKeys] = useState<KeyProps[]>([
-    {
-      uuid: "6eb2870b-a357-4af7-a649-e9dcfcc74d11",
-      key: "uf_edb19ad...",
-      permission: "upload",
-      created_at: "2023-07-28T09:38:13.520Z",
-      name: "upload",
-    },
-  ]);
+  const [keys, setKeys] = useState<KeyProps[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   const fetchKeys = async () => {
@@ -38,11 +30,11 @@ const ApiKeys = () => {
   };
   const { fly } = useFlyStore();
 
-  // useEffect(() => {
-  //   if (fly?.uuid) {
-  //     fetchKeys();
-  //   }
-  // }, [fly?.uuid]);
+  useEffect(() => {
+    if (fly?.uuid) {
+      fetchKeys();
+    }
+  }, [fly?.uuid]);
 
   const [showModal, setShowModal] = useState(false);
 
