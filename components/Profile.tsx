@@ -29,7 +29,7 @@ const Profile = () => {
         onClick={() => setOpen(!open)}
       >
         <img
-          src={`https://api.dicebear.com/6.x/bottts/png?seed=${user?.username}`}
+          src={`https://avatars.uploadfly.cloud/6.x/bottts/png?seed=${user?.username}`}
           alt=""
           className="w-full h-full object-cover rounded-full"
         />
