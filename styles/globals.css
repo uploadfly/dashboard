@@ -92,7 +92,7 @@
   }
 }
 
-.loading {
+.loading-animation {
   @apply shiny-div bg-gray-200;
 }
 .react-calendar-heatmap .color-scale-0 {
