@@ -2,7 +2,7 @@ import React from "react";
 
 const LoadingCard = () => {
   return (
-    <div className="animate-breath uf-gradient rounded-md w-[380px] h-[200px]"></div>
+    <div className="loading-animation rounded-md w-[400px] h-[230px]"></div>
   );
 };
 
