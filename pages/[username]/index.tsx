@@ -33,7 +33,7 @@ const DashboardIndex = () => {
       </Head>
       <Navbar />
       {flies.length > 0 || loading ? (
-        <div className="mt-8 flex justify-between w-full gap-3 items-center px-10">
+        <div className="mt-8 flex justify-between w-full gap-3 items-center px-5 lg:px-10">
           <input
             type="text"
             className="bg-transparent border border-gray-800 rounded-md pl-3 lg:w-[450px] w-full py-2 outline-uf-accent"
