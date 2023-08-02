@@ -14,10 +14,9 @@ import { HiPlus, HiTrash } from "react-icons/hi2";
 
 const ApiKeys = () => {
   const [keys, setKeys] = useState<KeyProps[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const fetchKeys = async () => {
-    setLoading(true);
     const flyName = window.location.pathname.split("/")[2];
     try {
       const { data } = await axios.get(`/api-keys?fly_name=${flyName}`);

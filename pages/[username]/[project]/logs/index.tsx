@@ -21,6 +21,7 @@ const Logs = () => {
   const { fly } = useFlyStore();
   const { user } = useUserStore();
   const tableHeads = ["Endpoint", "Status", "Method", "Created", ""];
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (fly?.uuid) {
@@ -28,6 +29,7 @@ const Logs = () => {
         try {
           const { data } = await axios(`/logs?fly_id=${fly.uuid}`);
           setLogs(data);
+          setLoading(false);
         } catch (error) {}
       })();
     }
@@ -36,7 +38,11 @@ const Logs = () => {
   const link = `/${user?.username}/${fly?.name}`;
 
   return (
-    <DashboardLayout pageName="Logs">
+    <DashboardLayout
+      pageName="Logs"
+      childLoadingComponent={<></>}
+      isChildLoading={loading}
+    >
       {logs.length === 0 ? (
         <NoLogs />
       ) : (

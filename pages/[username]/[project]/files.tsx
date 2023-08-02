@@ -22,11 +22,13 @@ const Files = () => {
   // };
 
   const { fly } = useFlyStore();
+  const [loading, setLoading] = useState(true);
 
   const getFiles = async (fly_id: string) => {
     try {
       const { data } = await axios(`/fly/files?fly_id=${fly_id}`);
       setFiles(data?.files);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -35,13 +37,18 @@ const Files = () => {
   useEffect(() => {
     if (fly?.uuid) {
       getFiles(fly?.uuid);
+      setLoading(false);
     }
   }, [fly?.uuid]);
 
   const tableHeads = ["Name", "Date uploaded", "Mime type", "File size"];
 
   return (
-    <DashboardLayout pageName="Files">
+    <DashboardLayout
+      pageName="Files"
+      isChildLoading={loading}
+      childLoadingComponent={<></>}
+    >
       {files.length === 0 ? (
         <NoFiles />
       ) : (
