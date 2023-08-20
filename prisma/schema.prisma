@@ -99,8 +99,8 @@ model refreshToken {
   id         Int      @id @unique() @default(autoincrement())
   created_at DateTime @default(now())
   user_id    String   @unique
-  token      String
-  expires_at String
+  token      String  @db.LongText
+  expires_at DateTime
 }
 
 enum apikey_permission {
