@@ -1,24 +1,14 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiResponse } from "next";
 import { allowMethods } from "next-method-guard";
-import jwt from "jsonwebtoken";
 import prisma from "@/prisma";
+import { ExtendedRequest } from "@/interfaces";
+import authenticateToken from "@/middleware/auth";
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
   try {
-    const token = req.cookies.access_token;
-
-    const decoded = jwt.verify(
-      token as string,
-      process.env.JWT_SECRET_KEY as string
-    ) as {
-      uuid: string;
-    };
-
-    const uuid = decoded.uuid;
-
     const user = await prisma.user.findUnique({
       where: {
-        uuid,
+        uuid: req.user.uuid,
       },
       select: {
         username: true,
@@ -32,4 +22,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default allowMethods(["GET"])(handler);
+export default allowMethods(["GET"])(
+  (req: ExtendedRequest, res: NextApiResponse) =>
+    authenticateToken(req, res, () => handler(req, res))
+);
