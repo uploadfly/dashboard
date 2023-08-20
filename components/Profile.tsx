@@ -3,7 +3,7 @@ import { useState } from "react";
 import { IoLogOutOutline } from "react-icons/io5";
 import { useRouter } from "next/router";
 import { toast } from "react-hot-toast";
-import { toastSuccessConfig } from "@/configs/toast";
+import { toastErrorConfig, toastSuccessConfig } from "@/configs/toast";
 import { useUserStore } from "@/stores/userStore";
 
 const Profile = () => {
@@ -12,12 +12,17 @@ const Profile = () => {
   const router = useRouter();
 
   const logout = async () => {
-    const res = await axiosAuth.post("/logout");
-    toast.loading("Logging out...", { id: "logout" });
-    if (res.data === "OK") {
+    try {
+      await axiosAuth.post("/logout");
+      toast.loading("Logging out...", { id: "logout" });
       router.push("/login");
       toast.dismiss("logout");
       toast("Logged out successfully", toastSuccessConfig);
+    } catch (error) {
+      toast.dismiss("logout");
+      toast.error("Failed to logout", toastErrorConfig);
+      console.log(error);
+      return;
     }
   };
 
