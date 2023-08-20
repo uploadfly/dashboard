@@ -1,23 +1,14 @@
 import prisma from "@/prisma";
 import { generateApiKey } from "@/utils/generateApiKey";
-import jwt from "jsonwebtoken";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiResponse } from "next";
 import { allowMethods } from "next-method-guard";
 import generate from "boring-name-generator";
+import { ExtendedRequest } from "@/interfaces";
+import authenticateToken from "@/middleware/auth";
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
   try {
     const { fly_id, permission, name } = req.body;
-
-    const token = req.cookies.access_token;
-    if (!token) {
-      return res.status(400).json({ message: "Token is missing in request" });
-    }
-
-    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY as string) as {
-      uuid: string;
-    };
-    const user_id = decoded.uuid;
 
     const keyNameRegex = /^(?!-)(?!.*--)[a-z0-9-]{1,50}(?<!-)$/i;
 
@@ -31,7 +22,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!fly_id) return res.status(400).json({ message: "Missing fly id" });
     const user = await prisma.user.findUnique({
       where: {
-        uuid: user_id,
+        uuid: req.user.uuid,
       },
     });
 
@@ -53,7 +44,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       data: {
         name: name || generate().dashed,
         key: `uf_${generateApiKey()}`,
-        user_id,
+        user_id: req.user.uuid,
         fly_id,
         permission: permission || "upload",
       },
@@ -72,4 +63,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default allowMethods(["POST"])(handler);
+export default allowMethods(["POST"])(
+  (req: ExtendedRequest, res: NextApiResponse) =>
+    authenticateToken(req, res, () => handler(req, res))
+);
