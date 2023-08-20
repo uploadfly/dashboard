@@ -29,6 +29,7 @@
     "eslint-config-next": "13.4.3",
     "file-size": "^1.0.0",
     "filesize": "^10.0.7",
+    "jose": "^4.14.4",
     "jsonwebtoken": "^9.0.0",
     "moment": "^2.29.4",
     "next": "13.4.3",
