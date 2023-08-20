@@ -1,24 +1,14 @@
+import { ExtendedRequest } from "@/interfaces";
+import authenticateToken from "@/middleware/auth";
 import prisma from "@/prisma";
-import jwt from "jsonwebtoken";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiResponse } from "next";
 import { allowMethods } from "next-method-guard";
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
   try {
-    const token = req.cookies.access_token;
-
-    const decoded = jwt.verify(
-      token as string,
-      process.env.JWT_SECRET_KEY as string
-    ) as {
-      uuid: string;
-    };
-
-    const uuid = decoded.uuid;
-
     const flies = await prisma.fly.findMany({
       where: {
-        user_id: uuid,
+        user_id: req.user.uuid,
       },
       select: {
         name: true,
@@ -41,4 +31,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default allowMethods(["GET"])(handler);
+export default allowMethods(["GET"])(
+  (req: ExtendedRequest, res: NextApiResponse) =>
+    authenticateToken(req, res, () => handler(req, res))
+);
