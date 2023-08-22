@@ -34,7 +34,7 @@ const File = ({
   return (
     <div className="w-[260px] py-1 px-2 h-[280px] rounded-md bg-black/20 border-2 border-white/10 hover:border-uf-accent/50 transition-colors cursor-pointer flex flex-col justify-between items-center">
       <div className="flex justify-between w-full">
-        <small>{truncate(name)}</small>
+        <small>{truncate(name, 21)}</small>
         <small>{fileSize(size).human("si")}</small>
       </div>
       <div className="text-6xl">
