@@ -6,6 +6,7 @@ import { FileProps } from "@/interfaces";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import { useFlyStore } from "@/stores/flyStore";
 import { useEffect, useState } from "react";
+import { FaFolderPlus } from "react-icons/fa";
 
 const Files = () => {
   const [files, setFiles] = useState<FileProps[]>([]);
@@ -48,6 +49,11 @@ const Files = () => {
       pageName="Files"
       isChildLoading={loading}
       childLoadingComponent={<></>}
+      button={
+        <button className="bg-white px-5 py-2 text-sm font-semibold rounded-md text-black flex items-center gap-2">
+          <FaFolderPlus /> Create a folder
+        </button>
+      }
     >
       {files.length === 0 ? (
         <NoFiles />
@@ -69,13 +75,6 @@ const Files = () => {
                   uploaded={file.created_at}
                   uploaded_via={file.uploaded_via}
                   onClick={() => {
-                    // if (selectedFiles.includes(file)) {
-                    //   setSelectedFiles(
-                    //     selectedFiles.filter((f) => f !== file)
-                    //   );
-                    //   return;
-                    // }
-                    // setSelectedFiles([...selectedFiles, file]);
                     if (selectedFile === file) {
                       setSelectedFile(null);
                       return;
@@ -87,7 +86,7 @@ const Files = () => {
             </div>
 
             <div
-              className={`h-fit bg-[#1E1E1E] fixed right-5 transition-all rounded-md ${
+              className={`h-fit bg-[#1E1E1E] fixed right-28 transition-all rounded-md ${
                 selectedFile ? "w-96" : "w-0"
               }`}
             >
