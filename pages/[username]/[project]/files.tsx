@@ -67,6 +67,7 @@ const Files = () => {
                   type={file.type}
                   selected={selectedFile == file}
                   uploaded={file.created_at}
+                  uploaded_via={file.uploaded_via}
                   onClick={() => {
                     // if (selectedFiles.includes(file)) {
                     //   setSelectedFiles(
