@@ -5,6 +5,7 @@ import { BsImage } from "react-icons/bs";
 import { HiEllipsisVertical, HiOutlineDocumentText } from "react-icons/hi2";
 import { MdAudiotrack, MdOutlineVideoLibrary } from "react-icons/md";
 import { AiOutlineApi } from "react-icons/ai";
+import { Tooltip } from "react-tooltip";
 
 export const truncate = (str: string, length: number = 20) => {
   if (str.length > length) {
@@ -49,7 +50,15 @@ const File = ({
       </div>
       <div className="w-full flex justify-between">
         <div className="flex items-center gap-1">
-          {uploaded_via === "REST API" && <AiOutlineApi />}
+          <Tooltip place="top" id="uploaded" />
+          <span
+            className="hover:text-uf-accent transition-colors"
+            data-tooltip-id="uploaded"
+            data-tooltip-content={`Uploaded via ${uploaded_via}`}
+          >
+            {uploaded_via === "REST API" && <AiOutlineApi />}
+          </span>
+
           <small>{truncate(type)}</small>
         </div>
         <button>
