@@ -12,13 +12,23 @@ const AuthLayout = ({
   text,
   type = "login",
   isOtpInputVisible = false,
+  question,
+  hideFlyingThing = false,
+  pageName,
 }: {
   children: ReactNode;
   text: string;
-  type?: "login" | "signup";
+  type?: "login" | "signup" | "forgot";
   isOtpInputVisible?: boolean;
+  question: {
+    title: string;
+    route: string;
+    text: string;
+  };
+  hideFlyingThing?: boolean;
+  pageName: string;
 }) => {
-  const [hide, setHide] = useState<boolean>(false);
+  const [hide, setHide] = useState<boolean>(hideFlyingThing);
   const [loading, setLoading] = useState(false);
 
   const handleKeyPress = (e: KeyboardEvent) => {
@@ -56,7 +66,7 @@ const AuthLayout = ({
   return (
     <div className="bg-uf-dark relative h-screen text-uf-light overflow-x-hidden">
       <Head>
-        <title>{type === "login" ? "Login" : "Signup"} | Uploadfly</title>
+        <title>{pageName} | Uploadfly</title>
       </Head>
       <div
         className={`abosolute top-0 w-full h-full bg-uf-dark flex items-center justify-center`}
@@ -81,7 +91,9 @@ const AuthLayout = ({
               className="w-20 my-5 opacity-70 lg:hidden"
             />
             <h1 className="shiny-text text-3xl">{text}</h1>
-            <p className="text-center font-semibold text-gray-400">{`Let's fly`}</p>
+            {type === "signup" && (
+              <p className="text-center font-semibold text-gray-400">{`Let's fly`}</p>
+            )}
           </div>
           {children}
           {type === "login" && (
@@ -95,32 +107,29 @@ const AuthLayout = ({
           {!isOtpInputVisible && (
             <>
               <div className="mt-4 flex justify-start w-[380px] gap-2 font-semibold">
-                <p>
-                  {type === "login"
-                    ? "New to Uploadfly?"
-                    : "Already have an account?"}
-                </p>
-                <Link href={type === "login" ? "/signup" : "/login"}>
-                  {type === "login" ? "Signup" : "Login"}
-                </Link>
+                <p>{question?.title}</p>
+                <Link href={question?.route}>{question?.text}</Link>
               </div>
 
-              <div className="mt-4 flex items-center gap-4 flex-col">
-                <p>or</p>
-                <button
-                  className="flex gap-2 bg-uf-light text-uf-dark rounded-md py-2 w-[380px] items-center justify-center font-bold hover:scale-105 transition-all"
-                  onClick={loginWithGithub}
-                >
-                  {loading ? (
-                    <RiLoader5Fill className="animate-spin text-2xl" />
-                  ) : (
-                    <>
-                      <SiGithub className="text-xl" />
-                      Continue with GitHub
-                    </>
-                  )}
-                </button>
-              </div>
+              {type === "login" ||
+                (type === "signup" && (
+                  <div className="mt-4 flex items-center gap-4 flex-col">
+                    <p>or</p>
+                    <button
+                      className="flex gap-2 bg-uf-light text-uf-dark rounded-md py-2 w-[380px] items-center justify-center font-bold hover:scale-105 transition-all"
+                      onClick={loginWithGithub}
+                    >
+                      {loading ? (
+                        <RiLoader5Fill className="animate-spin text-2xl" />
+                      ) : (
+                        <>
+                          <SiGithub className="text-xl" />
+                          Continue with GitHub
+                        </>
+                      )}
+                    </button>
+                  </div>
+                ))}
             </>
           )}
         </div>
