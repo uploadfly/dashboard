@@ -90,6 +90,12 @@ const Signup = () => {
       text="Get started"
       type="signup"
       isOtpInputVisible={showOtpInput}
+      question={{
+        route: "/login",
+        text: "Login",
+        title: "Already have an account?",
+      }}
+      pageName="Signup"
     >
       <form
         className="flex flex-col gap-8 z-40"
