@@ -14,6 +14,7 @@ const Signup = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [showOtpInput, setShowOtpInput] = useState<boolean>(false);
   const [otp, setOtp] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const signupWithEmail = async () => {
     if (!email) {
@@ -98,7 +99,7 @@ const Signup = () => {
       pageName="Signup"
     >
       <form
-        className="flex flex-col gap-8 z-40"
+        className="flex flex-col z-40"
         onSubmit={(e) => {
           e.preventDefault();
           if (!showOtpInput) {
@@ -148,21 +149,29 @@ const Signup = () => {
             />
 
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               className="input"
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
             />
 
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               className="input"
               placeholder="Shh...it's a secret"
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </>
         )}
-        <button className="w-[380px] bg-uf-accent rounded-md py-2 h-10 flex items-center justify-center text-[#1e1e1e] font-bold hover:scale-105 transition-all">
+        <div className="flex items-center gap-2 mt-2">
+          <input
+            type="checkbox"
+            name="Show password"
+            onChange={() => setShowPassword(!showPassword)}
+          />
+          <p>Show password</p>
+        </div>
+        <button className="w-[380px] bg-uf-accent rounded-md py-2 h-10 flex items-center justify-center text-[#1e1e1e] font-bold hover:scale-105 transition-all mt-4">
           {loading ? (
             <RiLoader5Fill className="animate-spin text-2xl" />
           ) : (
