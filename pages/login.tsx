@@ -52,7 +52,15 @@ const Login = () => {
   };
 
   return (
-    <AuthLayout text="Welcome back">
+    <AuthLayout
+      text="Welcome back"
+      question={{
+        route: "/signup",
+        text: "Signup",
+        title: "New to Uploadfly?",
+      }}
+      pageName="Login"
+    >
       <form
         className="flex flex-col gap-8 z-40"
         onSubmit={(e) => {
