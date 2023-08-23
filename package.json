@@ -22,6 +22,7 @@
     "@types/react-calendar-heatmap": "^1.6.3",
     "@types/react-dom": "18.2.4",
     "@types/uuid": "^9.0.1",
+    "@uploadfly/react-widget": "^1.1.1",
     "axios": "^1.4.0",
     "boring-name-generator": "^1.0.3",
     "dayjs": "^1.11.8",
