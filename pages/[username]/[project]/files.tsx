@@ -86,7 +86,7 @@ const Files = () => {
             </div>
 
             <div
-              className={`h-fit bg-[#1E1E1E] fixed right-28 transition-all rounded-md ${
+              className={`h-fit bg-[#1E1E1E] fixed top-40 right-24 transition-all rounded-md ${
                 selectedFile ? "w-96" : "w-0"
               }`}
             >
