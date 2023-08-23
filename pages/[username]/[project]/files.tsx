@@ -6,6 +6,7 @@ import { FileProps } from "@/interfaces";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import { useFlyStore } from "@/stores/flyStore";
 import { useEffect, useState } from "react";
+import { FaFolderPlus } from "react-icons/fa";
 
 const Files = () => {
   const [files, setFiles] = useState<FileProps[]>([]);
@@ -48,58 +49,44 @@ const Files = () => {
       pageName="Files"
       isChildLoading={loading}
       childLoadingComponent={<></>}
+      button={
+        <button className="bg-white px-5 py-2 text-sm font-semibold rounded-md text-black flex items-center gap-2">
+          <FaFolderPlus /> Create a folder
+        </button>
+      }
     >
       {files.length === 0 ? (
         <NoFiles />
       ) : (
-        <div className="flex gap-5 overflow-auto">
+        <div className="flex gap-5">
           <div
             className={`h-full w-full flex relative transition-all ${
               selectedFile ? "mr-96" : "mr-0"
             }`}
           >
-            <table className="border-collapse table-auto w-full text-sm">
-              <thead className="bg-uf-accent/10">
-                <tr>
-                  {tableHeads.map((head, index) => (
-                    <th
-                      className="border-b border-uf-accent/80 font-medium py-2 text-uf-light text-left pl-5 whitespace-nowrap"
-                      key={index}
-                    >
-                      {head}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="">
-                {files.map((file) => (
-                  <File
-                    key={file.id}
-                    name={file.name}
-                    size={file.size}
-                    type={file.type}
-                    selected={selectedFile == file}
-                    uploaded={file.created_at}
-                    onClick={() => {
-                      // if (selectedFiles.includes(file)) {
-                      //   setSelectedFiles(
-                      //     selectedFiles.filter((f) => f !== file)
-                      //   );
-                      //   return;
-                      // }
-                      // setSelectedFiles([...selectedFiles, file]);
-                      if (selectedFile === file) {
-                        setSelectedFile(null);
-                        return;
-                      }
-                      setSelectedFile(file);
-                    }}
-                  />
-                ))}
-              </tbody>
-            </table>
+            <div className="flex gap-7 justify-start items-center w-fit flex-wrap">
+              {files.map((file) => (
+                <File
+                  key={file.id}
+                  name={file.name}
+                  size={file.size}
+                  type={file.type}
+                  selected={selectedFile == file}
+                  uploaded={file.created_at}
+                  uploaded_via={file.uploaded_via}
+                  onClick={() => {
+                    if (selectedFile === file) {
+                      setSelectedFile(null);
+                      return;
+                    }
+                    setSelectedFile(file);
+                  }}
+                />
+              ))}
+            </div>
+
             <div
-              className={`h-fit bg-[#1E1E1E] fixed right-5 transition-all rounded-md ${
+              className={`h-fit bg-[#1E1E1E] fixed top-40 right-24 transition-all rounded-md ${
                 selectedFile ? "w-96" : "w-0"
               }`}
             >
