@@ -84,6 +84,14 @@ const AuthLayout = ({
             <p className="text-center font-semibold text-gray-400">{`Let's fly`}</p>
           </div>
           {children}
+          {type === "login" && (
+            <Link
+              href={"/forgot-password"}
+              className="text-left w-[380px] mx-auto mt-3 font-semibold text-sm hover:text-uf-accent transition-colors"
+            >
+              Forgot password?
+            </Link>
+          )}
           {!isOtpInputVisible && (
             <>
               <div className="mt-4 flex justify-start w-[380px] gap-2 font-semibold">
@@ -96,6 +104,7 @@ const AuthLayout = ({
                   {type === "login" ? "Signup" : "Login"}
                 </Link>
               </div>
+
               <div className="mt-4 flex items-center gap-4 flex-col">
                 <p>or</p>
                 <button
