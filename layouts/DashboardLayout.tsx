@@ -65,7 +65,7 @@ const DashboardLayout = ({
         <>
           <Navbar />
           <div className="pb-10">
-            <div className="w-[90%] mx-auto mt-10 lg:px-10 px-5 min-h-[calc(100vh-150px)]">
+            <div className="lg:w-[90%] mx-auto mt-10 lg:px-10 px-5 min-h-[calc(100vh-150px)]">
               <div className="flex justify-between items-center mb-10">
                 <h1 className="text-2xl font-bold">{pageName}</h1>
                 {button}
