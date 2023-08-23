@@ -80,8 +80,9 @@ const ResetPassword = () => {
       >
         <input
           type="text"
+          name="otp"
           className="input"
-          placeholder="OTP sent to your email"
+          placeholder="OTP sent to you"
           onChange={(e) => setOtp(e.target.value)}
         />
         <input
