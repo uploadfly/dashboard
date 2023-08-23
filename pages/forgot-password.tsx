@@ -26,7 +26,9 @@ const ForgotPassword = () => {
       setTimeout(() => {
         router.push("/reset-password");
       }, 1500);
-    } catch (error) {
+    } catch (error: any) {
+      toast(error.response.data.message, toastErrorConfig);
+
       setLoading(false);
     }
   };
@@ -55,7 +57,10 @@ const ForgotPassword = () => {
           placeholder="What's your email?"
           onChange={(e) => setEmail(e.target.value.toLowerCase().trim())}
         />
-        <button className="w-[380px] bg-uf-accent rounded-md py-2 h-10 flex items-center justify-center text-[#1e1e1e] font-bold hover:scale-105 transition-all mt-5">
+        <button
+          className="w-[380px] bg-uf-accent rounded-md py-2 h-10 flex items-center justify-center text-[#1e1e1e] font-bold hover:scale-105 transition-all mt-5 disabled:opacity-70"
+          disabled={loading}
+        >
           {loading ? (
             <RiLoader5Fill className="animate-spin text-2xl" />
           ) : (
