@@ -96,6 +96,7 @@ const AuthLayout = ({
             )}
           </div>
           {children}
+
           {type === "login" && (
             <Link
               href={"/forgot-password"}
