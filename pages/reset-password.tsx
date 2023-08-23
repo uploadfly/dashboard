@@ -8,23 +8,54 @@ import { RiLoader5Fill } from "react-icons/ri";
 
 const ResetPassword = () => {
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [otp, setOtp] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const router = useRouter();
 
   const handleSubmit = async () => {
-    if (!email) {
-      toast("Email is required", toastErrorConfig);
+    if (!otp) {
+      toast("OTP is required", toastErrorConfig);
       return;
     }
+
+    if (otp.length < 4) {
+      toast("Enter all 4 chracters", toastErrorConfig);
+      return;
+    }
+
+    if (!password) {
+      toast("Password is required", toastErrorConfig);
+      return;
+    }
+
+    if (password.length < 8) {
+      toast("Password must be at least 8 characters", toastErrorConfig);
+      return;
+    }
+
+    if (!confirmPassword) {
+      toast("Enter password again", toastErrorConfig);
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      toast("Password do not match", toastErrorConfig);
+      return;
+    }
+
     try {
       setLoading(true);
-      await axiosAuth.put("/forgot-password", {
-        email,
+      await axiosAuth.put("/reset-password", {
+        otp,
+        password,
+        confirmPassword,
       });
-      toast("Email sent", toastSuccessConfig);
+      toast("Password has been reset", toastSuccessConfig);
       setTimeout(() => {
-        router.push("/reset-password");
+        router.push("/login");
       }, 1500);
     } catch (error: any) {
       toast(error.response.data.message, toastErrorConfig);
@@ -45,13 +76,35 @@ const ResetPassword = () => {
           e.preventDefault();
           handleSubmit();
         }}
+        className="flex flex-col z-40"
       >
         <input
           type="text"
           className="input"
-          placeholder="What's your email?"
-          onChange={(e) => setEmail(e.target.value.toLowerCase().trim())}
+          placeholder="OTP sent to your email"
+          onChange={(e) => setOtp(e.target.value)}
         />
+        <input
+          type={showPassword ? "text" : "password"}
+          className="input"
+          placeholder="New password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        <input
+          type={showPassword ? "text" : "password"}
+          className="input"
+          placeholder="Enter new password again"
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+        <div className="flex items-center gap-2 mt-2">
+          <input
+            type="checkbox"
+            name="Show password"
+            onChange={() => setShowPassword(!showPassword)}
+          />
+          <p>Show password</p>
+        </div>
         <button
           className="w-[380px] bg-uf-accent rounded-md py-2 h-10 flex items-center justify-center text-[#1e1e1e] font-bold hover:scale-105 transition-all mt-5 disabled:opacity-70"
           disabled={loading}
