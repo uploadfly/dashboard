@@ -55,7 +55,7 @@
 }
 
 .input {
-  @apply w-[380px] h-12 border-none outline-none rounded-md bg-[#1e1e1e] pl-4 font-semibold text-gray-400;
+  @apply w-[380px] h-12 border-none outline-none rounded-md bg-[#1e1e1e] pl-4 font-semibold text-gray-400 my-2;
 }
 
 .btn-disabled {

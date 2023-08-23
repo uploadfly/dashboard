@@ -11,6 +11,7 @@ const Login = () => {
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const loginWithEmail = async () => {
     const { query } = router;
@@ -52,9 +53,17 @@ const Login = () => {
   };
 
   return (
-    <AuthLayout text="Welcome back">
+    <AuthLayout
+      text="Welcome back"
+      question={{
+        route: "/signup",
+        text: "Signup",
+        title: "New to Uploadfly?",
+      }}
+      pageName="Login"
+    >
       <form
-        className="flex flex-col gap-8 z-40"
+        className="flex flex-col z-40"
         onSubmit={(e) => {
           e.preventDefault();
           loginWithEmail();
@@ -70,15 +79,23 @@ const Login = () => {
           name="email"
         />
         <input
-          type="password"
+          type={showPassword ? "text" : "password"}
           className="input"
           placeholder="Shh...it's a secret"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           name="password"
         />
+        <div className="flex items-center gap-2 mt-2">
+          <input
+            type="checkbox"
+            name="Show password"
+            onChange={() => setShowPassword(!showPassword)}
+          />
+          <p>Show password</p>
+        </div>
         <button
-          className="bg-uf-accent w-full rounded-md py-2 h-10 flex items-center justify-center text-[#1e1e1e] font-bold hover:scale-105 transition-all disabled:cursor-not-allowed"
+          className="bg-uf-accent w-full rounded-md py-2 h-10 flex items-center justify-center text-[#1e1e1e] font-bold hover:scale-105 transition-all disabled:cursor-not-allowed mt-4"
           disabled={loading}
         >
           {loading ? (
