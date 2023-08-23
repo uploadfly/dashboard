@@ -49,7 +49,12 @@ const ForgotPassword = () => {
           handleSubmit();
         }}
       >
-        <input type="text" className="input" placeholder="What's your email?" />
+        <input
+          type="text"
+          className="input"
+          placeholder="What's your email?"
+          onChange={(e) => setEmail(e.target.value.toLowerCase().trim())}
+        />
         <button className="w-[380px] bg-uf-accent rounded-md py-2 h-10 flex items-center justify-center text-[#1e1e1e] font-bold hover:scale-105 transition-all mt-5">
           {loading ? (
             <RiLoader5Fill className="animate-spin text-2xl" />
