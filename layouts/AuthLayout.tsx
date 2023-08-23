@@ -18,9 +18,9 @@ const AuthLayout = ({
 }: {
   children: ReactNode;
   text: string;
-  type?: "login" | "signup" | "forgot";
+  type?: "login" | "signup" | "forgot" | "reset";
   isOtpInputVisible?: boolean;
-  question: {
+  question?: {
     title: string;
     route: string;
     text: string;
@@ -106,10 +106,12 @@ const AuthLayout = ({
           )}
           {!isOtpInputVisible && (
             <>
-              <div className="mt-4 flex justify-start w-[380px] gap-2 font-semibold">
-                <p>{question?.title}</p>
-                <Link href={question?.route}>{question?.text}</Link>
-              </div>
+              {type !== "reset" && (
+                <div className="mt-4 flex justify-start w-[380px] gap-2 font-semibold">
+                  <p>{question?.title}</p>
+                  <Link href={question?.route || ""}>{question?.text}</Link>
+                </div>
+              )}
 
               {type === "login" ||
                 (type === "signup" && (
