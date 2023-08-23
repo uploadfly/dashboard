@@ -114,25 +114,24 @@ const AuthLayout = ({
                 </div>
               )}
 
-              {type === "login" ||
-                (type === "signup" && (
-                  <div className="mt-4 flex items-center gap-4 flex-col">
-                    <p>or</p>
-                    <button
-                      className="flex gap-2 bg-uf-light text-uf-dark rounded-md py-2 w-[380px] items-center justify-center font-bold hover:scale-105 transition-all"
-                      onClick={loginWithGithub}
-                    >
-                      {loading ? (
-                        <RiLoader5Fill className="animate-spin text-2xl" />
-                      ) : (
-                        <>
-                          <SiGithub className="text-xl" />
-                          Continue with GitHub
-                        </>
-                      )}
-                    </button>
-                  </div>
-                ))}
+              {(type === "login" || type === "signup") && (
+                <div className="mt-4 flex items-center gap-4 flex-col">
+                  <p>or</p>
+                  <button
+                    className="flex gap-2 bg-uf-light text-uf-dark rounded-md py-2 w-[380px] items-center justify-center font-bold hover:scale-105 transition-all"
+                    onClick={loginWithGithub}
+                  >
+                    {loading ? (
+                      <RiLoader5Fill className="animate-spin text-2xl" />
+                    ) : (
+                      <>
+                        <SiGithub className="text-xl" />
+                        Continue with GitHub
+                      </>
+                    )}
+                  </button>
+                </div>
+              )}
             </>
           )}
         </div>
