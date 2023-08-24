@@ -5,9 +5,11 @@ import { useRouter } from "next/router";
 import { toast } from "react-hot-toast";
 import { toastErrorConfig, toastSuccessConfig } from "@/configs/toast";
 import { useUserStore } from "@/stores/userStore";
+import { LuSettings } from "react-icons/lu";
+import Link from "next/link";
 
 const Profile = () => {
-  const [open, setOpen] = useState(false);
+  const [focused, setFocused] = useState(false); // Add focused state
   const { user } = useUserStore();
   const router = useRouter();
 
@@ -22,7 +24,6 @@ const Profile = () => {
       toast.dismiss("logout");
       toast.error("Failed to logout", toastErrorConfig);
       console.log(error);
-      return;
     }
   };
 
@@ -31,7 +32,10 @@ const Profile = () => {
       <div
         className="w-12 h-12 border-2 border-uf-accent/70 hover:border-uf-accent transition-colors rounded-full p-[2px]"
         role="button"
-        onClick={() => setOpen(!open)}
+        onClick={() => setFocused(!focused)}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        tabIndex={0}
       >
         <img
           src={`https://avatars.uploadfly.cloud/6.x/bottts/png?seed=${user?.username}`}
@@ -40,15 +44,25 @@ const Profile = () => {
         />
       </div>
       <div
-        className={`absolute top-11 px-4 py-2 rounded-md bg-uf-dark border border-gray-800 z-10 w-56
+        className={`absolute top-11 px-1 flex flex-col items-start gap-2 py-2 rounded-md bg-uf-dark border border-gray-800 z-10 w-56
         ${
-          open
+          focused
             ? "opacity-100 scale-100 transition-all pointer-events-auto"
             : "opacity-0 scale-0 transition-all pointer-events-none"
         }
         `}
       >
-        <button className="flex gap-2 items-center w-full" onClick={logout}>
+        <Link
+          href={"/settings"}
+          className="flex gap-2 items-center w-full hover:bg-white/10 p-1 rounded-md transition-colors"
+          onClick={logout}
+        >
+          <LuSettings className="text-lg" /> Settings
+        </Link>
+        <button
+          className="flex gap-2 items-center w-full hover:bg-white/10 p-1 rounded-md transition-colors"
+          onClick={logout}
+        >
           <IoLogOutOutline className="text-lg" /> Logout
         </button>
       </div>
