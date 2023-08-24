@@ -7,7 +7,7 @@ import { ReactNode } from "react";
 const AccountSettingsLayout = ({ children }: { children: ReactNode }) => {
   const links = [
     {
-      title: "General",
+      title: "Account",
       href: "/settings",
     },
   ];
