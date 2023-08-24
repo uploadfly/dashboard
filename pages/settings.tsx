@@ -1,13 +1,13 @@
 import Card from "@/components/AccountSettings/Card";
 import { axios } from "@/configs/axios";
-import { toastErrorConfig } from "@/configs/toast";
+import { toastErrorConfig, toastSuccessConfig } from "@/configs/toast";
 import AccountSettingsLayout from "@/layouts/AccountSettingsLayout";
 import { useUserStore } from "@/stores/userStore";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 
 const Settings = () => {
-  const { user } = useUserStore();
+  const { user, setUser } = useUserStore();
 
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
@@ -17,8 +17,9 @@ const Settings = () => {
   const updateUsername = async () => {
     try {
       setLoadingId(1);
-      const { data } = await axios.patch("/me/update/username");
-      console.log(data);
+      const { data } = await axios.patch("/me/update/username", { username });
+      setUser({ email: user?.email!, username: data.username });
+      toast("Username updated", toastSuccessConfig);
     } catch (error: any) {
       toast(
         error.response.data.message || "Something went wrong",
