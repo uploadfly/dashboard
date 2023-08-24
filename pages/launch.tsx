@@ -86,7 +86,7 @@ const Launch = () => {
         className={`abosolute top-0 w-full h-full bg-uf-dark flex items-center justify-center`}
       >
         <div
-          className="bg-uf-dark w-[35%]  lg:flex hidden items-center justify-between flex-col h-full py-5"
+          className="bg-uf-dark w-[35%] lg:flex hidden items-center justify-between flex-col h-full py-5"
           style={{
             backgroundImage:
               "linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url(https://cdn.uploadfly.cloud/xCnc4L/grid-ev0zE8-UIn.png)",
@@ -106,7 +106,7 @@ const Launch = () => {
           <img src="/logo.svg" alt="" className="w-40 opacity-70" />
           <div />
         </div>
-        <div className="flex-col lg:w-[65%] h-full flex relative items-center lg:justify-center mt-48">
+        <div className="flex-col lg:w-[65%] h-full flex relative items-center lg:justify-center lg:mt-0 mt-48">
           <img
             src="/logo.svg"
             alt=""
