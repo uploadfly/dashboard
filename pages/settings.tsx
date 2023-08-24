@@ -49,7 +49,7 @@ const Settings = () => {
             type="text"
             className="w-full bg-transparent outline-none pl-1"
             defaultValue={user?.username}
-            onChange={(e) => setUsername(() => e.target.value.toLowerCase())}
+            onChange={(e) => setUsername(e.target.value.toLowerCase())}
           />
         </div>
       ),
