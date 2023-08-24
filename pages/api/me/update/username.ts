@@ -1,6 +1,9 @@
 import { ExtendedRequest } from "@/interfaces";
 import authenticateToken from "@/middleware/auth";
 import prisma from "@/prisma";
+import { setCookie } from "cookies-next";
+import dayjs from "dayjs";
+import { sign } from "jsonwebtoken";
 import { NextApiResponse } from "next";
 import { allowMethods } from "next-method-guard";
 
@@ -45,8 +48,46 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
       },
     });
 
+    const payload = {
+      uuid: req.user.uuid,
+      username,
+    };
+
+    const newRefreshToken = sign(payload, process.env.JWT_SECRET_KEY!, {
+      expiresIn: "90d",
+    });
+
+    const newAccessToken = sign(payload, process.env.JWT_SECRET_KEY!, {
+      expiresIn: "15m",
+    });
+
+    await prisma.refreshToken.update({
+      where: {
+        user_id: req.user.uuid,
+      },
+      data: {
+        token: newRefreshToken,
+        expires_at: dayjs().add(90, "days").toISOString(),
+      },
+    });
+
+    setCookie("refresh_token", newRefreshToken, {
+      expires: dayjs().add(90, "days").toDate(),
+      req,
+      res,
+    });
+
+    setCookie("access_token", newAccessToken, {
+      expires: dayjs().add(15, "minutes").toDate(),
+      req,
+      res,
+    });
+
     res.status(200).json({ message: "Username updated", username });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
 };
 
 export default allowMethods(["PATCH"])(
