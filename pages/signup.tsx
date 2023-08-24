@@ -163,14 +163,16 @@ const Signup = () => {
             />
           </>
         )}
-        <div className="flex items-center gap-2 mt-2">
-          <input
-            type="checkbox"
-            name="Show password"
-            onChange={() => setShowPassword(!showPassword)}
-          />
-          <p>Show password</p>
-        </div>
+        {!showOtpInput && (
+          <div className="flex items-center gap-2 mt-2">
+            <input
+              type="checkbox"
+              name="Show password"
+              onChange={() => setShowPassword(!showPassword)}
+            />
+            <p>Show password</p>
+          </div>
+        )}
         <button className="w-[380px] bg-uf-accent rounded-md py-2 h-10 flex items-center justify-center text-[#1e1e1e] font-bold hover:scale-105 transition-all mt-4">
           {loading ? (
             <RiLoader5Fill className="animate-spin text-2xl" />
