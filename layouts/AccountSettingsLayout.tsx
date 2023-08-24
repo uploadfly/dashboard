@@ -24,10 +24,9 @@ const AccountSettingsLayout = ({ children }: { children: ReactNode }) => {
             <Link
               href={link.href}
               key={index}
-              className={`
-                ${
-                  router?.pathname === link.href ? "text-uf-accent" : ""
-                } font-semibold`}
+              className={`${
+                router?.pathname === link.href ? "text-uf-accent" : ""
+              } font-semibold`}
             >
               {link.title}
             </Link>
