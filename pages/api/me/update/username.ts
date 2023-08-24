@@ -8,7 +8,8 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
   try {
     const username: string = req.body.username;
 
-    if (!username) return res.status(400).json({ message: "Missing username" });
+    if (!username)
+      return res.status(400).json({ message: "Missing username in request" });
 
     if (username.length < 4)
       return res
@@ -48,7 +49,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
   } catch (error) {}
 };
 
-export default allowMethods(["POST"])(
+export default allowMethods(["PATCH"])(
   (req: ExtendedRequest, res: NextApiResponse) =>
     authenticateToken(req, res, () => handler(req, res))
 );
