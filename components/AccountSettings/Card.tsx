@@ -27,7 +27,7 @@ const Card = ({
         <button
           className="bg-uf-accent/80 text-white px-5 py-2 rounded-md font-semibold w-full lg:w-fit disabled:opacity-60 disabled:cursor-not-allowed hover:bg-uf-accent transition-colors"
           onClick={onClick}
-          disabled={disabled}
+          disabled={disabled || loading}
         >
           {loading ? "Loading..." : "Save"}
         </button>
