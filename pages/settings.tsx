@@ -1,23 +1,26 @@
 import AccountSettingsLayout from "@/layouts/AccountSettingsLayout";
+import { useUserStore } from "@/stores/userStore";
 
 const Settings = () => {
+  const { user } = useUserStore();
   return (
     <AccountSettingsLayout>
       <div>
-        <h1 className="text-2xl font-semibold">Settings</h1>
+        <h1 className="text-2xl font-semibold">Account Settings</h1>
         <div className="mt-5 flex gap-10 flex-col">
           <div className="w-full border-2 border-white/10 rounded-md py-5 px-5 flex flex-col items-start gap-6">
             <h2 className="text-xl font-semibold">Username</h2>
             <p className="text-sm">
               Your URL namespace within your Uploadfly dashboard.
             </p>
-            <div className="flex items-center rounded-md border border-uf-accent/50 focus-within:border-uf-accent transition-colors px-3 py-2 w-[400px]">
+            <div className="flex items-center rounded-md border border-uf-accent/50 focus-within:border-uf-accent transition-colors w-[400px]">
               <p className="bg-uf-accent/20 p-2 rounded-md">
                 beta.uploadfly.cloud/
               </p>
               <input
                 type="text"
                 className="w-full bg-transparent outline-none pl-1"
+                defaultValue={user?.username}
               />
             </div>
             <div className="flex items-center justify-between w-full">
@@ -34,7 +37,7 @@ const Settings = () => {
             <p className="text-sm">Please enter your first or nick name.</p>
             <input
               type="text"
-              className="bg-transparent border border-uf-accent/30 focus:border-uf-accent/70 transition-colors outline-none rounded-md text-lg pl-3 py-2 w-[400px]"
+              className="bg-transparent border border-uf-accent/30 focus:border-uf-accent/70 transition-colors outline-none rounded-md pl-3 py-2 w-[400px]"
             />
             <div className="flex items-center justify-between w-full">
               <p className="text-sm">
@@ -53,7 +56,8 @@ const Settings = () => {
             </p>
             <input
               type="text"
-              className="bg-transparent border border-uf-accent/30 focus:border-uf-accent/70 transition-colors outline-none rounded-md text-lg pl-3 py-2 w-[400px]"
+              className="bg-transparent border border-uf-accent/30 focus:border-uf-accent/70 transition-colors outline-none rounded-md pl-3 py-2 w-[400px]"
+              defaultValue={user?.email}
             />
             <div className="flex items-center justify-between w-full">
               <p className="text-sm">We will require you to verify this.</p>
