@@ -15,6 +15,8 @@ const Signup = () => {
   const [showOtpInput, setShowOtpInput] = useState<boolean>(false);
   const [otp, setOtp] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [accountVerified, setAccountVerified] = useState<boolean>(true);
+  const [username, setUsername] = useState<string>("");
 
   const signupWithEmail = async () => {
     if (!email) {
@@ -73,11 +75,13 @@ const Signup = () => {
     setLoading(true);
 
     try {
-      const res = await axiosAuth.put("/verify", {
+      const { data } = await axiosAuth.put("/verify", {
         otp,
       });
       toast("Welcome to Uploadfly", toastSuccessConfig);
-      router.push(`/${res?.data?.user?.username}`);
+      setAccountVerified(true);
+      setUsername(data?.user?.username);
+      // router.push(`/${data?.user?.username}`);
     } catch (error: any) {
       toast(
         error?.response?.data?.message || "Something went wrong",
@@ -90,7 +94,7 @@ const Signup = () => {
     <AuthLayout
       text="Get started"
       type="signup"
-      isOtpInputVisible={showOtpInput}
+      hideExtras={showOtpInput || accountVerified}
       question={{
         route: "/login",
         text: "Login",
@@ -109,7 +113,7 @@ const Signup = () => {
           completeSignup();
         }}
       >
-        {showOtpInput ? (
+        {showOtpInput && !accountVerified && (
           <div className="">
             <h1 className="text-center mb-5 text-xl">
               An OTP has been sent your email
@@ -138,7 +142,8 @@ const Signup = () => {
               />
             </div>
           </div>
-        ) : (
+        )}
+        {!showOtpInput && !accountVerified && (
           <>
             <input
               type="text"
@@ -163,7 +168,8 @@ const Signup = () => {
             />
           </>
         )}
-        {!showOtpInput && (
+        {accountVerified && <div className="">Your username is</div>}
+        {!showOtpInput && !accountVerified && (
           <div className="flex items-center gap-2 mt-2">
             <input
               type="checkbox"
