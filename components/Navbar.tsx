@@ -9,6 +9,7 @@ import { useFlyStore } from "@/stores/flyStore";
 import { useRouter } from "next/router";
 import NavLinks from "./NavLinks";
 import SwitchFly from "./Navbar/SwitchFly";
+import { axios } from "@/configs/axios";
 
 const Navbar = () => {
   const router = useRouter();
@@ -17,7 +18,10 @@ const Navbar = () => {
   const { fly } = useFlyStore();
 
   useEffect(() => {
-    setUser();
+    (async () => {
+      const { data } = await axios("/user");
+      setUser(data);
+    })();
   }, []);
 
   return (
