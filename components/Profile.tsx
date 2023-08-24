@@ -17,7 +17,7 @@ const Profile = () => {
     try {
       await axiosAuth.post("/logout");
       toast.loading("Logging out...", { id: "logout" });
-      router.push("/login");
+      router.reload();
       toast.dismiss("logout");
       toast("Logged out successfully", toastSuccessConfig);
     } catch (error) {
