@@ -26,7 +26,7 @@ const Card = ({
       <div className="flex items-center justify-between w-full flex-wrap gap-3">
         <p className="text-sm">{subtext}</p>
         <button
-          className="bg-uf-accent/80 text-white px-5 py-2 rounded-md font-semibold w-full lg:w-fit disabled:opacity-60 disabled:cursor-not-allowed hover:bg-uf-accent transition-colors"
+          className="bg-uf-accent/80 text-white px-5 py-2 rounded-md font-semibold w-full lg:w-fit disabled:opacity-60 disabled:cursor-not-allowed hover:bg-uf-accent transition-colors flex items-center justify-center"
           onClick={onClick}
           disabled={disabled || loading}
         >
