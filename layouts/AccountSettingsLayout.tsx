@@ -18,7 +18,7 @@ const AccountSettingsLayout = ({ children }: { children: ReactNode }) => {
         <title>Settings | Uploadfly </title>
       </Head>
       <Navbar />
-      <div className="flex lg:flex-row flex-col lg:px-20 px-5">
+      <div className="flex lg:flex-row flex-col lg:px-20 px-5 py-10">
         <div className="flex flex-col lg:gap-5 gap-2">
           {links.map((link, index) => (
             <Link
@@ -33,7 +33,7 @@ const AccountSettingsLayout = ({ children }: { children: ReactNode }) => {
             </Link>
           ))}
         </div>
-        <div className="lg:ml-28 lg:mt-0 mt-8">{children}</div>
+        <div className="lg:ml-28 lg:mt-0 mt-8 w-full">{children}</div>
       </div>
     </>
   );
