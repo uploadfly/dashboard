@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react";
+import { RiLoader5Fill } from "react-icons/ri";
 
 const Card = ({
   title,
@@ -29,7 +30,11 @@ const Card = ({
           onClick={onClick}
           disabled={disabled || loading}
         >
-          {loading ? "Loading..." : "Save"}
+          {loading ? (
+            <RiLoader5Fill className="animate-spin text-2xl" />
+          ) : (
+            "Save"
+          )}
         </button>
       </div>
     </div>
