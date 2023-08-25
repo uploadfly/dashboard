@@ -3,9 +3,10 @@ import AuthLayout from "@/layouts/AuthLayout";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import OTPInput from "react-otp-input";
-import { axiosAuth } from "@/configs/axios";
+import { axios, axiosAuth } from "@/configs/axios";
 import { useRouter } from "next/router";
 import { RiLoader5Fill } from "react-icons/ri";
+import Link from "next/link";
 
 const Signup = () => {
   const [email, setEmail] = useState<string>("");
@@ -15,6 +16,11 @@ const Signup = () => {
   const [showOtpInput, setShowOtpInput] = useState<boolean>(false);
   const [otp, setOtp] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [accountVerified, setAccountVerified] = useState<boolean>(false);
+  const [username, setUsername] = useState<string>("");
+  const [wantsToChangeUsername, setWantsToChangeUsername] =
+    useState<boolean>(false);
+  const [newUsername, setNewUsername] = useState<string>("");
 
   const signupWithEmail = async () => {
     if (!email) {
@@ -59,7 +65,7 @@ const Signup = () => {
 
   const router = useRouter();
 
-  const completeSignup = async () => {
+  const verifyAccount = async () => {
     if (!otp) {
       toast("OTP is required", toastErrorConfig);
       return;
@@ -73,11 +79,14 @@ const Signup = () => {
     setLoading(true);
 
     try {
-      const res = await axiosAuth.put("/verify", {
+      const { data } = await axiosAuth.put("/verify", {
         otp,
       });
       toast("Welcome to Uploadfly", toastSuccessConfig);
-      router.push(`/${res?.data?.user?.username}`);
+      setAccountVerified(true);
+      setUsername(data?.user?.username);
+      // router.push(`/${data?.user?.username}`);
+      setLoading(false);
     } catch (error: any) {
       toast(
         error?.response?.data?.message || "Something went wrong",
@@ -86,11 +95,29 @@ const Signup = () => {
       setLoading(false);
     }
   };
+
+  const handleUsernameChange = async () => {
+    try {
+      setLoading(true);
+      await axios.patch("/me/update/username", {
+        username: newUsername,
+      });
+      router.push("/");
+    } catch (error: any) {
+      toast(
+        error.response.data.message || "Something went wrong",
+        toastErrorConfig
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <AuthLayout
       text="Get started"
       type="signup"
-      isOtpInputVisible={showOtpInput}
+      hideExtras={showOtpInput || accountVerified}
       question={{
         route: "/login",
         text: "Login",
@@ -106,10 +133,16 @@ const Signup = () => {
             signupWithEmail();
             return;
           }
-          completeSignup();
+          if (!wantsToChangeUsername) {
+            verifyAccount();
+            return;
+          }
+          if (accountVerified && wantsToChangeUsername) {
+            handleUsernameChange();
+          }
         }}
       >
-        {showOtpInput ? (
+        {showOtpInput && !accountVerified && (
           <div className="">
             <h1 className="text-center mb-5 text-xl">
               An OTP has been sent your email
@@ -138,7 +171,8 @@ const Signup = () => {
               />
             </div>
           </div>
-        ) : (
+        )}
+        {!showOtpInput && !accountVerified && (
           <>
             <input
               type="text"
@@ -163,23 +197,62 @@ const Signup = () => {
             />
           </>
         )}
-        <div className="flex items-center gap-2 mt-2">
+
+        {accountVerified && wantsToChangeUsername && (
           <input
-            type="checkbox"
-            name="Show password"
-            onChange={() => setShowPassword(!showPassword)}
+            placeholder="Enter your prefered username"
+            className="input"
+            onChange={(e) => setNewUsername(e.target.value.toLowerCase())}
           />
-          <p>Show password</p>
-        </div>
-        <button className="w-[380px] bg-uf-accent rounded-md py-2 h-10 flex items-center justify-center text-[#1e1e1e] font-bold hover:scale-105 transition-all mt-4">
-          {loading ? (
-            <RiLoader5Fill className="animate-spin text-2xl" />
-          ) : (
-            <span className="shadow-2xl">
-              {showOtpInput ? "Complete signup" : "Continue"}
-            </span>
-          )}
-        </button>
+        )}
+
+        {accountVerified && !wantsToChangeUsername && (
+          <div className="">
+            <p>
+              Your username is <span className="shiny-text">{username}</span>,
+              do you want to change it?
+            </p>
+            <div className="flex items-center justify-center gap-3 mt-4">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setWantsToChangeUsername(true);
+                }}
+                className="bg-white/70 hover:bg-white transition-colors text-uf-dark font-semibold py-2 px-4 rounded-md"
+              >
+                Yes
+              </button>
+              <Link href="/">
+                <button className="bg-white/70 hover:bg-white transition-colors text-uf-dark font-semibold py-2 px-4 rounded-md">
+                  No
+                </button>
+              </Link>
+            </div>
+          </div>
+        )}
+        {!showOtpInput && !accountVerified && (
+          <div className="flex items-center gap-2 mt-2">
+            <input
+              type="checkbox"
+              name="Show password"
+              onChange={() => setShowPassword(!showPassword)}
+            />
+            <p>Show password</p>
+          </div>
+        )}
+        {(wantsToChangeUsername || !accountVerified) && (
+          <button className="w-[380px] bg-uf-accent rounded-md py-2 h-10 flex items-center justify-center text-[#1e1e1e] font-bold hover:scale-105 transition-all mt-4">
+            {loading ? (
+              <RiLoader5Fill className="animate-spin text-2xl" />
+            ) : (
+              <span className="shadow-2xl">
+                {accountVerified && wantsToChangeUsername
+                  ? "Continue to dashboard"
+                  : "Continue"}
+              </span>
+            )}
+          </button>
+        )}
       </form>
     </AuthLayout>
   );
