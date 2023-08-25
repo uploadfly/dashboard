@@ -18,7 +18,7 @@
     "@types/file-size": "^1.0.1",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/node": "20.2.1",
-    "@types/react": "18.2.6",
+    "@types/react": "^18.2.6",
     "@types/react-calendar-heatmap": "^1.6.3",
     "@types/react-dom": "18.2.4",
     "@types/uuid": "^9.0.1",
