@@ -15,8 +15,10 @@ const Signup = () => {
   const [showOtpInput, setShowOtpInput] = useState<boolean>(false);
   const [otp, setOtp] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [accountVerified, setAccountVerified] = useState<boolean>(true);
+  const [accountVerified, setAccountVerified] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
+  const [wantsToChangeUsername, setWantsToChangeUsername] =
+    useState<boolean>(false);
 
   const signupWithEmail = async () => {
     if (!email) {
@@ -168,7 +170,11 @@ const Signup = () => {
             />
           </>
         )}
-        {accountVerified && <div className="">Your username is</div>}
+        {accountVerified && (
+          <div className="">
+            Your username is <span>{username}, do you want to change it?</span>
+          </div>
+        )}
         {!showOtpInput && !accountVerified && (
           <div className="flex items-center gap-2 mt-2">
             <input
@@ -179,15 +185,17 @@ const Signup = () => {
             <p>Show password</p>
           </div>
         )}
-        <button className="w-[380px] bg-uf-accent rounded-md py-2 h-10 flex items-center justify-center text-[#1e1e1e] font-bold hover:scale-105 transition-all mt-4">
-          {loading ? (
-            <RiLoader5Fill className="animate-spin text-2xl" />
-          ) : (
-            <span className="shadow-2xl">
-              {showOtpInput ? "Complete signup" : "Continue"}
-            </span>
-          )}
-        </button>
+        {(wantsToChangeUsername || !accountVerified) && (
+          <button className="w-[380px] bg-uf-accent rounded-md py-2 h-10 flex items-center justify-center text-[#1e1e1e] font-bold hover:scale-105 transition-all mt-4">
+            {loading ? (
+              <RiLoader5Fill className="animate-spin text-2xl" />
+            ) : (
+              <span className="shadow-2xl">
+                {showOtpInput ? "Complete signup" : "Continue"}
+              </span>
+            )}
+          </button>
+        )}
       </form>
     </AuthLayout>
   );
