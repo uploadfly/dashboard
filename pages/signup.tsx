@@ -3,9 +3,10 @@ import AuthLayout from "@/layouts/AuthLayout";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import OTPInput from "react-otp-input";
-import { axiosAuth } from "@/configs/axios";
+import { axios, axiosAuth } from "@/configs/axios";
 import { useRouter } from "next/router";
 import { RiLoader5Fill } from "react-icons/ri";
+import Link from "next/link";
 
 const Signup = () => {
   const [email, setEmail] = useState<string>("");
@@ -19,6 +20,7 @@ const Signup = () => {
   const [username, setUsername] = useState<string>("");
   const [wantsToChangeUsername, setWantsToChangeUsername] =
     useState<boolean>(false);
+  const [newUsername, setNewUsername] = useState<string>("");
 
   const signupWithEmail = async () => {
     if (!email) {
@@ -63,7 +65,7 @@ const Signup = () => {
 
   const router = useRouter();
 
-  const completeSignup = async () => {
+  const verifyAccount = async () => {
     if (!otp) {
       toast("OTP is required", toastErrorConfig);
       return;
@@ -84,6 +86,7 @@ const Signup = () => {
       setAccountVerified(true);
       setUsername(data?.user?.username);
       // router.push(`/${data?.user?.username}`);
+      setLoading(false);
     } catch (error: any) {
       toast(
         error?.response?.data?.message || "Something went wrong",
@@ -92,6 +95,24 @@ const Signup = () => {
       setLoading(false);
     }
   };
+
+  const handleUsernameChange = async () => {
+    try {
+      setLoading(true);
+      await axios.patch("/me/update/username", {
+        username: newUsername,
+      });
+      router.push("/");
+    } catch (error: any) {
+      toast(
+        error.response.data.message || "Something went wrong",
+        toastErrorConfig
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <AuthLayout
       text="Get started"
@@ -112,7 +133,13 @@ const Signup = () => {
             signupWithEmail();
             return;
           }
-          completeSignup();
+          if (!wantsToChangeUsername) {
+            verifyAccount();
+            return;
+          }
+          if (accountVerified && wantsToChangeUsername) {
+            handleUsernameChange();
+          }
         }}
       >
         {showOtpInput && !accountVerified && (
@@ -170,9 +197,37 @@ const Signup = () => {
             />
           </>
         )}
-        {accountVerified && (
+
+        {accountVerified && wantsToChangeUsername && (
+          <input
+            placeholder="Enter your prefered username"
+            className="input"
+            onChange={(e) => setNewUsername(e.target.value.toLowerCase())}
+          />
+        )}
+
+        {accountVerified && !wantsToChangeUsername && (
           <div className="">
-            Your username is <span>{username}, do you want to change it?</span>
+            <p>
+              Your username is <span className="shiny-text">{username}</span>,
+              do you want to change it?
+            </p>
+            <div className="flex items-center justify-center gap-3 mt-4">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setWantsToChangeUsername(true);
+                }}
+                className="bg-white/70 hover:bg-white transition-colors text-uf-dark font-semibold py-2 px-4 rounded-md"
+              >
+                Yes
+              </button>
+              <Link href="/">
+                <button className="bg-white/70 hover:bg-white transition-colors text-uf-dark font-semibold py-2 px-4 rounded-md">
+                  No
+                </button>
+              </Link>
+            </div>
           </div>
         )}
         {!showOtpInput && !accountVerified && (
