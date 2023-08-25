@@ -11,7 +11,7 @@ const AuthLayout = ({
   children,
   text,
   type = "login",
-  isOtpInputVisible = false,
+  hideExtras = false,
   question,
   hideFlyingThing = false,
   pageName,
@@ -19,7 +19,7 @@ const AuthLayout = ({
   children: ReactNode;
   text: string;
   type?: "login" | "signup" | "forgot" | "reset";
-  isOtpInputVisible?: boolean;
+  hideExtras?: boolean;
   question?: {
     title: string;
     route: string;
@@ -105,7 +105,7 @@ const AuthLayout = ({
               Forgot password?
             </Link>
           )}
-          {!isOtpInputVisible && (
+          {!hideExtras && (
             <>
               {type !== "reset" && (
                 <div className="mt-4 flex justify-start w-[380px] gap-2 font-semibold">
