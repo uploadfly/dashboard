@@ -246,7 +246,9 @@ const Signup = () => {
               <RiLoader5Fill className="animate-spin text-2xl" />
             ) : (
               <span className="shadow-2xl">
-                {showOtpInput ? "Complete signup" : "Continue"}
+                {accountVerified && wantsToChangeUsername
+                  ? "Continue to dashboard"
+                  : "Continue"}
               </span>
             )}
           </button>
