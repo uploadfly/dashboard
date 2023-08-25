@@ -16,7 +16,11 @@ Router.events.on("routeChangeStart", () => progress.start());
 Router.events.on("routeChangeComplete", () => progress.finish());
 Router.events.on("routeChangeError", () => progress.finish());
 
-export default function App({ Component, pageProps }: AppProps) {
+interface MyAppProps extends AppProps {
+  Component: React.ComponentType;
+}
+
+export default function App({ Component, pageProps }: MyAppProps) {
   return (
     <PlausibleProvider domain="beta.uploadfly.cloud">
       <Head>
