@@ -44,7 +44,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
         uuid: req.user.uuid,
       },
       data: {
-        username: username,
+        username: username.toLowerCase().trim(),
       },
     });
 
