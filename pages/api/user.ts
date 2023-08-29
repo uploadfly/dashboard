@@ -13,6 +13,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
       select: {
         username: true,
         email: true,
+        name: true,
       },
     });
     return res.status(200).json(user);
