@@ -18,6 +18,8 @@ const Navbar = () => {
   const { fly } = useFlyStore();
 
   useEffect(() => {
+    if (user) return;
+
     (async () => {
       const { data } = await axios("/user");
       setUser(data);
