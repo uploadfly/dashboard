@@ -31,13 +31,14 @@ const Settings = () => {
   };
 
   const updateName = async () => {
-    console.log("test");
-
     try {
       setLoadingId(2);
       const { data } = await axios.patch("/me/update/name", { name });
-      setUser({ ...user, username, name: data.name });
-      toast("Username updated", toastSuccessConfig);
+
+      //@ts-ignore
+      setUser({ ...user, name: data.name });
+
+      toast("Name updated", toastSuccessConfig);
     } catch (error: any) {
       toast(
         error.response.data.message || "Something went wrong",
