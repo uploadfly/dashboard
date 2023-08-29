@@ -3,7 +3,7 @@ import { axios } from "@/configs/axios";
 import { toastErrorConfig, toastSuccessConfig } from "@/configs/toast";
 import AccountSettingsLayout from "@/layouts/AccountSettingsLayout";
 import { useUserStore } from "@/stores/userStore";
-import { useState } from "react";
+import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 
 const Settings = () => {
@@ -30,7 +30,23 @@ const Settings = () => {
     }
   };
 
-  const updateName = async () => {};
+  const updateName = async () => {
+    console.log("test");
+
+    try {
+      setLoadingId(2);
+      const { data } = await axios.patch("/me/update/name", { name });
+      setUser({ ...user, username, name: data.name });
+      toast("Username updated", toastSuccessConfig);
+    } catch (error: any) {
+      toast(
+        error.response.data.message || "Something went wrong",
+        toastErrorConfig
+      );
+    } finally {
+      setLoadingId(0);
+    }
+  };
 
   const updateEmail = async () => {};
 
@@ -48,7 +64,8 @@ const Settings = () => {
           <input
             type="text"
             className="w-full bg-transparent outline-none pl-1"
-            defaultValue={user?.username}
+            value={username}
+            placeholder={user?.username}
             onChange={(e) => setUsername(e.target.value.toLowerCase())}
           />
         </div>
@@ -65,10 +82,13 @@ const Settings = () => {
         <input
           type="text"
           className="bg-transparent border border-uf-accent/30 focus:border-uf-accent/70 transition-colors outline-none rounded-md pl-3 py-2 lg:w-[400px] w-full"
+          placeholder={user?.name}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
       ),
       disabled: !name,
-      onclick: updateName,
+      onClick: updateName,
     },
     {
       id: 3,
@@ -85,7 +105,7 @@ const Settings = () => {
         />
       ),
       disabled: !email || email === user?.email,
-      onclick: updateEmail,
+      onClick: updateEmail,
     },
   ];
 
@@ -101,7 +121,7 @@ const Settings = () => {
               description={card.description}
               subtext={card.subtext}
               disabled={card.disabled}
-              onClick={card.onClick!}
+              onClick={card.onClick}
               loading={loadingId === card.id}
             >
               {card.component}
