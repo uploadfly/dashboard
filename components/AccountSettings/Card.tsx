@@ -1,22 +1,24 @@
 import React, { ReactNode } from "react";
 import { RiLoader5Fill } from "react-icons/ri";
 
-const Card = ({
-  title,
-  children,
-  description,
-  subtext,
-  disabled,
-  onClick,
-  loading,
-}: {
+interface CardProps {
   title: string;
   description: string;
-  children: ReactNode;
+  children: React.ReactNode;
   subtext: string;
   onClick: () => void;
   disabled: boolean;
   loading: boolean;
+}
+
+const Card: React.FC<CardProps> = ({
+  title,
+  description,
+  children,
+  subtext,
+  onClick,
+  disabled,
+  loading,
 }) => {
   return (
     <div className="w-full border-2 border-white/10 rounded-md py-5 px-5 flex flex-col items-start gap-6">
