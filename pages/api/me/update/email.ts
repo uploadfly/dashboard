@@ -51,7 +51,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
 
     await sendEmail({
       to: email,
-      subject: "UploadFly - Reset Email",
+      subject: "Uploadfly - Reset Email",
       body: `<p>Click <a href="${ve}">here</a> to reset your email</p>`,
     });
 
