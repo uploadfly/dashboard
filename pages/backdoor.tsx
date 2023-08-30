@@ -1,4 +1,4 @@
-import { axiosAuth } from "@/configs/axios";
+import { axios, axiosAuth } from "@/configs/axios";
 import { useRouter } from "next/router";
 import React from "react";
 
@@ -7,7 +7,7 @@ const Backdoor = () => {
 
   const logout = async () => {
     try {
-      await axiosAuth.post("/logout");
+      await axios.post("/logout");
       router.push("/");
     } catch (error) {
       console.log(error);
