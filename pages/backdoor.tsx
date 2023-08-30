@@ -8,7 +8,7 @@ const Backdoor = () => {
   const logout = async () => {
     try {
       await axiosAuth.post("/logout");
-      router.reload();
+      router.push("/login");
     } catch (error) {
       console.log(error);
     }
