@@ -48,13 +48,12 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
     });
 
     const ve = `${APP_DOMAIN}/verify-email?token=${newEmail.uuid}`;
-    console.log(ve);
 
-    // sendEmail({
-    //   to: email,
-    //   subject: "UploadFly - Reset Email",
-    //   body: `<p>Click <a href="${ve}">here</a> to reset your email</p>`,
-    // });
+    sendEmail({
+      to: email,
+      subject: "UploadFly - Reset Email",
+      body: `<p>Click <a href="${ve}">here</a> to reset your email</p>`,
+    });
 
     res.status(201).json({ message: "Email sent" });
   } catch (error) {
