@@ -15,6 +15,7 @@ const Settings = () => {
   const [loadingId, setLoadingId] = useState(0);
   const [waitingForEmailVerification, setWaitingForEmailVerification] =
     useState(false);
+  const [emailChanged, setEmailChanged] = useState(false);
 
   const updateUsername = async () => {
     try {
@@ -71,10 +72,17 @@ const Settings = () => {
 
     const checkEmailConfirmation = async () => {
       try {
-        const { data } = await axios.get("/me/check/email-confirmation");
+        const { data } = await axios(
+          `/me/check/email-confirmation?email=${email}`
+        );
         if (data.confirmed) {
           clearInterval(intervalId);
           setWaitingForEmailVerification(false);
+          setLoadingId(0);
+          setEmailChanged(true);
+
+          //@ts-ignore
+          setUser({ ...user, email });
           toast("Email confirmed successfully!", toastSuccessConfig);
         }
       } catch (error) {}
@@ -135,13 +143,16 @@ const Settings = () => {
       description:
         "Enter the email address you want to use access your Uploadfly.",
       subtext: waitingForEmailVerification
-        ? "We sent you an email to verify your new email address..."
+        ? "Waiting to confirm your new email address..."
+        : emailChanged
+        ? "Email changed successfully"
         : "We will require you to verify this.",
       component: (
         <input
           type="text"
           className="bg-transparent border border-uf-accent/30 focus:border-uf-accent/70 transition-colors outline-none rounded-md pl-3 py-2 lg:w-[400px] w-full"
-          defaultValue={user?.email}
+          value={email}
+          placeholder={user?.email}
           onChange={(e) => setEmail(() => e.target.value.toLowerCase())}
         />
       ),
