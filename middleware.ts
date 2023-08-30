@@ -32,7 +32,7 @@ const middleware = async (req: NextRequest) => {
   //   if (req.url.includes("/signup")) {
   //     return NextResponse.redirect(new URL(`/${username}`, req.url));
   //   }
-  // }
+  /// }
 };
 
 export const config = {
