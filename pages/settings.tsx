@@ -55,7 +55,7 @@ const Settings = () => {
     try {
       setLoadingId(3);
       await axios.post("/me/update/email", { email });
-      toast("Email send, waiting for verification", toastSuccessConfig);
+      toast("Email sent, waiting for verification", toastSuccessConfig);
       setWaitingForEmailVerification(true);
     } catch (error: any) {
       toast(
