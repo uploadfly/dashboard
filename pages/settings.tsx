@@ -62,6 +62,7 @@ const Settings = () => {
         error.response.data.message || "Something went wrong",
         toastErrorConfig
       );
+      setLoadingId(0);
     }
   };
 
