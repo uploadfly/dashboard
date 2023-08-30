@@ -1,4 +1,4 @@
-import { axiosAuth } from "@/configs/axios";
+import { axios, axiosAuth } from "@/configs/axios";
 import { useState } from "react";
 import { IoLogOutOutline } from "react-icons/io5";
 import { useRouter } from "next/router";
@@ -15,7 +15,7 @@ const Profile = () => {
 
   const logout = async () => {
     try {
-      await axiosAuth.post("/logout");
+      await axios.post("/logout");
       toast.loading("Logging out...", { id: "logout" });
       router.reload();
       toast.dismiss("logout");
