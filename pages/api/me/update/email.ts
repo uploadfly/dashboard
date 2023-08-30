@@ -49,7 +49,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
 
     const ve = `${APP_DOMAIN}/verify-email?token=${newEmail.uuid}`;
 
-    sendEmail({
+    await sendEmail({
       to: email,
       subject: "UploadFly - Reset Email",
       body: `<p>Click <a href="${ve}">here</a> to reset your email</p>`,
