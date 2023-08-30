@@ -15,24 +15,23 @@ const middleware = async (req: NextRequest) => {
       req.nextUrl.pathname !== "/signup" &&
       req.nextUrl.pathname !== "/reset-password" &&
       req.nextUrl.pathname !== "/verify-email" &&
-      req.nextUrl.pathname !== "/backdoor" &&
       req.nextUrl.pathname !== "/forgot-password"
     ) {
       return NextResponse.redirect(new URL("/login", req.url));
     }
   }
 
-  // if (verifiedToken) {
-  //   const { username } = verifiedToken;
+  if (verifiedToken) {
+    const { username } = verifiedToken;
 
-  //   if (req.url.includes("/login")) {
-  //     return NextResponse.redirect(new URL(`/${username}`, req.url));
-  //   }
+    if (req.url.includes("/login")) {
+      return NextResponse.redirect(new URL(`/${username}`, req.url));
+    }
 
-  //   if (req.url.includes("/signup")) {
-  //     return NextResponse.redirect(new URL(`/${username}`, req.url));
-  //   }
-  /// }
+    if (req.url.includes("/signup")) {
+      return NextResponse.redirect(new URL(`/${username}`, req.url));
+    }
+  }
 };
 
 export const config = {
