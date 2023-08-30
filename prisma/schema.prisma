@@ -29,7 +29,7 @@ model emailReset {
   user_id     String
   email       String
   created_at  DateTime @default(now())
-  is_verified Boolean
+  is_verified Boolean @default(false)
 }
 
 model fly {
