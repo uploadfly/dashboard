@@ -1,6 +1,6 @@
-import { ExtendedRequest } from "../../../../interfaces";
-import authenticateToken from "../../../../middleware/auth";
-import prisma from "../../../../prisma";
+import { ExtendedRequest } from "@/interfaces";
+import authenticateToken from "@/middleware/auth";
+import prisma from "@/prisma";
 import { NextApiResponse } from "next";
 import { allowMethods } from "next-method-guard";
 
