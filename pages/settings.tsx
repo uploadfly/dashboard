@@ -13,6 +13,8 @@ const Settings = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState(user?.email);
   const [loadingId, setLoadingId] = useState(0);
+  const [waitingForEmailVerification, setWaitingForEmailVerification] =
+    useState(false);
 
   const updateUsername = async () => {
     try {
@@ -49,7 +51,19 @@ const Settings = () => {
     }
   };
 
-  const updateEmail = async () => {};
+  const updateEmail = async () => {
+    try {
+      setLoadingId(3);
+      await axios.post("/me/update/email", { email });
+      toast("Email send, waiting for verification", toastSuccessConfig);
+      setWaitingForEmailVerification(true);
+    } catch (error: any) {
+      toast(
+        error.response.data.message || "Something went wrong",
+        toastErrorConfig
+      );
+    }
+  };
 
   const settingsCards = [
     {
@@ -96,7 +110,9 @@ const Settings = () => {
       title: "Email",
       description:
         "Enter the email address you want to use access your Uploadfly.",
-      subtext: "We will require you to verify this.",
+      subtext: waitingForEmailVerification
+        ? "We sent you an email to verify your new email address..."
+        : "We will require you to verify this.",
       component: (
         <input
           type="text"
