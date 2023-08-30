@@ -11,7 +11,6 @@ const Backdoor = () => {
       router.reload();
     } catch (error) {
       console.log(error);
-      return;
     }
   };
   return (
