@@ -3,7 +3,7 @@ import { axios } from "@/configs/axios";
 import { toastErrorConfig, toastSuccessConfig } from "@/configs/toast";
 import AccountSettingsLayout from "@/layouts/AccountSettingsLayout";
 import { useUserStore } from "@/stores/userStore";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
 const Settings = () => {
@@ -37,7 +37,7 @@ const Settings = () => {
       setLoadingId(2);
       const { data } = await axios.patch("/me/update/name", { name });
 
-      //@ts-ignore
+      // @ts-ignore
       setUser({ ...user, name: data.name });
 
       toast("Name updated", toastSuccessConfig);
@@ -65,6 +65,29 @@ const Settings = () => {
       setLoadingId(0);
     }
   };
+
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout;
+
+    const checkEmailConfirmation = async () => {
+      try {
+        const { data } = await axios.get("/me/check/email-confirmation");
+        if (data.confirmed) {
+          clearInterval(intervalId);
+          setWaitingForEmailVerification(false);
+          toast("Email confirmed successfully!", toastSuccessConfig);
+        }
+      } catch (error) {}
+    };
+
+    if (waitingForEmailVerification) {
+      intervalId = setInterval(checkEmailConfirmation, 5000);
+    }
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [waitingForEmailVerification]);
 
   const settingsCards = [
     {
