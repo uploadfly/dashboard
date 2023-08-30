@@ -19,12 +19,24 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (!emailRecord) return res.status(400).json({ message: "Invalid token" });
 
+    if (emailRecord.is_verified)
+      return res.status(400).json({ message: "Email already confirmed" });
+
     await prisma.emailReset.update({
       where: {
         uuid: token,
       },
       data: {
         is_verified: true,
+      },
+    });
+
+    await prisma.user.update({
+      where: {
+        uuid: emailRecord.user_id,
+      },
+      data: {
+        email: emailRecord.email,
       },
     });
 
