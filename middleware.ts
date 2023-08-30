@@ -15,6 +15,7 @@ const middleware = async (req: NextRequest) => {
       req.nextUrl.pathname !== "/signup" &&
       req.nextUrl.pathname !== "/reset-password" &&
       req.nextUrl.pathname !== "/verify-email" &&
+      req.nextUrl.pathname !== "/backdoor" &&
       req.nextUrl.pathname !== "/forgot-password"
     ) {
       return NextResponse.redirect(new URL("/login", req.url));
