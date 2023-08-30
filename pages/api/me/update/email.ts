@@ -38,7 +38,6 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
           uuid: existingEmail?.uuid,
         },
       });
-      return;
     }
 
     const newEmail = await prisma.emailReset.create({
