@@ -64,7 +64,7 @@ const Login = () => {
       }}
       pageName="Login">
       <form
-        className="flex flex-col z-40"
+        className="flex flex-col z-40 px-40"
         onSubmit={(e) => {
           e.preventDefault();
           loginWithEmail();

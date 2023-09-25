@@ -170,12 +170,6 @@ const Signup = () => {
               onChange={(e) => setEmail(e.target.value.toLowerCase().trim())}
             />
 
-            <input
-              type={showPassword ? 'text' : 'password'}
-              className="input"
-              placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
             <div className="relative">
               <button
                 type="button"
@@ -186,10 +180,16 @@ const Signup = () => {
               <input
                 type={showPassword ? 'text' : 'password'}
                 className="input"
-                placeholder="Shh...it's a secret"
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              className="input"
+              placeholder="Re-enter password"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
           </>
         )}
 
@@ -222,16 +222,6 @@ const Signup = () => {
                 </button>
               </Link>
             </div>
-          </div>
-        )}
-        {!showOtpInput && !accountVerified && (
-          <div className="flex items-center gap-2 mt-2">
-            <input
-              type="checkbox"
-              name="Show password"
-              onChange={() => setShowPassword(!showPassword)}
-            />
-            <p>Show password</p>
           </div>
         )}
         {(wantsToChangeUsername || !accountVerified) && (

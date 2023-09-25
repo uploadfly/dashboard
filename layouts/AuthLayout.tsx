@@ -1,16 +1,17 @@
-import FlyingThing from "@/components/FlyingThing";
-import Link from "next/link";
-import { ReactNode, useEffect, useState } from "react";
-import { RiLoader5Fill } from "react-icons/ri";
-import { SiGithub } from "react-icons/si";
-import { useRouter } from "next/router";
-import { toast } from "react-hot-toast";
-import Head from "next/head";
+import FlyingThing from '@/components/FlyingThing';
+import Link from 'next/link';
+import { ReactNode, useEffect, useState } from 'react';
+import { RiLoader5Fill } from 'react-icons/ri';
+import { SiGithub } from 'react-icons/si';
+import { useRouter } from 'next/router';
+import { toast } from 'react-hot-toast';
+import Head from 'next/head';
+import Image from 'next/image';
 
 const AuthLayout = ({
   children,
   text,
-  type = "login",
+  type = 'login',
   hideExtras = false,
   question,
   hideFlyingThing = false,
@@ -18,7 +19,7 @@ const AuthLayout = ({
 }: {
   children: ReactNode;
   text: string;
-  type?: "login" | "signup" | "forgot" | "reset";
+  type?: 'login' | 'signup' | 'forgot' | 'reset';
   hideExtras?: boolean;
   question?: {
     title: string;
@@ -32,15 +33,15 @@ const AuthLayout = ({
   const [loading, setLoading] = useState(false);
 
   const handleKeyPress = (e: KeyboardEvent) => {
-    e.key === "Enter" && setHide(true);
+    e.key === 'Enter' && setHide(true);
   };
 
   const router = useRouter();
 
   useEffect(() => {
-    if (router.asPath === "/login?status=failed") {
+    if (router.asPath === '/login?status=failed') {
       setHide(true);
-      toast.error("Login failed");
+      toast.error('Login failed');
     }
   }, []);
 
@@ -49,10 +50,10 @@ const AuthLayout = ({
       handleKeyPress(e as unknown as KeyboardEvent);
     };
 
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener('keydown', handleKeyDown);
     };
     //Written by ChatGPT
     //Modified by @xing0x
@@ -60,7 +61,7 @@ const AuthLayout = ({
 
   const loginWithGithub = async () => {
     setLoading(true);
-    window.open(`${process.env.NEXT_PUBLIC_AUTH_URL}/github`, "_self");
+    window.open(`${process.env.NEXT_PUBLIC_AUTH_URL}/github`, '_self');
   };
 
   return (
@@ -68,59 +69,55 @@ const AuthLayout = ({
       <Head>
         <title>{pageName} | Uploadfly</title>
       </Head>
-      <div
-        className={`abosolute top-0 w-full h-full bg-uf-dark flex items-center justify-center`}
-      >
+      <div className={`abosolute top-0 w-full h-full bg-uf-dark flex items-center justify-center`}>
         <div
           className="w-[35%] h-full lg:flex hidden items-center justify-center"
           style={{
-            backgroundImage:
-              "linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url(/grid-bg.png)",
-            backgroundSize: "cover",
-            backgroundPosition: "right",
-          }}
-        >
-          <img src="/logo.svg" alt="" className="w-40 opacity-70" />
+            backgroundImage: 'linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url(/grid-bg.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'right',
+          }}>
+          <Image src="/logo.svg" alt="" width={100} height={100} className="opacity-70" />
         </div>
-        <div className="flex-col lg:w-[65%] h-full bg-uf-dark flex relative items-center lg:justify-center lg:mt-0 mt-48">
-          <div className="h-full w-full absolute animate-opacity pointer-events-none"></div>
+        <div className="flex-col w-full lg:w-[65%] h-vh bg-uf-dark flex relative items-center lg:justify-center lg:mt-0">
+          <div className="h-full w-full absolute  animate-opacity pointer-events-none"></div>
           <div className="mb-8 flex flex-col items-center">
-            <img
+            <Image
               src="/logo.svg"
               alt=""
+              width={100}
+              height={100}
               className="w-20 my-5 opacity-70 lg:hidden"
             />
             <h1 className="shiny-text text-3xl">{text}</h1>
-            {type === "signup" && (
+            {type === 'signup' && (
               <p className="text-center font-semibold text-gray-400">{`Let's fly`}</p>
             )}
           </div>
           {children}
 
-          {type === "login" && (
+          {type === 'login' && (
             <Link
-              href={"/forgot-password"}
-              className="text-left w-[380px] mx-auto mt-3 font-semibold text-sm hover:text-uf-accent transition-colors"
-            >
+              href={'/forgot-password'}
+              className="text-left w-[380px] mx-auto mt-3 font-semibold text-sm hover:text-uf-accent transition-colors">
               Forgot password?
             </Link>
           )}
           {!hideExtras && (
             <>
-              {type !== "reset" && (
+              {type !== 'reset' && (
                 <div className="mt-4 flex justify-start w-[380px] gap-2 font-semibold">
                   <p>{question?.title}</p>
-                  <Link href={question?.route || ""}>{question?.text}</Link>
+                  <Link href={question?.route || ''}>{question?.text}</Link>
                 </div>
               )}
 
-              {(type === "login" || type === "signup") && (
+              {(type === 'login' || type === 'signup') && (
                 <div className="mt-4 flex items-center gap-4 flex-col">
                   <p>or</p>
                   <button
                     className="flex gap-2 bg-uf-light text-uf-dark rounded-md py-2 w-[380px] items-center justify-center font-bold hover:scale-105 transition-all"
-                    onClick={loginWithGithub}
-                  >
+                    onClick={loginWithGithub}>
                     {loading ? (
                       <RiLoader5Fill className="animate-spin text-2xl" />
                     ) : (
