@@ -181,7 +181,7 @@ const Signup = () => {
                 type="button"
                 className="absolute right-0 mt-6 mr-3"
                 onClick={() => setShowPassword(!showPassword)}>
-                {!showPassword ? <RiEyeOffLine /> : <RiEyeLine />}
+                {!showPassword ? <RiEyeLine /> : <RiEyeOffLine />}
               </button>
               <input
                 type={showPassword ? 'text' : 'password'}
@@ -224,16 +224,7 @@ const Signup = () => {
             </div>
           </div>
         )}
-        {!showOtpInput && !accountVerified && (
-          <div className="flex items-center gap-2 mt-2">
-            <input
-              type="checkbox"
-              name="Show password"
-              onChange={() => setShowPassword(!showPassword)}
-            />
-            <p>Show password</p>
-          </div>
-        )}
+        
         {(wantsToChangeUsername || !accountVerified) && (
           <button className="w-[380px] bg-uf-accent rounded-md py-2 h-10 flex items-center justify-center text-[#1e1e1e] font-bold hover:scale-105 transition-all mt-4">
             {loading ? (
