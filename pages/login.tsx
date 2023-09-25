@@ -83,7 +83,7 @@ const Login = () => {
             type="button"
             className="absolute right-0 mt-6 mr-3"
             onClick={() => setShowPassword(!showPassword)}>
-            {!showPassword ? <RiEyeOffLine /> : <RiEyeLine />}
+            {!showPassword ? <RiEyeLine /> :  <RiEyeOffLine />}
           </button>
           <input
             type={showPassword ? 'text' : 'password'}
