@@ -10,7 +10,7 @@ import Head from "next/head";
 const AuthLayout = ({
   children,
   text,
-  type = "login",
+  type,
   hideExtras = false,
   question,
   hideFlyingThing = false,
@@ -18,7 +18,7 @@ const AuthLayout = ({
 }: {
   children: ReactNode;
   text: string;
-  type?: "login" | "signup" | "forgot" | "reset";
+  type?: "login" | "signup" | "forgot" | "reset" | null;
   hideExtras?: boolean;
   question?: {
     title: string;
@@ -66,7 +66,7 @@ const AuthLayout = ({
   return (
     <div className="bg-uf-dark relative h-screen text-uf-light overflow-x-hidden">
       <Head>
-        <title>{pageName} | Uploadfly</title>
+        <title>{`${pageName} | Uploadfly`}</title>
       </Head>
       <div
         className={`abosolute top-0 w-full h-full bg-uf-dark flex items-center justify-center`}
@@ -91,7 +91,7 @@ const AuthLayout = ({
               className="w-20 my-5 opacity-70 lg:hidden"
             />
             <h1 className="shiny-text text-3xl">{text}</h1>
-            {type === "signup" && (
+            {type === "signup" && !hideExtras && (
               <p className="text-center font-semibold text-gray-400">{`Let's fly`}</p>
             )}
           </div>
@@ -105,6 +105,7 @@ const AuthLayout = ({
               Forgot password?
             </Link>
           )}
+
           {!hideExtras && (
             <>
               {type !== "reset" && (
