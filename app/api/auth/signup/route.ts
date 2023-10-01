@@ -68,14 +68,25 @@ export async function POST(request: Request) {
     });
 
     if (doesUsernameExist) {
-      user_name = email.split("@")[0].toLowerCase();
+      user_name = `${email.split("@")[0].toLowerCase()}${generateRandomKey(3)}`;
     } else {
-      user_name = email.split("@")[0];
+      user_name = email.split("@")[0].toLowerCase();
     }
 
     const otp = generateRandomKey(6);
 
     const verificationLink = `${APP_DOMAIN}/signup/verify?email=${email}&otp=${otp}`;
+
+    await prisma.user.create({
+      data: {
+        username: user_name,
+        email,
+        password: bcrypt.hashSync(password, 10),
+        otp,
+        otp_expiry: dayjs().add(2, "hour").toDate(),
+        auth_method: "email and password",
+      },
+    });
 
     await plunk.emails.send({
       to: email,
@@ -88,16 +99,6 @@ export async function POST(request: Request) {
       `,
     });
 
-    await prisma.user.create({
-      data: {
-        username: user_name,
-        email,
-        password: bcrypt.hashSync(password, 10),
-        otp,
-        otp_expiry: dayjs().add(2, "hour").toDate(),
-        auth_method: "email and password",
-      },
-    });
     return NextResponse.json(
       { message: "Account created successfully." },
       {
