@@ -1,6 +1,6 @@
 import { Tailwind } from "@react-email/tailwind";
 
-export const TailwindC = ({ children }: { children: React.ReactNode }) => {
+export const TailwindE = ({ children }: { children: React.ReactNode }) => {
   return (
     <Tailwind
       config={{
