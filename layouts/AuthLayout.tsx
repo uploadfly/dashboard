@@ -91,7 +91,7 @@ const AuthLayout = ({
               className="w-20 my-5 opacity-70 lg:hidden"
             />
             <h1 className="shiny-text text-3xl">{text}</h1>
-            {type === "signup" && (
+            {type === "signup" && !hideExtras && (
               <p className="text-center font-semibold text-gray-400">{`Let's fly`}</p>
             )}
           </div>
