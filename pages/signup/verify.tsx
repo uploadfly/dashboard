@@ -9,7 +9,10 @@ const VerifyAccount = () => {
       text="Verify your account"
       hideExtras
     >
-      <div className=""></div>
+      <div className="">Click the button below to verify your account.</div>
+      <button className="bg-uf-accent text-uf-light mt-10 px-24 py-2 font-semibold rounded-md">
+        Verify Account
+      </button>
     </AuthLayout>
   );
 };
