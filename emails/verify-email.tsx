@@ -1,10 +1,10 @@
-import { Tailwind } from "./tailwind";
+import { TailwindE } from "./tailwind";
 import { Link } from "@react-email/link";
 
 export const VerifyEmail = ({ link }: { link: string }) => {
   return (
-    <Tailwind>
+    <TailwindE>
       <Link href="https://example.com">Example</Link>;
-    </Tailwind>
+    </TailwindE>
   );
 };
