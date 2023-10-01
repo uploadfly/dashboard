@@ -4,6 +4,10 @@ import { generateRandomKey } from "@/utils/generateRandomKey";
 import dayjs from "dayjs";
 import { NextResponse } from "next/server";
 import validator from "validator";
+import bcrypt from "bcrypt";
+import plunk from "@/configs/plunk";
+import { render } from "@react-email/render";
+import { VerifyEmail } from "@/emails/verify-email";
 
 export async function POST(request: Request) {
   const { email, password, confirmPassword } = await request.json();
@@ -71,6 +75,13 @@ export async function POST(request: Request) {
   const otp = generateRandomKey(6);
 
   const verificationLink = `${APP_DOMAIN}/verify?email=${email}&otp=${otp}`;
+
+  await plunk.emails.send({
+    from: "Akinkunmi from UploadFly <akinkunmi@uploadfly.cloud>",
+    to: email,
+    subject: "Verify your account",
+    body: render(VerifyEmail({ link: verificationLink })),
+  });
 
   await prisma.user.create({
     data: {
