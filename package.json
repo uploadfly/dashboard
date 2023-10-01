@@ -25,6 +25,7 @@
     "@types/uuid": "^9.0.1",
     "@uploadfly/react-widget": "^1.1.1",
     "axios": "^1.4.0",
+    "bcrypt": "^5.1.1",
     "boring-name-generator": "^1.0.3",
     "cookies-next": "^3.0.0",
     "dayjs": "^1.11.8",
