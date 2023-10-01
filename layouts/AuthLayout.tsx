@@ -10,7 +10,7 @@ import Head from "next/head";
 const AuthLayout = ({
   children,
   text,
-  type = "login",
+  type,
   hideExtras = false,
   question,
   hideFlyingThing = false,
@@ -18,7 +18,7 @@ const AuthLayout = ({
 }: {
   children: ReactNode;
   text: string;
-  type?: "login" | "signup" | "forgot" | "reset";
+  type?: "login" | "signup" | "forgot" | "reset" | null;
   hideExtras?: boolean;
   question?: {
     title: string;
@@ -105,6 +105,7 @@ const AuthLayout = ({
               Forgot password?
             </Link>
           )}
+
           {!hideExtras && (
             <>
               {type !== "reset" && (
