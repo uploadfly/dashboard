@@ -20,7 +20,7 @@ model user {
   updated_at     DateTime       @updatedAt
   auth_method    String?
   github_id      Int?
-  emailResets         emailReset[]
+  emailResets    emailReset[]
   fly            fly[]
   refresh_token  refreshToken[]
 }
@@ -49,7 +49,6 @@ model fly {
   apikeys      apikey[]
   logs         log[]
 }
-
 
 model file {
   id               String   @id @default(uuid())
