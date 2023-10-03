@@ -23,6 +23,7 @@ model user {
   emailResets    emailReset[]
   fly            fly[]
   refresh_token  refreshToken[]
+  test String?
 }
 
 model emailReset {
