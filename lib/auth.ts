@@ -14,7 +14,7 @@ export const verifyAuth = async (token: string) => {
       token,
       new TextEncoder().encode(getJwtSecret())
     );
-    return verified.payload as { uuid: string; username: string };
+    return verified.payload as { id: string; username: string };
   } catch (error) {
     throw new Error("Invalid token");
   }
