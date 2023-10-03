@@ -5,6 +5,8 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import { axiosAuth } from "@/configs/axios";
 import { RiLoader5Fill } from "react-icons/ri";
+import { RiEyeLine } from "react-icons/ri";
+import { RiEyeOffLine } from "react-icons/ri";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -55,6 +57,7 @@ const Login = () => {
   return (
     <AuthLayout
       text="Welcome back"
+      type="login"
       question={{
         route: "/signup",
         text: "Signup",
@@ -78,21 +81,22 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value.toLowerCase().trim())}
           name="email"
         />
-        <input
-          type={showPassword ? "text" : "password"}
-          className="input"
-          placeholder="Shh...it's a secret"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          name="password"
-        />
-        <div className="flex items-center gap-2 mt-2">
+        <div className="relative">
+          <button
+            type="button"
+            className="absolute right-0 mt-6 mr-3"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {!showPassword ? <RiEyeLine /> : <RiEyeOffLine />}
+          </button>
           <input
-            type="checkbox"
-            name="Show password"
-            onChange={() => setShowPassword(!showPassword)}
+            type={showPassword ? "text" : "password"}
+            className="input"
+            placeholder="Shh...it's a secret"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            name="password"
           />
-          <p>Show password</p>
         </div>
         <button
           className="bg-uf-accent w-full rounded-md py-2 h-10 flex items-center justify-center text-[#1e1e1e] font-bold hover:scale-105 transition-all disabled:cursor-not-allowed mt-4"

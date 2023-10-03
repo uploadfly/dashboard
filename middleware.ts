@@ -13,8 +13,10 @@ const middleware = async (req: NextRequest) => {
     if (
       req.nextUrl.pathname !== "/login" &&
       req.nextUrl.pathname !== "/signup" &&
+      req.nextUrl.pathname !== "/signup/verify" &&
       req.nextUrl.pathname !== "/reset-password" &&
       req.nextUrl.pathname !== "/verify-email" &&
+      req.nextUrl.pathname !== "/emails" &&
       req.nextUrl.pathname !== "/forgot-password"
     ) {
       return NextResponse.redirect(new URL("/login", req.url));
