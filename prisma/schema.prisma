@@ -104,7 +104,7 @@ model refreshToken {
   id         String   @id @default(uuid())
   created_at DateTime @default(now())
   user       user     @relation(fields: [user_id], references: [id])
-  user_id    String
+  user_id    String   @unique
   token      String   @db.LongText
   expires_at DateTime
 }
