@@ -15,7 +15,7 @@ export interface ExtendedRequest extends NextApiRequest {
 }
 
 export interface UserModel {
-  id: number;
+  id: string;
   email: string;
   username: string;
   password?: string;
