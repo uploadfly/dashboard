@@ -16,7 +16,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
 
   const fly = await prisma.fly.findUnique({
     where: {
-      uuid: fly_id as string,
+      id: fly_id as string,
     },
   });
 
@@ -27,7 +27,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
     return;
   }
 
-  if (fly.user_id !== req.user.uuid) {
+  if (fly.user_id !== req.user.id) {
     res.status(400).json({
       message: "Invalid fly ID",
     });
@@ -36,7 +36,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
 
   const files = await prisma.file.findMany({
     where: {
-      fly_id: fly.uuid,
+      fly_id: fly.id,
     },
     select: {
       path: true,
@@ -49,7 +49,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
     },
   });
 
-  const filesWithSizeAsNumber = files.map((file) => ({
+  const filesWithSizeAsNumber = files.map((file: any) => ({
     ...file,
     size: Number(file.size),
   }));

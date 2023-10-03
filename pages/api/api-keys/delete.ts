@@ -15,10 +15,10 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
   }
   const key = await prisma.apikey.findUnique({
     where: {
-      uuid: key_id,
+      id: key_id,
     },
   });
-  if (!key || key.user_id !== req.user.uuid) {
+  if (!key || key.user_id !== req.user.id) {
     res.status(400).json({
       message: "Invalid key ID",
     });
@@ -26,7 +26,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
   }
   await prisma.apikey.delete({
     where: {
-      uuid: key_id,
+      id: key_id,
     },
   });
   res.status(200).json({

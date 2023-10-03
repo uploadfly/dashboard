@@ -8,13 +8,13 @@ const FlyCard = ({
   name,
   used,
   updated,
-  uuid,
+  id,
   storage,
 }: {
   name: string;
   used: number;
   updated: string;
-  uuid: string;
+  id: string;
   storage: number;
 }) => {
   const { user } = useUserStore();
@@ -28,7 +28,7 @@ const FlyCard = ({
     <Link
       href={`${user?.username}/${name}`}
       className="flex flex-col justify-between rounded p-3 text-primary shadow-md border border-gray-600 transition duration-150 hover:border-uf-accent w-full"
-      onClick={() => setFly(name, uuid)}
+      onClick={() => setFly(name, id)}
     >
       <h2 className="text-lg font-bold shiny-text">{name}</h2>
       <div className="my-14">

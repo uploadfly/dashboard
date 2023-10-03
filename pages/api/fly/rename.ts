@@ -21,8 +21,8 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
 
     const fly = await prisma.fly.findFirst({
       where: {
-        uuid: fly_id,
-        user_id: req.user.uuid,
+        id: fly_id,
+        user_id: req.user.id,
       },
     });
 
@@ -43,7 +43,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
 
     await prisma.fly.update({
       where: {
-        uuid: fly_id,
+        id: fly_id,
       },
       data: {
         name,

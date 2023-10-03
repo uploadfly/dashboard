@@ -8,18 +8,18 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
   try {
     const flies = await prisma.fly.findMany({
       where: {
-        user_id: req.user.uuid,
+        user_id: req.user.id,
       },
       select: {
         name: true,
-        uuid: true,
+        id: true,
         used_storage: true,
         updated_at: true,
         storage: true,
       },
     });
 
-    const fliesWithUsedStorageAsNumber = flies.map((fly) => ({
+    const fliesWithUsedStorageAsNumber = flies.map((fly: any) => ({
       ...fly,
       used_storage: Number(fly.used_storage),
       storage: Number(fly.storage),

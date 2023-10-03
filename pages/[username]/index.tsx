@@ -64,11 +64,11 @@ const DashboardIndex = () => {
                 {flies.map((fly) => {
                   return (
                     <FlyCard
-                      key={fly.uuid}
+                      key={fly.id}
                       name={fly.name}
                       used={fly.used_storage}
                       updated={fly.updated_at}
-                      uuid={fly.uuid}
+                      id={fly.id}
                       storage={fly.storage}
                     />
                   );

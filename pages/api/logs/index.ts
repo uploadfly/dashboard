@@ -17,7 +17,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
 
     const fly = await prisma.fly.findUnique({
       where: {
-        uuid: fly_id,
+        id: fly_id,
       },
     });
 
@@ -30,10 +30,10 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
 
     const logs = await prisma.log.findMany({
       where: {
-        fly_id: fly.uuid,
+        fly_id: fly.id,
       },
       select: {
-        uuid: true,
+        id: true,
         created_at: true,
         endpoint: true,
         method: true,

@@ -27,7 +27,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
 
     const user = await prisma.user.findUnique({
       where: {
-        uuid: req.user.uuid,
+        id: req.user.id,
       },
     });
 
@@ -42,7 +42,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
     const fly = await prisma.fly.findFirst({
       where: {
         name: fly_name,
-        user_id: user.uuid,
+        user_id: user.id,
       },
     });
 
@@ -52,7 +52,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
 
     res.status(200).json({
       name: fly.name,
-      uuid: fly.uuid,
+      id: fly.id,
       fly_name,
     });
   } catch (error) {

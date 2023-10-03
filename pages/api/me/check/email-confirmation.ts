@@ -8,7 +8,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
   try {
     const emailRecord = await prisma.emailReset.findFirst({
       where: {
-        user_id: req.user.uuid,
+        user_id: req.user.id,
         email: req.query.email as string,
       },
     });

@@ -17,24 +17,24 @@ const Project = () => {
 
   const fetchOverview = async () => {
     try {
-      const res = await axios(`/fly/overview?fly_id=${fly.uuid}`);
+      const res = await axios(`/fly/overview?fly_id=${fly.id}`);
       setOverview(res.data);
     } catch (error) {}
   };
 
   const fetchUploads = async () => {
     try {
-      const res = await axios(`/analytics?fly_id=${fly.uuid}`);
+      const res = await axios(`/analytics?fly_id=${fly.id}`);
       setUploads(res.data);
     } catch (error) {}
   };
 
   useEffect(() => {
-    if (fly?.uuid) {
+    if (fly?.id) {
       fetchUploads();
       fetchOverview();
     }
-  }, [fly?.uuid]);
+  }, [fly?.id]);
 
   return (
     <DashboardLayout pageName="Overview">

@@ -14,8 +14,8 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
 
     const fly = await prisma.fly.findFirst({
       where: {
-        uuid: fly_id as string,
-        user_id: req.user.uuid,
+        id: fly_id as string,
+        user_id: req.user.id,
       },
     });
 
@@ -23,7 +23,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
 
     const totalFiles = await prisma.file.aggregate({
       where: {
-        fly_id: fly.uuid,
+        fly_id: fly.id,
       },
       _count: true,
     });

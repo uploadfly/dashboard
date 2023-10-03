@@ -29,14 +29,14 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
       });
     }
 
-    if (!req.user.uuid) {
+    if (!req.user.id) {
       res.status(400).json({
         message: "User UUID is not found",
       });
       return;
     }
 
-    const user_id = req.user?.uuid;
+    const user_id = req.user?.id;
 
     console.log(req.user);
 
@@ -65,7 +65,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
       message: "Fly created",
       redirect: `/${req.user.username}/${fly.name}`,
       name: fly.name,
-      uuid: fly.uuid,
+      id: fly.id,
     });
   } catch (error) {
     console.log(error);

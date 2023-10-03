@@ -11,7 +11,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const emailRecord = await prisma.emailReset.findUnique({
       where: {
-        uuid: token,
+        id: token,
       },
     });
 
@@ -22,7 +22,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     await prisma.emailReset.update({
       where: {
-        uuid: token,
+        id: token,
       },
       data: {
         is_verified: true,
@@ -31,7 +31,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     await prisma.user.update({
       where: {
-        uuid: emailRecord.user_id,
+        id: emailRecord.user_id,
       },
       data: {
         email: emailRecord.email,

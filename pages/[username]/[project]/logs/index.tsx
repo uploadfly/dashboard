@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { FaAngleRight } from "react-icons/fa";
 
 interface LogProps {
-  uuid: string;
+  id: string;
   endpoint: string;
   status: number;
   method: string;
@@ -24,16 +24,16 @@ const Logs = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (fly?.uuid) {
+    if (fly?.id) {
       (async () => {
         try {
-          const { data } = await axios(`/logs?fly_id=${fly.uuid}`);
+          const { data } = await axios(`/logs?fly_id=${fly.id}`);
           setLogs(data);
           setLoading(false);
         } catch (error) {}
       })();
     }
-  }, [fly?.uuid]);
+  }, [fly?.id]);
 
   const link = `/${user?.username}/${fly?.name}`;
 
@@ -62,7 +62,7 @@ const Logs = () => {
             </thead>
             <tbody>
               {logs.map((log) => (
-                <tr key={log.uuid}>
+                <tr key={log.id}>
                   <td className="border-b border-slate-700 p-4 text-slate-400 font-bold whitespace-nowrap">
                     {log.endpoint}
                   </td>
@@ -84,7 +84,7 @@ const Logs = () => {
                     {moment(log.created_at).fromNow()}
                   </td>
                   <td className="border-b border-slate-700 p-4 text-slate-400">
-                    <Link href={`${link}/logs/${log.uuid}`}>
+                    <Link href={`${link}/logs/${log.id}`}>
                       <FaAngleRight />
                     </Link>
                   </td>

@@ -17,7 +17,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
 
     const user = await prisma.user.findUnique({
       where: {
-        uuid: req.user.uuid,
+        id: req.user.id,
       },
     });
 
@@ -28,7 +28,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
     const fly = await prisma.fly.findFirst({
       where: {
         name: fly_name,
-        user_id: user.uuid,
+        user_id: user.id,
       },
     });
 
@@ -38,10 +38,10 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
 
     const apiKeys = await prisma.apikey.findMany({
       where: {
-        fly_id: fly.uuid,
+        fly_id: fly.id,
       },
       select: {
-        uuid: true,
+        id: true,
         key: true,
         permission: true,
         created_at: true,
@@ -51,7 +51,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
         created_at: "desc",
       },
     });
-    const apiKeysWithTruncatedKeys = apiKeys.map((key) => {
+    const apiKeysWithTruncatedKeys = apiKeys.map((key: any) => {
       return {
         ...key,
         key: key.key.substring(0, 10) + "...",

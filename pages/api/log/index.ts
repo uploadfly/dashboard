@@ -12,7 +12,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
 
   const log = await prisma.log.findUnique({
     where: {
-      uuid: log_id,
+      id: log_id,
     },
     select: {
       created_at: true,
@@ -22,7 +22,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
       endpoint: true,
       method: true,
       status: true,
-      uuid: true,
+      id: true,
       fly_id: true,
     },
   });
@@ -31,11 +31,11 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
 
   const fly = await prisma.fly.findUnique({
     where: {
-      uuid: fly_id,
+      id: fly_id,
     },
   });
 
-  if (fly?.uuid !== log?.fly_id)
+  if (fly?.id !== log?.fly_id)
     return res.status(404).json({ message: "Log not found." });
 
   res.status(200).json(log);

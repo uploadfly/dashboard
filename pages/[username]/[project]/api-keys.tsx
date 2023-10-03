@@ -30,10 +30,10 @@ const ApiKeys = () => {
   const { fly } = useFlyStore();
 
   useEffect(() => {
-    if (fly?.uuid) {
+    if (fly?.id) {
       fetchKeys();
     }
-  }, [fly?.uuid]);
+  }, [fly?.id]);
 
   const [showModal, setShowModal] = useState(false);
 
@@ -79,7 +79,7 @@ const ApiKeys = () => {
         keyObj={key}
         onClick={() => setKey(null)}
         onKeyDeleted={() => {
-          const updatedKeys = keys.filter((k) => k.uuid !== key?.uuid);
+          const updatedKeys = keys.filter((k) => k.id !== key?.id);
           setKeys(updatedKeys);
           setKey(null);
         }}
@@ -104,7 +104,7 @@ const ApiKeys = () => {
             </thead>
             <tbody className="">
               {keys.map((key) => (
-                <tr key={key.uuid}>
+                <tr key={key.id}>
                   <td className="border-b border-slate-700 p-4 text-slate-400">
                     {key.name}
                   </td>

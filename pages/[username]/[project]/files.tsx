@@ -35,11 +35,11 @@ const Files = () => {
   };
 
   useEffect(() => {
-    if (fly?.uuid) {
-      getFiles(fly?.uuid);
+    if (fly?.id) {
+      getFiles(fly?.id);
       setLoading(false);
     }
-  }, [fly?.uuid]);
+  }, [fly?.id]);
 
   const tableHeads = ["Name", "Date uploaded", "Mime type", "File size"];
 

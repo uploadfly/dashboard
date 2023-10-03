@@ -8,7 +8,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
   try {
     const user = await prisma.user.findUnique({
       where: {
-        uuid: req.user.uuid,
+        id: req.user.id,
       },
       select: {
         username: true,

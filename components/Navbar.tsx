@@ -65,7 +65,7 @@ const Navbar = () => {
                 <Profile />
               </div>
             </div>
-            {fly?.name && fly?.uuid && router?.asPath.includes(fly?.name) && (
+            {fly?.name && fly?.id && router?.asPath.includes(fly?.name) && (
               <div className="sticky top-0">
                 <NavLinks loading={user?.username ? false : true} />
               </div>

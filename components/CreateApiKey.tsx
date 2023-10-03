@@ -31,7 +31,7 @@ const CreateApiKey = ({
       const { data }: { data: KeyProps } = await axios.post(
         "/api-keys/create?fly_id",
         {
-          fly_id: fly?.uuid,
+          fly_id: fly?.id,
           name,
           permission,
         }

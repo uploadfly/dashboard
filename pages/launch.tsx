@@ -63,7 +63,7 @@ const Launch = () => {
         name: name || placeholder,
         project_url: projectUrl,
       });
-      setFly(data.name, data.uuid);
+      setFly(data.name, data.id);
       toast("Your fly was created successfully", toastSuccessConfig);
       router.push(data.redirect);
     } catch (error: any) {

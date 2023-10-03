@@ -41,7 +41,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
 
     await prisma.user.update({
       where: {
-        uuid: req.user.uuid,
+        id: req.user.id,
       },
       data: {
         username: username.toLowerCase().trim(),
@@ -49,7 +49,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
     });
 
     const payload = {
-      uuid: req.user.uuid,
+      id: req.user.id,
       username,
     };
 
@@ -63,7 +63,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
 
     await prisma.refreshToken.update({
       where: {
-        user_id: req.user.uuid,
+        user_id: req.user.id,
       },
       data: {
         token: newRefreshToken,

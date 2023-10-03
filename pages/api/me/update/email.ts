@@ -35,19 +35,19 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
     if (existingEmail) {
       await prisma.emailReset.delete({
         where: {
-          uuid: existingEmail?.uuid,
+          id: existingEmail?.id,
         },
       });
     }
 
     const newEmail = await prisma.emailReset.create({
       data: {
-        user_id: req.user.uuid,
+        user_id: req.user.id,
         email,
       },
     });
 
-    const ve = `${APP_DOMAIN}/verify-email?token=${newEmail.uuid}`;
+    const ve = `${APP_DOMAIN}/verify-email?token=${newEmail.id}`;
 
     await sendEmail({
       to: email,

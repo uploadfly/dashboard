@@ -12,7 +12,7 @@ interface LogProps {
   created_at: Date;
   method: string;
   status: number;
-  uuid: string;
+  id: string;
   ip_address: string;
   request_body: any;
   response_body: any;
@@ -24,17 +24,15 @@ const Log = () => {
   const [log, setLog] = useState<LogProps | null>(null);
 
   useEffect(() => {
-    if (router.query.log_id && fly?.uuid) {
+    if (router.query.log_id && fly?.id) {
       (async () => {
         const log_id = router.query.log_id;
 
-        const { data } = await axios(
-          `/log?log_id=${log_id}&fly_id=${fly.uuid}`
-        );
+        const { data } = await axios(`/log?log_id=${log_id}&fly_id=${fly.id}`);
         setLog(data);
       })();
     }
-  }, [router.query.log_id, fly?.uuid]);
+  }, [router.query.log_id, fly?.id]);
 
   return (
     <DashboardLayout pageName="Log Details">

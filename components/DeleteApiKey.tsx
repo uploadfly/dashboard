@@ -19,7 +19,7 @@ const DeleteApiKey = ({
   const deleteKey = async () => {
     setDeleting(true);
     try {
-      await axios.delete(`/api-keys/delete?key_id=${keyObj?.uuid}`);
+      await axios.delete(`/api-keys/delete?key_id=${keyObj?.id}`);
       setDeleting(false);
       onKeyDeleted();
       toast("API Key deleted successfully", toastSuccessConfig);

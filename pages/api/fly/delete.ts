@@ -14,7 +14,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
   }
   const fly = await prisma.fly.findUnique({
     where: {
-      uuid: fly_id,
+      id: fly_id,
     },
   });
 
@@ -23,7 +23,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
     return;
   }
 
-  if (fly.user_id !== req.user.uuid) {
+  if (fly.user_id !== req.user.id) {
     res
       .status(403)
       .json({ message: "You are not authorized to delete this fly" });
@@ -32,7 +32,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
 
   const userApiKey = await prisma.apikey.findFirst({
     where: {
-      user_id: req.user.uuid,
+      user_id: req.user.id,
       active: true,
       permission: "full",
     },
@@ -58,7 +58,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
     .then(async () => {
       await prisma.fly.delete({
         where: {
-          uuid: fly_id,
+          id: fly_id,
         },
       });
 
@@ -73,10 +73,10 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
   await prisma.apikey
     .deleteMany({
       where: {
-        user_id: req.user.uuid,
+        user_id: req.user.id,
       },
     })
-    .catch((err) => {
+    .catch((err: any) => {
       res.status(500).json({
         message: "Something went wrong",
       });

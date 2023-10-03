@@ -20,7 +20,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
 
     const isUser = await prisma.user.findUnique({
       where: {
-        uuid: req.user.uuid,
+        id: req.user.id,
       },
     });
 
@@ -28,8 +28,8 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
 
     const fly = await prisma.fly.findFirst({
       where: {
-        uuid: fly_id as string,
-        user_id: req.user.uuid,
+        id: fly_id as string,
+        user_id: req.user.id,
       },
     });
     if (!fly) return res.status(400).json({ message: "Invalid fly id" });
@@ -38,12 +38,12 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
       by: ["date"],
       _count: { date: true },
       where: {
-        fly_id: fly?.uuid,
+        fly_id: fly?.id,
       },
     });
 
     const fileUploadAnalytics: FileUploadAnalytics[] = fileUploads.map(
-      (item) => ({
+      (item: { date: string; _count: { date: number } }) => ({
         date: item.date,
         count: item._count.date,
       })

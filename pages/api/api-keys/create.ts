@@ -22,7 +22,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
     if (!fly_id) return res.status(400).json({ message: "Missing fly id" });
     const user = await prisma.user.findUnique({
       where: {
-        uuid: req.user.uuid,
+        id: req.user.id,
       },
     });
 
@@ -32,7 +32,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
 
     const fly = await prisma.fly.findUnique({
       where: {
-        uuid: fly_id,
+        id: fly_id,
       },
     });
 
@@ -44,7 +44,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
       data: {
         name: name || generate().dashed,
         key: `uf_${generateApiKey()}`,
-        user_id: req.user.uuid,
+        user_id: req.user.id,
         fly_id,
         permission: permission || "upload",
       },
@@ -53,7 +53,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
     return res.status(201).json({
       message: "API has been created",
       key: newAPIKey.key,
-      uuid: newAPIKey.uuid,
+      id: newAPIKey.id,
       name: newAPIKey.name,
       permission: newAPIKey.permission,
     });

@@ -54,7 +54,7 @@ const DeleteModal = ({
   const deleteFly = async () => {
     try {
       setDeleting(true);
-      await axios.delete(`/fly/delete?fly_id=${fly?.uuid}`);
+      await axios.delete(`/fly/delete?fly_id=${fly?.id}`);
       setDeleting(false);
       router.push(`/${user?.username}`);
     } catch (error: any) {
@@ -67,17 +67,17 @@ const DeleteModal = ({
   const [total, setTotal] = useState({ files: 0, size: 0 });
 
   useEffect(() => {
-    if (fly?.uuid) {
+    if (fly?.id) {
       (async () => {
         try {
-          const { data } = await axios(`/fly/total?fly_id=${fly?.uuid}`);
+          const { data } = await axios(`/fly/total?fly_id=${fly?.id}`);
           setTotal(data);
         } catch (error) {
           console.log(error);
         }
       })();
     }
-  }, [fly?.uuid]);
+  }, [fly?.id]);
 
   return (
     <>

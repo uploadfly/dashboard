@@ -30,7 +30,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
 
     await prisma.user.update({
       where: {
-        uuid: req.user.uuid,
+        id: req.user.id,
       },
       data: {
         name: name,

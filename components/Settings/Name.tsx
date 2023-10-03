@@ -46,10 +46,10 @@ const Name = () => {
       }
       setIsRenaming(true);
       await axios.put("/fly/rename", {
-        fly_id: fly?.uuid,
+        fly_id: fly?.id,
         name: name,
       });
-      setFly(name, fly?.uuid);
+      setFly(name, fly?.id);
       const paths = router.asPath.split("/");
       setIsRenaming(false);
       const newPath = `/${paths[1]}/${name}/${paths[3]}`;
