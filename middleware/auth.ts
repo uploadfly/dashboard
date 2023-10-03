@@ -14,17 +14,17 @@ const authenticateToken = async (
   }
 
   const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY as string) as {
-    uuid: string;
+    id: string;
   };
 
-  const user_id = decoded.uuid;
+  const user_id = decoded.id;
 
   if (!user_id)
     return res.status(400).json({ message: "Missing user id in payload" });
 
   const user = (await prisma.user.findUnique({
     where: {
-      uuid: user_id,
+      id: user_id,
     },
   })) as UserModel;
 
