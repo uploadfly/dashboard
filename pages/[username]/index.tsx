@@ -37,13 +37,13 @@ const DashboardIndex = () => {
           <input
             type="text"
             className="bg-transparent border border-gray-800 rounded-md pl-3 lg:w-[450px] w-full py-2 outline-uf-accent"
-            placeholder="Search for a fly"
+            placeholder="Search for a project"
           />
           <Link href={"/launch"} className="">
             <button className="flex gap-2 bg-uf-light hover:bg-uf-accent text-uf-dark rounded-md py-2 px-4 w-full items-center justify-center font-semibold transition-colors group disabled:opacity-50 disabled:cursor-not-allowed">
               <HiOutlineRocketLaunch className="hidden lg:block text-xl group-hover:rotate-[360deg] transition-all duration-500" />
               <HiPlus className="lg:hidden text-xl group-hover:rotate-[360deg] transition-all duration-500" />
-              <span className="hidden lg:block">Create a new fly</span>
+              <span className="hidden lg:block">Create a new project</span>
             </button>
           </Link>
         </div>
