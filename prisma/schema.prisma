@@ -5,6 +5,7 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model user {
@@ -32,6 +33,8 @@ model emailReset {
   email       String
   created_at  DateTime @default(now())
   is_verified Boolean  @default(false)
+
+  @@index([user_id])
 }
 
 model fly {
@@ -48,6 +51,8 @@ model fly {
   files        file[]
   apikeys      apikey[]
   logs         log[]
+
+  @@index([user_id])
 }
 
 model file {
@@ -64,6 +69,8 @@ model file {
   fly              fly      @relation(fields: [fly_id], references: [id])
   fly_id           String
   date             String
+
+  @@index([fly_id])
 }
 
 model apikey {
@@ -77,6 +84,8 @@ model apikey {
   permission apikey_permission
   key        String            @unique()
   name       String
+
+  @@index([fly_id])
 }
 
 model log {
@@ -92,6 +101,8 @@ model log {
   fly           fly        @relation(fields: [fly_id], references: [id])
   fly_id        String     @default("")
   ip_address    String     @default("0.0.0.0")
+
+  @@index([fly_id])
 }
 
 enum log_method {
