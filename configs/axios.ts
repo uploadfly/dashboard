@@ -32,6 +32,7 @@ axiosInstance.interceptors.response.use(
           return axiosInstance(originalRequest);
         } catch (refreshError) {
           await axiosAuthInstance.post("/logout");
+          window.location.reload();
           return Promise.reject(refreshError);
         } finally {
           isRefreshing = false;
