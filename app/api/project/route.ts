@@ -41,15 +41,15 @@ export async function POST(request: Request) {
       },
     });
 
-    // if (userProjects >= 2) {
-    //   return NextResponse.json(
-    //     {
-    //       message:
-    //         "You have reached the maximum number of projects you can have.",
-    //     },
-    //     { status: 400 }
-    //   );
-    // }
+    if (userProjects >= 2) {
+      return NextResponse.json(
+        {
+          message:
+            "You have reached the maximum number of projects you can have.",
+        },
+        { status: 400 }
+      );
+    }
 
     const project = await prisma.fly.create({
       data: {
