@@ -54,7 +54,7 @@ const DeleteModal = ({
   const deleteFly = async () => {
     try {
       setDeleting(true);
-      await axios.delete(`/fly/delete?fly_id=${fly?.id}`);
+      await axios.delete(`/project/${fly?.id}`);
       setDeleting(false);
       router.push(`/${user?.username}`);
     } catch (error: any) {
