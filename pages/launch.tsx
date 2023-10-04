@@ -29,27 +29,39 @@ const Launch = () => {
       const flyNameRegex = /^(?!-)(?!.*--)[a-z0-9-]{3,100}(?<!-)$/i;
 
       if (name && name.length < 3) {
-        toast("Fly name must be at least 3 characters long", toastErrorConfig);
+        toast(
+          "Project name must be at least 3 characters long",
+          toastErrorConfig
+        );
         return;
       }
 
       if (name && name.length > 100) {
-        toast("Fly name must be less than 101 characters", toastErrorConfig);
+        toast(
+          "Project name must be less than 101 characters",
+          toastErrorConfig
+        );
         return;
       }
 
       if ((name && name.startsWith("-")) || name.endsWith("-")) {
-        toast("Fly name cannot start or end with a dash", toastErrorConfig);
+        toast("Project name cannot start or end with a dash", toastErrorConfig);
         return;
       }
 
       if (name && name.includes("--")) {
-        toast("Fly name cannot contain consecutive dashes", toastErrorConfig);
+        toast(
+          "Project name cannot contain consecutive dashes",
+          toastErrorConfig
+        );
         return;
       }
 
       if (name && !flyNameRegex.test(name)) {
-        toast("Fly names cannot contain special characters", toastErrorConfig);
+        toast(
+          "Project name cannot contain special characters",
+          toastErrorConfig
+        );
         return;
       }
 
@@ -59,18 +71,17 @@ const Launch = () => {
       }
       setLoading(true);
 
-      const { data } = await axios.post("/fly/create", {
+      const { data } = await axios.post("/project", {
         name: name || placeholder,
         project_url: projectUrl,
       });
       setFly(data.name, data.id);
-      toast("Your fly was created successfully", toastSuccessConfig);
+      toast(data.message, toastSuccessConfig);
       router.push(data.redirect);
     } catch (error: any) {
       setLoading(false);
       toast(
-        error?.response?.data?.message ||
-          "Holy *#it! something went wrong. Try again",
+        error?.response?.data?.message || "Something went wrong. Try again",
         toastErrorConfig
       );
     }
@@ -80,7 +91,7 @@ const Launch = () => {
   return (
     <div className="bg-uf-dark relative h-screen text-uf-light overflow-x-hidden">
       <Head>
-        <title>Create a new fly | Uploadfly</title>
+        <title>Create a new project | Uploadfly</title>
       </Head>
       <div
         className={`abosolute top-0 w-full h-full bg-uf-dark flex items-center justify-center`}
@@ -114,15 +125,15 @@ const Launch = () => {
           />
           <div className="mb-8">
             <h1 className="shiny-text text-3xl text-center">
-              Create a new fly
+              Create a new project
             </h1>
-            <p className="font-semibold text-gray-400 text-center">{`Get ready to upload files in the cloud like breeze`}</p>
+            {/* <p className="font-semibold text-gray-400 text-center">{`Get ready to upload files in the cloud like breeze`}</p> */}
           </div>
 
           <div className="mt-4 z-20 flex flex-col items-center justify-start w-[380px] gap-2 font-semibold">
             <div className="flex flex-col gap-3">
               <div className="">
-                <small>Give your fly a name</small>
+                <small>Project name</small>
                 <input
                   type="text"
                   className="input placeholder:opacity-40"
