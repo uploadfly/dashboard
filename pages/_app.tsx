@@ -18,7 +18,7 @@ Router.events.on("routeChangeError", () => progress.finish());
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <PlausibleProvider domain="beta.uploadfly.cloud">
+    <PlausibleProvider domain="beta.uploadfly.co">
       <Head>
         <link
           rel="shortcut icon"
