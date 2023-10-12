@@ -9,7 +9,7 @@ const CreateFirstFly = () => {
         Welcome to the cloud
       </h1>
       <p className="text-center lg:mt-3 text-gray-300 lg:text-xl font-semibold">
-        {`You are ready to create your first fly.`}
+        {`You are ready to create your first project.`}
       </p>
 
       <div className="flex w-full items-center justify-center">
@@ -24,7 +24,7 @@ const CreateFirstFly = () => {
 
       <Link href={"/launch"} className="w-full lg:w-fit">
         <button className="bg-uf-accent rounded-md font-semibold px-20 py-2 text-uf-light text-lg w-full lg:w-fit">
-          Create your fly
+          Create a project
         </button>
       </Link>
     </div>
