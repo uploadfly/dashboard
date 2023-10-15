@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-acm": "^3.428.0",
     "@badrap/bar-of-progress": "^0.2.2",
     "@heroicons/react": "^1.0.6",
     "@next/font": "13.4.3",
