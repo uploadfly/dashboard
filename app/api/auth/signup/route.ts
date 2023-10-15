@@ -4,7 +4,7 @@ import { generateRandomKey } from "@/utils/generateRandomKey";
 import dayjs from "dayjs";
 import { NextResponse } from "next/server";
 import validator from "validator";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import plunk from "@/configs/plunk";
 import { render } from "@react-email/render";
 import { VerifyEmail } from "@/emails/verify-email";
