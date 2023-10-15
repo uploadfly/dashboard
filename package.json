@@ -31,7 +31,7 @@
     "@types/uuid": "^9.0.1",
     "@uploadfly/react-widget": "^1.1.1",
     "axios": "^1.4.0",
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "boring-name-generator": "^1.0.3",
     "cookies-next": "^3.0.0",
     "dayjs": "^1.11.8",
@@ -64,7 +64,6 @@
     "zustand": "^4.3.8"
   },
   "devDependencies": {
-    "@types/bcrypt": "^5.0.0",
     "@types/react-syntax-highlighter": "^15.5.7",
     "@types/validator": "^13.11.2",
     "autoprefixer": "^10.4.14",
