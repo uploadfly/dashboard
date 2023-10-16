@@ -8,12 +8,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     deleteCookie("refresh_token", {
       req,
       res,
-      domain: isProd ? ".uploadfly.cloud" : undefined,
+      domain: isProd ? ".uploadfly.co" : undefined,
     });
     deleteCookie("access_token", {
       req,
       res,
-      domain: isProd ? ".uploadfly.cloud" : undefined,
+      domain: isProd ? ".uploadfly.co" : undefined,
     });
     return res.status(200).json({ message: "Logged out" });
   } catch (error) {
