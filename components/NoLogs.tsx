@@ -9,7 +9,7 @@ const NoLogs = () => {
         Your logs will appear here when you make API requests. Check out the
         docs to learn about Uploadfly API endpoints.
       </p>
-      <Link href={"https://docs.uploadfly.cloud"} target="_blank">
+      <Link href={"https://docs.uploadfly.co"} target="_blank">
         <button className="flex gap-2 bg-uf-light text-uf-dark items-center px-3 font-semibold py-2 rounded-md hover:bg-uf-accent hover:text-uf-dark transition-colors">
           Go to docs <HiOutlineExternalLink />
         </button>
