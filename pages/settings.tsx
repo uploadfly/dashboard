@@ -105,9 +105,7 @@ const Settings = () => {
       subtext: "Should be between 3 and 50 characters long.",
       component: (
         <div className="flex items-center rounded-md border border-uf-accent/50 focus-within:border-uf-accent transition-colors lg:w-[400px] w-full">
-          <p className="bg-uf-accent/20 p-2 rounded-md">
-            beta.uploadfly.cloud/
-          </p>
+          <p className="bg-uf-accent/20 p-2 rounded-md">beta.uploadfly.co/</p>
           <input
             type="text"
             className="w-full bg-transparent outline-none pl-1"
