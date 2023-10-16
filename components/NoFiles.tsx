@@ -8,7 +8,7 @@ const NoFiles = () => {
       <p className="text mb-4 w-[450px] text-center">
         Check out the docs to learn how to upload files.
       </p>
-      <Link href={"https://docs.uploadfly.cloud"} target="_blank">
+      <Link href={"https://docs.uploadfly.co"} target="_blank">
         <button className="flex gap-2 bg-uf-light text-uf-dark items-center px-3 font-semibold py-2 rounded-md hover:bg-uf-accent hover:text-uf-dark transition-colors">
           Go to docs <HiOutlineExternalLink />
         </button>
