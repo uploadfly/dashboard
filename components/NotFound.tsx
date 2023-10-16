@@ -16,7 +16,7 @@ const NotFound = () => {
       <Head>
         <title>Not Found | Uploadfly</title>
       </Head>
-      <Link href={"https://uploadfly.cloud"} target="_blank">
+      <Link href={"https://uploadfly.co"} target="_blank">
         <Image src="/logo.svg" width={100} height={100} alt="Uploadfly logo" />
       </Link>
       <h1 className="text-8xl font-bold">{`Seems you're lost`}</h1>
