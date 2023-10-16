@@ -17,7 +17,7 @@ const NavbarLoader = () => {
         </div>
         <div className="flex gap-4 items-center">
           <Link
-            href={"https://docs.uploadfly.cloud"}
+            href={"https://docs.uploadfly.co"}
             target="_blank"
             className="hover:text-uf-accent transition-colors flex items-center gap-1"
           >
