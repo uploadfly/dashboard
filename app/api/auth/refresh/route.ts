@@ -46,7 +46,7 @@ export async function POST(request: Response) {
       sameSite: isProd ? "none" : "strict",
       expires: dayjs().add(15, "minutes").toDate(),
     });
-    return new Response("OK");
+    return NextResponse.json({ message: "Refreshed" }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: "Error logging out." }, { status: 500 });
   }
