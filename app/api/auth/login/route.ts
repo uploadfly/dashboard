@@ -1,10 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/prisma";
 import bcrypt from "bcryptjs";
-import { cookies } from "next/headers";
-import dayjs from "dayjs";
-import { sign } from "jsonwebtoken";
-import { isProd } from "@/constants";
 import { setCookies } from "@/utils/setCookies";
 
 export async function POST(request: Request) {
@@ -46,7 +42,15 @@ export async function POST(request: Request) {
     }
     await setCookies(user.id);
 
-    return NextResponse.json({ message: "Login success" }, { status: 200 });
+    const userData = {
+      username: user?.username,
+      email: user?.email,
+    };
+
+    return NextResponse.json(
+      { message: "Login success", user: userData },
+      { status: 200 }
+    );
   } catch (error) {
     return NextResponse.json(
       { error: "Internal Server Error" },
