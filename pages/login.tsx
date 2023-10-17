@@ -3,7 +3,7 @@ import AuthLayout from "@/layouts/AuthLayout";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
-import { axiosAuth } from "@/configs/axios";
+import { axios } from "@/configs/axios";
 import { RiLoader5Fill } from "react-icons/ri";
 import { RiEyeLine } from "react-icons/ri";
 import { RiEyeOffLine } from "react-icons/ri";
@@ -32,7 +32,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await axiosAuth.post("/login", {
+      const response = await axios.post("/auth/login", {
         email,
         password,
       });
@@ -44,7 +44,6 @@ const Login = () => {
           return;
         }
         router.push(`/${userData.username}`);
-        return;
       }
     } catch (error: any) {
       const errorMessage = error.response?.data?.message || "Login failed";
