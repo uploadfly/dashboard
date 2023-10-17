@@ -1,12 +1,7 @@
 import axios from "axios";
 
 let isRefreshing = false;
-let refreshSubscribers = [];
-
-const axiosAuthInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_AUTH_URL,
-  withCredentials: true,
-});
+let refreshSubscribers: any = [];
 
 const axiosInstance = axios.create({
   baseURL: "/api",
@@ -28,10 +23,12 @@ axiosInstance.interceptors.response.use(
       if (!isRefreshing) {
         isRefreshing = true;
         try {
-          await axiosAuthInstance.post("/refresh");
+          await axiosInstance.post("/auth/refresh");
+          refreshSubscribers.forEach((callback: any) => callback());
+          refreshSubscribers = [];
           return axiosInstance(originalRequest);
         } catch (refreshError) {
-          await axiosAuthInstance.post("/logout");
+          await axiosInstance.post("/logout");
           window.location.reload();
           return Promise.reject(refreshError);
         } finally {
@@ -49,8 +46,4 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-export {
-  axiosAuthInstance as axiosAuth,
-  axiosInstance as axios,
-  axiosUploadflyInstance as uploadfly,
-};
+export { axiosInstance as axios, axiosUploadflyInstance as uploadfly };
