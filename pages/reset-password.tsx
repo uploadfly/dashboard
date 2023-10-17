@@ -1,4 +1,4 @@
-import { axiosAuth } from "@/configs/axios";
+import { axios } from "@/configs/axios";
 import { toastErrorConfig, toastSuccessConfig } from "@/configs/toast";
 import AuthLayout from "@/layouts/AuthLayout";
 import { useRouter } from "next/router";
@@ -48,7 +48,7 @@ const ResetPassword = () => {
 
     try {
       setLoading(true);
-      await axiosAuth.put("/reset-password", {
+      await axios.put("/auth/reset-password", {
         otp,
         password,
         confirmPassword,
