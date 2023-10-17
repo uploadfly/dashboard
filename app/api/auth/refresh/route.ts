@@ -4,7 +4,7 @@ import { sign, verify } from "jsonwebtoken";
 import prisma from "@/prisma";
 import dayjs from "dayjs";
 
-export async function POST(request: Response) {
+export async function POST(request: Request) {
   try {
     const refreshToken = cookies().get("refresh_token")?.value;
     if (!refreshToken) {
