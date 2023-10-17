@@ -61,7 +61,7 @@ export async function PUT(request: Request) {
 
     await setCookies(verifiedUser.id);
 
-    welcomeToUploadfly(verifiedUser.email);
+    await welcomeToUploadfly(verifiedUser.email);
     // subToPlunk(verifiedUser.email)
 
     return NextResponse.json(
