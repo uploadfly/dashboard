@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 import dayjs from "dayjs";
 import { sign } from "jsonwebtoken";
 import { isProd } from "@/constants";
+import { setCookies } from "@/utils/setCookies";
 
 export async function POST(request: Request) {
   try {
@@ -43,58 +44,7 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
-
-    const userExistingToken = await prisma.refreshToken.findFirst({
-      where: {
-        user_id: user.id,
-      },
-    });
-
-    if (dayjs().isAfter(dayjs(userExistingToken?.expires_at))) {
-      await prisma.refreshToken.delete({
-        where: {
-          id: userExistingToken?.id,
-        },
-      });
-    }
-
-    const payload = { id: user.id };
-
-    const secretKey = process.env.JWT_SECRET_KEY!;
-
-    const accessToken = sign(payload, secretKey, {
-      expiresIn: "15m",
-    });
-
-    const refreshToken =
-      userExistingToken?.token ||
-      sign(payload, secretKey, { expiresIn: "90d" });
-
-    if (!userExistingToken) {
-      await prisma.refreshToken.create({
-        data: {
-          token: refreshToken,
-          user_id: user.id,
-          expires_at: dayjs().add(90, "days").toISOString(),
-        },
-      });
-    }
-
-    cookies().set("access_token", accessToken, {
-      domain: isProd ? ".uploadfly.co" : undefined,
-      httpOnly: true,
-      secure: isProd,
-      sameSite: isProd ? "none" : "strict",
-      expires: dayjs().add(15, "minutes").toDate(),
-    });
-
-    cookies().set("refresh_token", refreshToken, {
-      domain: isProd ? ".uploadfly.co" : undefined,
-      httpOnly: true,
-      secure: isProd,
-      sameSite: isProd ? "none" : "strict",
-      expires: dayjs().add(90, "days").toDate(),
-    });
+    await setCookies(user.id);
 
     return NextResponse.json({ message: "Login success" }, { status: 200 });
   } catch (error) {
