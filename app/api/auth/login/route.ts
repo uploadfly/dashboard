@@ -1,11 +1,10 @@
-"use server";
-
 import { NextResponse } from "next/server";
 import prisma from "@/prisma";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
 import dayjs from "dayjs";
 import { sign } from "jsonwebtoken";
+import { isProd } from "@/constants";
 
 export async function POST(request: Request) {
   try {
@@ -81,8 +80,23 @@ export async function POST(request: Request) {
       });
     }
 
-    cookies().set("access_token", accessToken, {});
-    cookies().set("refresh_token", refreshToken);
+    cookies().set("access_token", accessToken, {
+      domain: isProd ? ".uploadfly.co" : undefined,
+      httpOnly: true,
+      secure: isProd,
+      sameSite: isProd ? "none" : "strict",
+      expires: dayjs().add(15, "minutes").toDate(),
+    });
+
+    cookies().set("refresh_token", refreshToken, {
+      domain: isProd ? ".uploadfly.co" : undefined,
+      httpOnly: true,
+      secure: isProd,
+      sameSite: isProd ? "none" : "strict",
+      expires: dayjs().add(90, "days").toDate(),
+    });
+
+    return NextResponse.json({ message: "Login success" }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: "Internal Server Error" },
