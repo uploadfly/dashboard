@@ -91,7 +91,7 @@ const Launch = () => {
   return (
     <div className="bg-uf-dark relative h-screen text-uf-light overflow-x-hidden">
       <Head>
-        <title>Create a new project | Uploadfly</title>
+        <title>Create a new project | UploadFly</title>
       </Head>
       <div
         className={`abosolute top-0 w-full h-full bg-uf-dark flex items-center justify-center`}

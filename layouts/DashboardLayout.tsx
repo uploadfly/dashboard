@@ -48,7 +48,7 @@ const DashboardLayout = ({
   return (
     <div className="bg-uf-dark text-uf-light">
       <Head>
-        <title>{pageName} | Uploadfly</title>
+        <title>{pageName} | UploadFly</title>
       </Head>
       {isChildLoading ? (
         <>

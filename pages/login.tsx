@@ -61,7 +61,7 @@ const Login = () => {
       question={{
         route: "/signup",
         text: "Signup",
-        title: "New to Uploadfly?",
+        title: "New to UploadFly?",
       }}
       pageName="Login"
     >

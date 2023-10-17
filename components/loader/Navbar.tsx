@@ -11,7 +11,7 @@ const NavbarLoader = () => {
             src={"/logo.svg"}
             width={40}
             height={40}
-            alt="Uploadfly logo"
+            alt="UploadFly logo"
           />
           <div className="w-32 h-4 loading-animation"></div>
         </div>

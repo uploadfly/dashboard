@@ -5,7 +5,7 @@ const ApiKeysLoader = () => {
     <div>
       <h1 className="text-2xl font-semibold">API Keys</h1>
       <p className="mt-2 text-sm text-gray-400">
-        View and manage your Uploadfly API keys
+        View and manage your UploadFly API keys
       </p>
       <div className="bg-[rgba(2255,255,255,.1)] mt-8 p-4 rounded-md">
         <div className="my-5">
@@ -31,7 +31,7 @@ const ApiKeysLoader = () => {
           />
           <p className="text-sm text-gray-400">
             Use this key for secure backend services. This key gives you
-            complete access to your Uploadfly cloud.
+            complete access to your UploadFly cloud.
           </p>
         </div>
         <button
