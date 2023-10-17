@@ -2,11 +2,9 @@ import { toastErrorConfig, toastSuccessConfig } from "@/configs/toast";
 import AuthLayout from "@/layouts/AuthLayout";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import OTPInput from "react-otp-input";
-import { axios, axiosAuth } from "@/configs/axios";
+import { axios } from "@/configs/axios";
 import { useRouter } from "next/router";
 import { RiLoader5Fill } from "react-icons/ri";
-import Link from "next/link";
 import { RiEyeLine } from "react-icons/ri";
 import { RiEyeOffLine } from "react-icons/ri";
 
