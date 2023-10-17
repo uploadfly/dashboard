@@ -44,7 +44,6 @@ const Login = () => {
           return;
         }
         router.push(`/${userData.username}`);
-        return;
       }
     } catch (error: any) {
       const errorMessage = error.response?.data?.message || "Login failed";
