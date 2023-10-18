@@ -8,7 +8,7 @@ const NoApiKeys = ({ onClick }: { onClick: () => void }) => {
       </h1>
       <p className="text mb-4 lg:w-[450px] text-center">
         API Keys are randomly generated alpha-numeric strings that are used to
-        interact with Uploadfly services.
+        interact with UploadFly services.
       </p>
       <button
         className="flex gap-2 bg-uf-light text-uf-dark items-center px-3 font-semibold py-2 rounded-md hover:bg-uf-accent hover:text-uf-dark transition-colors"

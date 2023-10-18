@@ -41,7 +41,7 @@ const Navbar = () => {
                   src={"/logo.svg"}
                   width={40}
                   height={40}
-                  alt="Uploadfly logo"
+                  alt="UploadFly logo"
                 />
                 <Link href={`/${user?.username}`}>{user?.username}</Link>{" "}
                 {fly?.name && router?.asPath.includes(fly?.name) && (

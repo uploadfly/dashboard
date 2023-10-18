@@ -14,10 +14,10 @@ const NotFound = () => {
       }}
     >
       <Head>
-        <title>Not Found | Uploadfly</title>
+        <title>Not Found | UploadFly</title>
       </Head>
       <Link href={"https://uploadfly.co"} target="_blank">
-        <Image src="/logo.svg" width={100} height={100} alt="Uploadfly logo" />
+        <Image src="/logo.svg" width={100} height={100} alt="UploadFly logo" />
       </Link>
       <h1 className="text-8xl font-bold">{`Seems you're lost`}</h1>
       <p className="text-center text-3xl mt-10">

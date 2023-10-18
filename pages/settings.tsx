@@ -101,7 +101,7 @@ const Settings = () => {
     {
       id: 1,
       title: "Username",
-      description: " Your URL namespace within your Uploadfly dashboard.",
+      description: " Your URL namespace within your UploadFly dashboard.",
       subtext: "Should be between 3 and 50 characters long.",
       component: (
         <div className="flex items-center rounded-md border border-uf-accent/50 focus-within:border-uf-accent transition-colors lg:w-[400px] w-full">
@@ -139,7 +139,7 @@ const Settings = () => {
       id: 3,
       title: "Email",
       description:
-        "Enter the email address you want to use access your Uploadfly.",
+        "Enter the email address you want to use access your UploadFly.",
       subtext: waitingForEmailVerification
         ? "Waiting to confirm your new email address..."
         : emailChanged

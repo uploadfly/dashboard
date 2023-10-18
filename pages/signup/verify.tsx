@@ -1,7 +1,7 @@
 import AuthLayout from "@/layouts/AuthLayout";
 import useHref from "use-href";
 import React from "react";
-import { axios, axiosAuth } from "@/configs/axios";
+import { axios } from "@/configs/axios";
 import toast from "react-hot-toast";
 import { toastErrorConfig, toastSuccessConfig } from "@/configs/toast";
 import { CgSpinner } from "react-icons/cg";
@@ -20,7 +20,7 @@ const VerifyAccount = () => {
   const handleVerify = async () => {
     setLoading(true);
     try {
-      const { data } = await axiosAuth.put("/verify", {
+      const { data } = await axios.put("/auth/verify", {
         otp,
         email,
       });

@@ -15,7 +15,7 @@ const AccountSettingsLayout = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <Head>
-        <title>Settings | Uploadfly </title>
+        <title>Settings | UploadFly </title>
       </Head>
       <Navbar />
       <div className="flex lg:flex-row flex-col lg:px-20 px-5 py-10">
