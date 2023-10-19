@@ -51,6 +51,7 @@ model fly {
   files        file[]
   apikeys      apikey[]
   logs         log[]
+  customDomains customDomain[]
 
   @@index([user_id])
 }
@@ -69,6 +70,17 @@ model file {
   fly              fly      @relation(fields: [fly_id], references: [id])
   fly_id           String
   date             String
+
+  @@index([fly_id])
+}
+
+model customDomain {
+  id         String            @id @default(uuid())
+  created_at DateTime          @default(now())
+  fly        fly               @relation(fields: [fly_id], references: [id])
+  fly_id     String
+  domain     String
+  certificateArn String
 
   @@index([fly_id])
 }
