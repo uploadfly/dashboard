@@ -34,7 +34,7 @@ export async function POST(request: Request) {
       { status: 400 }
     );
 
-  if (domainName.startsWith("http"))
+  if (domainName.startsWith("http:") || domainName.startsWith("https:"))
     return NextResponse.json(
       {
         message: "Domain name should not include protocol.",
