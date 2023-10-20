@@ -19,6 +19,15 @@ export async function POST(
 ) {
   const project = await getProject(params.id);
   const { domainName } = (await request.json()) as { domainName: string };
+  const domainNameExists = await prisma.customDomain.findUnique({
+    where: { domain: domainName },
+  });
+
+  if (domainNameExists)
+    return NextResponse.json(
+      { message: "An existing project already uses this domain name." },
+      { status: 400 }
+    );
 
   if (!domainName)
     return NextResponse.json(
@@ -80,13 +89,17 @@ export async function POST(
   }
 }
 
-export async function GET(request: Request) {
+export async function GET(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
   try {
-    const { searchParams } = new URL(request.url);
-    const cert_arn = searchParams.get("cert_arn")!;
+    const project = await prisma.customDomain.findUnique({
+      where: { id: params.id },
+    });
 
     const command = new DescribeCertificateCommand({
-      CertificateArn: cert_arn,
+      CertificateArn: project?.certificateArn,
     });
 
     const response: DescribeCertificateCommandOutput = await client.send(
@@ -99,7 +112,7 @@ export async function GET(request: Request) {
 
     const data = {
       domainName: response.Certificate?.DomainName,
-      cert_arn,
+      cert_arn: project?.certificateArn,
       DNS: {
         validation_status:
           response.Certificate?.DomainValidationOptions?.[0]?.ValidationStatus,
