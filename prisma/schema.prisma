@@ -79,7 +79,7 @@ model customDomain {
   created_at DateTime          @default(now())
   fly        fly               @relation(fields: [fly_id], references: [id])
   fly_id     String
-  domain     String
+  domain     String            @unique()
   certificateArn String
 
   @@index([fly_id])
