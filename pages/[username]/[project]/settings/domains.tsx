@@ -13,7 +13,7 @@ const Domains = () => {
   const requestCertificate = async () => {
     try {
       const { data } = await axios.post(
-        `/project/${fly.name}/custom-domain/certificate`,
+        `/project/${fly.id}/custom-domain/certificate`,
         { domainName }
       );
       toast.success(data.message, toastSuccessConfig);
