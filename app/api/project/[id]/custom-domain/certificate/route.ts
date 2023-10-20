@@ -1,4 +1,6 @@
 import { awsCredentials } from "@/lib/configs/aws";
+import prisma from "@/prisma";
+import { getProject } from "@/utils/getProject";
 import {
   ACMClient,
   DescribeCertificateCommand,
@@ -11,7 +13,11 @@ import validator from "validator";
 
 const client = new ACMClient(awsCredentials);
 
-export async function POST(request: Request) {
+export async function POST(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  const project = await getProject(params.id);
   const { domainName } = (await request.json()) as { domainName: string };
 
   if (!domainName)
@@ -26,18 +32,18 @@ export async function POST(request: Request) {
       { status: 400 }
     );
 
-  if (domainName.includes("/"))
-    return NextResponse.json(
-      {
-        message: "Domain name should not cotain any paths.",
-      },
-      { status: 400 }
-    );
-
   if (domainName.startsWith("http:") || domainName.startsWith("https:"))
     return NextResponse.json(
       {
         message: "Domain name should not include protocol.",
+      },
+      { status: 400 }
+    );
+
+  if (domainName.includes("/"))
+    return NextResponse.json(
+      {
+        message: "Domain name should not cotain any paths.",
       },
       { status: 400 }
     );
@@ -58,11 +64,18 @@ export async function POST(request: Request) {
 
     const data: RequestCertificateCommandOutput = await client.send(command);
     data;
-    return NextResponse.json({ message: "Added", data });
+
+    const customDomain = await prisma.customDomain.create({
+      data: {
+        domain: domainName,
+        certificateArn: data.CertificateArn!,
+        fly_id: project?.id!,
+      },
+    });
+
+    return NextResponse.json({ message: "Added", customDomain });
   } catch (error) {
-    console.log("====================================");
     console.log(error);
-    console.log("====================================");
     return NextResponse.json({ message: "Error" }, { status: 500 });
   }
 }
