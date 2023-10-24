@@ -12,7 +12,7 @@ const Domains = () => {
   const [hasCertificateBeenRequested, setHasCertificateBeenRequested] =
     useState(false);
   const [dnsRecord, setDnsRecord] = useState<{
-    DNS: { name: string; value: string };
+    DNS: { name: string; value: string; validation_status: string };
   } | null>(null);
 
   const fetchDNSRecords = async () => {
@@ -136,7 +136,9 @@ const Domains = () => {
                   <td>CNAME</td>
                   <td>{dnsRecord.DNS.name}</td>
                   <td>{dnsRecord.DNS.value}</td>
-                  <td className="font-semibold">PENDING</td>
+                  <td className="font-semibold">
+                    {dnsRecord.DNS.validation_status.split("_")[0]}
+                  </td>
                 </tr>
               </tbody>
             </table>
