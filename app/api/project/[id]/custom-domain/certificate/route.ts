@@ -95,8 +95,14 @@ export async function GET(
 ) {
   try {
     const project = await prisma.customDomain.findUnique({
-      where: { id: params.id },
+      where: { fly_id: params.id },
     });
+
+    if (!project)
+      return NextResponse.json(
+        { message: "Project does not have a custom domain" },
+        { status: 404 }
+      );
 
     const command = new DescribeCertificateCommand({
       CertificateArn: project?.certificateArn,
@@ -127,9 +133,9 @@ export async function GET(
             ?.Value,
       },
     };
-
     return NextResponse.json({ ...data }, { status: 200 });
   } catch (error) {
+    console.log(error);
     return NextResponse.json({ message: "Error" }, { status: 500 });
   }
 }
