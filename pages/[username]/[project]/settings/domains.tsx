@@ -11,7 +11,9 @@ const Domains = () => {
   const [domainName, setDomainName] = useState("");
   const [hasCertificateBeenRequested, setHasCertificateBeenRequested] =
     useState(false);
-  const [dnsRecord, setDnsRecord] = useState({});
+  const [dnsRecord, setDnsRecord] = useState<{
+    DNS: { name: string; value: string };
+  } | null>(null);
 
   const fetchDNSRecords = async () => {
     try {
@@ -104,41 +106,42 @@ const Domains = () => {
             </button>
           </div>
         )}
-        <div className="mt-5 border border-green-500 bg-green-500/20 rounded-md p-3">
-          <p className="flex items-center gap-2">
-            <BiInfoCircle />{" "}
-            <span className="">DNS Validation Is Required.</span>
-          </p>
-          <p className="text-sm mt-1">
-            Add the following DNS entries to configure the custom domain.
-          </p>
-          <table className="table-auto border-separate border-spacing-4">
-            <thead>
-              <tr>
-                <td>Type</td>
-                <td>Name</td>
-                <td>Value</td>
-                <td>Validation Status</td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>CNAME</td>
-                <td>cdn</td>
-                <td>d19172n4opxkkj.cloudfront.net.</td>
-                <td className="font-semibold">PENDING</td>
-              </tr>
-              <tr>
-                <td>CNAME</td>
-                <td>_33c8c81c6f4dda3e104d9fae65ec45a0.cdn</td>
-                <td>
-                  _8541c10832b98ff8fca534a74dcf7950.cmqshkkvmc.acm-validations.aws.
-                </td>
-                <td className="font-semibold">PENDING</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+
+        {dnsRecord && (
+          <div className="mt-5 border border-green-500 bg-green-500/20 rounded-md p-3">
+            <p className="flex items-center gap-2">
+              <BiInfoCircle />{" "}
+              <span className="">DNS Validation Is Required.</span>
+            </p>
+            <p className="text-sm mt-1">
+              Add the following DNS entries to configure the custom domain.
+            </p>
+            <table className="table-auto border-separate border-spacing-4">
+              <thead>
+                <tr>
+                  <td>Type</td>
+                  <td>Name</td>
+                  <td>Value</td>
+                  <td>Validation Status</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>CNAME</td>
+                  <td>cdn</td>
+                  <td>d19172n4opxkkj.cloudfront.net.</td>
+                  <td className="font-semibold">PENDING</td>
+                </tr>
+                <tr>
+                  <td>CNAME</td>
+                  <td>{dnsRecord.DNS.name}</td>
+                  <td>{dnsRecord.DNS.value}</td>
+                  <td className="font-semibold">PENDING</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        )}
       </>
     </SettingsLayout>
   );
