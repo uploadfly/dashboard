@@ -78,7 +78,7 @@ model customDomain {
   id         String            @id @default(uuid())
   created_at DateTime          @default(now())
   fly        fly               @relation(fields: [fly_id], references: [id])
-  fly_id     String
+  fly_id     String            @unique()
   domain     String            @unique()
   certificateArn String
 
