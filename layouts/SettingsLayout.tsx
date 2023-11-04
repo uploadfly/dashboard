@@ -17,10 +17,10 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
     //   title: "Billing and Plans",
     //   route: "/billing-plans",
     // },
-    {
-      title: "Domains",
-      route: "/domains",
-    },
+    // {
+    //   title: "Domains",
+    //   route: "/domains",
+    // },
     {
       title: "Advanced",
       route: "/advanced",
