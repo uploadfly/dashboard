@@ -1,6 +1,7 @@
 import DashboardLayout from "@/layouts/DashboardLayout";
 import { useFlyStore } from "@/stores/flyStore";
 import { useUserStore } from "@/stores/userStore";
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactNode, useEffect, useState } from "react";
@@ -15,6 +16,10 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
     // {
     //   title: "Billing and Plans",
     //   route: "/billing-plans",
+    // },
+    // {
+    //   title: "Domains",
+    //   route: "/domains",
     // },
     {
       title: "Advanced",
@@ -38,8 +43,15 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
     ? `/${router.pathname.split("/")[4]}`
     : "/";
 
+  const pageName = subSettingsPages.find(
+    (page) => page.route === currentRoute
+  )?.title;
+
   return (
     <DashboardLayout pageName="Settings">
+      <Head>
+        <title>{`${pageName} • Settings • UploadFly `}</title>
+      </Head>
       <div className="flex lg:flex-row flex-col">
         <div className={`flex flex-col lg:gap-5 gap-2`}>
           {subSettingsPages.map((page) => {

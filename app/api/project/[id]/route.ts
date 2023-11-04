@@ -1,4 +1,5 @@
 import prisma from "@/prisma";
+import { getProject } from "@/utils/getProject";
 import { getUserId } from "@/utils/getUserId";
 import axios from "axios";
 import { NextResponse } from "next/server";
@@ -25,9 +26,7 @@ export async function DELETE(
       );
     }
 
-    const project = await prisma.fly.findUnique({
-      where: { id: projectId },
-    });
+    const project = await getProject(projectId);
 
     if (!project) {
       return NextResponse.json(

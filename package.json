@@ -9,11 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-acm": "^3.431.0",
     "@badrap/bar-of-progress": "^0.2.2",
     "@heroicons/react": "^1.0.6",
-    "@next/font": "13.4.3",
     "@plunk/node": "^2.0.0",
-    "@prisma/client": "^5.2.0",
+    "@prisma/client": "^5.4.2",
     "@radix-ui/react-popover": "^1.0.6",
     "@react-email/button": "0.0.10",
     "@react-email/img": "0.0.5",
@@ -30,6 +30,7 @@
     "@types/react-dom": "18.2.4",
     "@types/uuid": "^9.0.1",
     "@uploadfly/react-widget": "^1.1.1",
+    "aws-crt": "^1.18.1",
     "axios": "^1.4.0",
     "bcryptjs": "^2.4.3",
     "boring-name-generator": "^1.0.3",
