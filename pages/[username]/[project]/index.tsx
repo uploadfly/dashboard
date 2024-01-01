@@ -4,6 +4,7 @@ import DashboardLayout from "@/layouts/DashboardLayout";
 import { useFlyStore } from "@/stores/flyStore";
 import { useEffect, useState } from "react";
 import fileSize from "file-size";
+import dayjs from "dayjs";
 
 const Project = () => {
   const { fly } = useFlyStore();
@@ -52,7 +53,9 @@ const Project = () => {
       </div>
       <div className="border border-gray-700 p-5 rounded-md mt-5">
         <h1 className="text-2xl font-semibold">Upload streak</h1>
-        <p className="my-3 font-semibold">{overview.files} uploads in 2023</p>
+        <p className="my-3 font-semibold">
+          {overview.files} uploads in {dayjs().year()}
+        </p>
         <UploadsHeatmap uploadsData={uploads} />
       </div>
     </DashboardLayout>
