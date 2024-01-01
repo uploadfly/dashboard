@@ -3,6 +3,7 @@ import { NextApiResponse } from "next";
 import { allowMethods } from "next-method-guard";
 import { ExtendedRequest } from "@/interfaces";
 import authenticateToken from "@/middleware/auth";
+import dayjs from "dayjs";
 
 const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
   try {
@@ -28,9 +29,20 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
       },
     });
 
+    const filesThisYear = await prisma.file.count({
+      where: {
+        fly_id: fly_id as string,
+        created_at: {
+          gte: dayjs().startOf("year").toDate(),
+          lte: dayjs().endOf("year").toDate(),
+        },
+      },
+    });
+
     res.status(200).json({
       files,
       used_storage: Number(fly.used_storage),
+      files_this_year: filesThisYear || 0,
     });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
