@@ -12,6 +12,7 @@ const Project = () => {
   const [overview, setOverview] = useState({
     files: 0,
     used_storage: 0,
+    files_this_year: 0,
   });
 
   const [uploads, setUploads] = useState([]);
@@ -54,7 +55,7 @@ const Project = () => {
       <div className="border border-gray-700 p-5 rounded-md mt-5">
         <h1 className="text-2xl font-semibold">Upload streak</h1>
         <p className="my-3 font-semibold">
-          {overview.files} uploads in {dayjs().year()}
+          {overview.files_this_year} uploads in {dayjs().year()}
         </p>
         <UploadsHeatmap uploadsData={uploads} />
       </div>
