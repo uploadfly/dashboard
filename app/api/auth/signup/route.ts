@@ -1,4 +1,4 @@
-import { APP_DOMAIN } from "@/constants";
+import { APP_DOMAIN, isProd } from "@/constants";
 import prisma from "@/prisma";
 import { generateRandomKey } from "@/utils/generateRandomKey";
 import dayjs from "dayjs";
@@ -76,6 +76,8 @@ export async function POST(request: Request) {
     const otp = generateRandomKey(6);
 
     const verificationLink = `${APP_DOMAIN}/signup/verify?email=${email}&otp=${otp}`;
+
+    !isProd && console.log(verificationLink);
 
     await prisma.user.create({
       data: {
