@@ -78,7 +78,7 @@ const Launch = () => {
       setFly({
         id: data.id,
         name: data.name,
-        plan: data.plan,
+        plan: "free",
       });
       toast(data.message, toastSuccessConfig);
       router.push(data.redirect);
