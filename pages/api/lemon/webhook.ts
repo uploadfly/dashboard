@@ -67,7 +67,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         },
         data: {
           paused: true,
-          pasued_at: dayjs().toDate(),
+          paused_at: dayjs().toDate(),
         },
       });
       return res.status(200).json({ message: "Subscription has been paused" });
@@ -80,7 +80,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         },
         data: {
           paused: false,
-          pasued_at: null,
+          paused_at: null,
         },
       });
       return res.status(200).json({ message: "Subscription has been resumed" });
