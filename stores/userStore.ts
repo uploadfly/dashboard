@@ -1,8 +1,9 @@
 import { create } from "zustand";
 
 interface UserStore {
-  user: { username: string; email?: string; name?: string } | null;
+  user: { username: string; email?: string; name?: string; id: string } | null;
   setUser: (userData: {
+    id: string;
     username: string;
     email?: string;
     name?: string;
