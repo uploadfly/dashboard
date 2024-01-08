@@ -8,10 +8,10 @@ import { NextApiRequest, NextApiResponse } from "next";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const event = req.body.meta.event_name as
     | "subscription_created"
-    | "subscription_cancelled"
     | "subscription_paused"
     | "subscription_unpaused"
     | "subscription_resumed"
+    | "subscription_cancelled"
     | "subscription_expired";
 
   const userEmail = req.body.data.user_email;
@@ -19,16 +19,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const userId = req.body.meta.custom_data.user_id;
   const projectId = req.body.meta.custom_data.project_id;
 
-  console.log(req.body);
-
   try {
     const project = await prisma.fly.findUnique({
       where: {
         id: projectId,
       },
     });
-
-    const isUsedStorageLessThan2GB = Number(project?.used_storage) < 2000000000;
 
     if (event === "subscription_created") {
       await prisma.user.update({
