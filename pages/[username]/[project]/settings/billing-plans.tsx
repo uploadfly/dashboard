@@ -1,3 +1,4 @@
+import Plans from "@/components/Settings/Plans";
 import SettingsLayout from "@/layouts/SettingsLayout";
 import { useFlyStore } from "@/stores/flyStore";
 import { useUserStore } from "@/stores/userStore";
@@ -18,9 +19,21 @@ const BillingAndPlans = () => {
       <Head>
         <script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
       </Head>
-      <h1>Biiling and Plans</h1>
-
-      <button onClick={openCheckout}>Upgrade to pro</button>
+      <div className="w-full">
+        {fly.plan === "free" && (
+          <Plans
+            button={
+              <button
+                onClick={openCheckout}
+                className="flex gap-2 bg-uf-accent text-uf-light mt-10 rounded-md py-2 w-[380px] items-center justify-center font-bold hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Upgrade to Pro
+              </button>
+            }
+          />
+        )}
+        {fly.plan === "pro" && <p>You are on the Pro plan</p>}
+      </div>
     </SettingsLayout>
   );
 };
