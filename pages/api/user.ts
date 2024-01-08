@@ -11,6 +11,7 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
         id: req.user.id,
       },
       select: {
+        id: true,
         username: true,
         email: true,
         name: true,
