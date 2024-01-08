@@ -75,7 +75,11 @@ const Launch = () => {
         name: name || placeholder,
         project_url: projectUrl,
       });
-      setFly(data.name, data.id);
+      setFly({
+        id: data.id,
+        name: data.name,
+        plan: data.plan,
+      });
       toast(data.message, toastSuccessConfig);
       router.push(data.redirect);
     } catch (error: any) {
