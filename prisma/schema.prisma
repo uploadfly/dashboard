@@ -54,6 +54,8 @@ model fly {
   apikeys      apikey[]
   logs         log[]
   customDomains customDomain[]
+  paused        Boolean @default(false)
+  paused_at     DateTime?
 
   @@index([user_id])
 }
