@@ -21,7 +21,7 @@ const Settings = () => {
     try {
       setLoadingId(1);
       const { data } = await axios.patch("/me/update/username", { username });
-      setUser({ ...user, username: data.username });
+      setUser({ ...user, username: data.username, id: data.id });
       toast("Username updated", toastSuccessConfig);
     } catch (error: any) {
       toast(
