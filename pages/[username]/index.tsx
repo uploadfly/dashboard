@@ -70,6 +70,8 @@ const DashboardIndex = () => {
                       updated={fly.updated_at}
                       id={fly.id}
                       storage={fly.storage}
+                      plan={fly.plan}
+                      paused={fly.paused}
                     />
                   );
                 })}
