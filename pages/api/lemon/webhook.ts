@@ -79,8 +79,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         },
         data: {
           paused: false,
-          plan: "pro",
-          storage: 100000000000,
           pasued_at: null,
         },
       });
