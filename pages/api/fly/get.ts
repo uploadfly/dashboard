@@ -51,9 +51,9 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
     }
 
     res.status(200).json({
-      name: fly.name,
       id: fly.id,
-      fly_name,
+      name: fly.name,
+      plan: fly.plan,
     });
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
