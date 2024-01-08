@@ -26,6 +26,7 @@ const BillingAndPlans = () => {
       <div className="w-full">
         <Plans
           plan={fly.plan}
+          paused={fly.paused}
           button={
             <button
               onClick={fly.plan === "free" ? openCheckout : openCustomerPotal}
