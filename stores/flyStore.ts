@@ -4,16 +4,26 @@ interface FlyStore {
   fly: {
     name: string;
     id: string;
+    plan: "free" | "pro";
   };
-  setFly: (name: string, id: string) => void;
+  setFly: ({
+    name,
+    id,
+    plan,
+  }: {
+    name: string;
+    id: string;
+    plan: "free" | "pro";
+  }) => void;
 }
 
 export const useFlyStore = create<FlyStore>((set) => ({
   fly: {
     name: "",
     id: "",
+    plan: "free",
   },
-  setFly: (name, id) => {
-    set({ fly: { name, id } });
+  setFly: ({ name, id, plan }) => {
+    set({ fly: { name, id, plan } });
   },
 }));
