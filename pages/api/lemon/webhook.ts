@@ -1,4 +1,5 @@
 import prisma from "@/prisma";
+import { deleteAllFiles } from "@/utils/deleteAllFiles";
 import { generateApiKey } from "@/utils/generateApiKey";
 import axios from "axios";
 import dayjs from "dayjs";
@@ -86,52 +87,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     if (event === "subscription_expired") {
-      let projectApiKey = await prisma.apikey.findFirst({
-        where: {
-          fly_id: projectId,
-          active: true,
-          permission: "full",
-        },
-      });
-
-      if (!projectApiKey) {
-        await prisma.apikey.create({
-          data: {
-            fly_id: projectId,
-            permission: "full",
-            user_id: userId,
-            key: generateApiKey(),
-            name: "key",
-          },
-        });
-
-        projectApiKey = await prisma.apikey.findFirst({
-          where: {
-            fly_id: projectId,
-            active: true,
-            permission: "full",
-          },
-        });
-      }
-
-      await axios.delete(
-        `${process.env.NEXT_PUBLIC_UPLOADFLY_URL}/delete/all?fly_id=${projectId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${projectApiKey?.key}`,
-          },
-        }
-      );
-
-      await prisma.fly.update({
-        where: {
-          id: projectId,
-        },
-        data: {
-          plan: "free",
-          storage: 2000000000,
-          paused: false,
-        },
+      await deleteAllFiles({
+        projectId,
+        userId,
       });
     }
   } catch (error) {
