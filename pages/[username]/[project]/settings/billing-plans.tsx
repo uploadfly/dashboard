@@ -9,9 +9,13 @@ const BillingAndPlans = () => {
   const { fly } = useFlyStore();
 
   const openCheckout = () => {
-    const checkoutUrl = `https://uploadfly.lemonsqueezy.com/checkout/buy/1c8a1972-9b91-49b8-a30e-c147eadc27f0?checkout[email]=${user?.email}&checkout[custom][user_id]=${user?.id}&checkout[custom][project_id]=${fly?.id}`;
+    const checkoutUrl = `${process.env.NEXT_PUBLIC_LEMON_PRO_URL}?checkout[email]=${user?.email}&checkout[custom][user_id]=${user?.id}&checkout[custom][project_id]=${fly?.id}`;
 
-    window.open(checkoutUrl, "_blank");
+    window.open(checkoutUrl);
+  };
+
+  const openCustomerPotal = () => {
+    window.open("https://uploadfly.lemonsqueezy.com/billing", "_blank");
   };
 
   return (
@@ -20,19 +24,17 @@ const BillingAndPlans = () => {
         <script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
       </Head>
       <div className="w-full">
-        {fly.plan === "free" && (
-          <Plans
-            button={
-              <button
-                onClick={openCheckout}
-                className="flex gap-2 bg-uf-accent text-uf-light mt-10 rounded-md py-2 w-[380px] items-center justify-center font-bold hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Upgrade to Pro
-              </button>
-            }
-          />
-        )}
-        {fly.plan === "pro" && <p>You are on the Pro plan</p>}
+        <Plans
+          plan={fly.plan}
+          button={
+            <button
+              onClick={fly.plan === "free" ? openCheckout : openCustomerPotal}
+              className="flex gap-2 bg-uf-accent text-uf-light mt-10 rounded-md py-2 w-[380px] items-center justify-center font-semibold hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {fly.plan === "free" ? "Upgrade to Pro" : "Manage Plan"}
+            </button>
+          }
+        />
       </div>
     </SettingsLayout>
   );
