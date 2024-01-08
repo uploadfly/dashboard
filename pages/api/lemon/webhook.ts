@@ -1,15 +1,17 @@
 import prisma from "@/prisma";
+import { generateApiKey } from "@/utils/generateApiKey";
+import axios from "axios";
+import dayjs from "dayjs";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const event = req.body.meta.event_name as
     | "subscription_created"
     | "subscription_cancelled"
-    | "subscription_resumed"
-    | "subscription_expired"
     | "subscription_paused"
     | "subscription_unpaused"
-    | "subscription_payment_failed";
+    | "subscription_resumed"
+    | "subscription_expired";
 
   const userEmail = req.body.data.user_email;
   const customerId = req.body.data.customer_id;
@@ -19,6 +21,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   console.log(req.body);
 
   try {
+    const project = await prisma.fly.findUnique({
+      where: {
+        id: projectId,
+      },
+    });
+
+    const isUsedStorageLessThan2GB = Number(project?.used_storage) < 2000000000;
+
     if (event === "subscription_created") {
       await prisma.user.update({
         where: {
@@ -46,6 +56,85 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       });
 
       res.status(200).json({ message: "Subscription created" });
+      return;
+    }
+
+    if (event === "subscription_paused") {
+      await prisma.fly.update({
+        where: {
+          id: projectId,
+        },
+        data: {
+          paused: true,
+          pasued_at: dayjs().toDate(),
+        },
+      });
+      return res.status(200).json({ message: "Subscription has been paused" });
+    }
+
+    if (event === "subscription_unpaused") {
+      await prisma.fly.update({
+        where: {
+          id: projectId,
+        },
+        data: {
+          paused: false,
+          plan: "pro",
+          storage: 100000000000,
+          pasued_at: null,
+        },
+      });
+      return res.status(200).json({ message: "Subscription has been resumed" });
+    }
+
+    if (event === "subscription_expired") {
+      let projectApiKey = await prisma.apikey.findFirst({
+        where: {
+          fly_id: projectId,
+          active: true,
+          permission: "full",
+        },
+      });
+
+      if (!projectApiKey) {
+        await prisma.apikey.create({
+          data: {
+            fly_id: projectId,
+            permission: "full",
+            user_id: userId,
+            key: generateApiKey(),
+            name: "key",
+          },
+        });
+
+        projectApiKey = await prisma.apikey.findFirst({
+          where: {
+            fly_id: projectId,
+            active: true,
+            permission: "full",
+          },
+        });
+      }
+
+      await axios.delete(
+        `${process.env.NEXT_PUBLIC_UPLOADFLY_URL}/delete/all?fly_id=${projectId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${projectApiKey?.key}`,
+          },
+        }
+      );
+
+      await prisma.fly.update({
+        where: {
+          id: projectId,
+        },
+        data: {
+          plan: "free",
+          storage: 2000000000,
+          paused: false,
+        },
+      });
     }
   } catch (error) {
     res.status(500).json({ message: "Internal server error", error });
