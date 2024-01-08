@@ -1,7 +1,15 @@
 import { ReactNode } from "react";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 
-const Plans = ({ button, plan }: { button: ReactNode; plan: string }) => {
+const Plans = ({
+  button,
+  plan,
+  paused,
+}: {
+  button: ReactNode;
+  plan: string;
+  paused?: boolean;
+}) => {
   const features = [
     "100 GB of storage",
     "100,000 monthly uploads",
@@ -18,6 +26,7 @@ const Plans = ({ button, plan }: { button: ReactNode; plan: string }) => {
         <p>This project is currently on the plan:</p>
         <h2 className="text-3xl font-medium text-uf-accent">
           {plan.toUpperCase()}
+          {paused && <span className="text-sm text-gray-500"> (paused)</span>}
         </h2>
         {button}
       </div>
