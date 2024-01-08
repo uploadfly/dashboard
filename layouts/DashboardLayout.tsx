@@ -37,6 +37,7 @@ const DashboardLayout = ({
             id: data.id,
             name: flyName,
             plan: data.plan,
+            paused: data.paused,
           });
           setStatus(status);
           setLoading(false);
