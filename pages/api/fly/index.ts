@@ -16,6 +16,8 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
         used_storage: true,
         updated_at: true,
         storage: true,
+        plan: true,
+        paused: true,
       },
     });
 
