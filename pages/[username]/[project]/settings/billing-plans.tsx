@@ -25,7 +25,7 @@ const BillingAndPlans = () => {
       </Head>
       <div className="w-full">
         <Plans
-          plan={fly.plan}
+          plan={fly.plan!}
           paused={fly.paused}
           button={
             <button
