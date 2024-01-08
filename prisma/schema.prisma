@@ -24,6 +24,7 @@ model user {
   emailResets    emailReset[]
   fly            fly[]
   refresh_token  refreshToken[]
+  lemon_customer_id String?
 }
 
 model emailReset {
