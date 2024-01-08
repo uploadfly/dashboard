@@ -1,21 +1,24 @@
 import { ReactNode } from "react";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 
-const Plans = ({ button }: { button: ReactNode }) => {
+const Plans = ({ button, plan }: { button: ReactNode; plan: string }) => {
   const features = [
     "100 GB of storage",
     "100,000 monthly uploads",
-    "1 GB max upload size",
-    "Email support",
+    "5 GB max upload size",
+    "Priority email support",
     "Private files (soon)",
     "Custom domain (soon)",
+    "Webhooks (soon)",
   ];
 
   return (
     <div className="flex gap-x-10">
       <div className="">
         <p>This project is currently on the plan:</p>
-        <h2 className="text-3xl font-medium text-uf-accent">FREE</h2>
+        <h2 className="text-3xl font-medium text-uf-accent">
+          {plan.toUpperCase()}
+        </h2>
         {button}
       </div>
       <div className="w-full">
