@@ -49,7 +49,10 @@ const Name = () => {
         fly_id: fly?.id,
         name: name,
       });
-      setFly(name, fly?.id);
+      setFly({
+        ...fly,
+        name: name,
+      });
       const paths = router.asPath.split("/");
       setIsRenaming(false);
       const newPath = `/${paths[1]}/${name}/${paths[3]}`;
