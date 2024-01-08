@@ -10,7 +10,7 @@ const BillingAndPlans = () => {
   const openCheckout = () => {
     const checkoutUrl = `https://uploadfly.lemonsqueezy.com/checkout/buy/1c8a1972-9b91-49b8-a30e-c147eadc27f0?checkout[email]=${user?.email}&checkout[custom][user_id]=${user?.id}&checkout[custom][project_id]=${fly?.id}`;
 
-    window.location.href = checkoutUrl;
+    window.open(checkoutUrl, "_blank");
   };
 
   return (
