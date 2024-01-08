@@ -48,6 +48,7 @@ model fly {
   used_storage BigInt   @default(0)
   project_url  String
   public_key   String
+  plan         project_plan @default(free)
   name         String
   files        file[]
   apikeys      apikey[]
@@ -136,4 +137,9 @@ model refreshToken {
 enum apikey_permission {
   upload
   full
+}
+
+enum project_plan {
+  free
+  pro
 }
