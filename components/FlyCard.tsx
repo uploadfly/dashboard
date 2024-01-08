@@ -10,12 +10,16 @@ const FlyCard = ({
   updated,
   id,
   storage,
+  plan,
+  paused,
 }: {
   name: string;
   used: number;
   updated: string;
   id: string;
   storage: number;
+  plan: "free" | "pro";
+  paused?: boolean;
 }) => {
   const { user } = useUserStore();
   const { setFly } = useFlyStore();
@@ -28,7 +32,14 @@ const FlyCard = ({
     <Link
       href={`${user?.username}/${name}`}
       className="flex flex-col justify-between rounded p-3 text-primary shadow-md border border-gray-600 transition duration-150 hover:border-uf-accent w-full"
-      onClick={() => setFly(name, id)}
+      onClick={() =>
+        setFly({
+          id,
+          name,
+          plan,
+          paused,
+        })
+      }
     >
       <h2 className="text-lg font-bold shiny-text">{name}</h2>
       <div className="my-14">
