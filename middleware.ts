@@ -27,7 +27,13 @@ const middleware = async (req: NextRequest) => {
     const { username } = verifiedToken;
 
     if (req.url.includes("/login")) {
-      return NextResponse.redirect(new URL(`/${username}`, req.url));
+      const originalUrl = new URL(req.url);
+      const queries = originalUrl.search;
+
+      const newUrl = new URL(`/${username}`, req.url);
+      newUrl.search = queries;
+
+      return NextResponse.redirect(newUrl.toString());
     }
 
     if (req.url.includes("/signup")) {
