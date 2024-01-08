@@ -13,10 +13,10 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
       title: "General",
       route: "/",
     },
-    // {
-    //   title: "Billing and Plans",
-    //   route: "/billing-plans",
-    // },
+    {
+      title: "Billing and Plans",
+      route: "/billing-plans",
+    },
     // {
     //   title: "Domains",
     //   route: "/domains",
@@ -43,9 +43,8 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
     ? `/${router.pathname.split("/")[4]}`
     : "/";
 
-  const pageName = subSettingsPages.find(
-    (page) => page.route === currentRoute
-  )?.title;
+  const pageName = subSettingsPages.find((page) => page.route === currentRoute)
+    ?.title;
 
   return (
     <DashboardLayout pageName="Settings">
