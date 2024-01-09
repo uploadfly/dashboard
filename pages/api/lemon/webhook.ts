@@ -22,25 +22,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const secret = process.env.LEMON_SECRET;
 
-  // Validate the webhook signature
-  const payload = JSON.stringify(req.body);
-  const expectedSignature = crypto
-    .createHmac("sha256", secret!)
-    .update(payload)
-    .digest("hex");
-
-  const receivedSignature = Array.isArray(signature)
-    ? Buffer.from(signature.join(""), "utf8")
-    : Buffer.from(signature, "utf8");
-
-  const calculatedSignature = Buffer.from(expectedSignature, "utf8");
-
-  if (!crypto.timingSafeEqual(receivedSignature, calculatedSignature)) {
-    console.log("Signature mismatch");
-    res.status(401).json({ message: "Invalid signature" });
-    return;
-  }
-
   const customerId = req.body.data.customer_id;
   const userId = req.body.meta.custom_data.user_id;
   const projectId = req.body.meta.custom_data.project_id;
