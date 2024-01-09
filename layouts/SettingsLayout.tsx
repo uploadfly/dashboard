@@ -13,10 +13,10 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
       title: "General",
       route: "/",
     },
-    // {
-    //   title: "Billing and Plans",
-    //   route: "/billing-plans",
-    // },
+    {
+      title: "Billing and Plans",
+      route: "/billing-plans",
+    },
     // {
     //   title: "Domains",
     //   route: "/domains",
