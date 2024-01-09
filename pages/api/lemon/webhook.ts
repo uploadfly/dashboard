@@ -1,9 +1,8 @@
 import prisma from "@/prisma";
 import { deleteAllFiles } from "@/utils/deleteAllFiles";
-import { generateApiKey } from "@/utils/generateApiKey";
-import axios from "axios";
 import dayjs from "dayjs";
 import { NextApiRequest, NextApiResponse } from "next";
+import crypto from "crypto";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const event = req.body.meta.event_name as
@@ -14,7 +13,34 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     | "subscription_cancelled"
     | "subscription_expired";
 
-  const userEmail = req.body.data.user_email;
+  const signature = req.headers["x-signature"];
+
+  if (!signature) {
+    res.status(401).json({ message: "No signature found" });
+    return;
+  }
+
+  const secret = process.env.LEMON_SECRET;
+
+  // Validate the webhook signature
+  const payload = JSON.stringify(req.body);
+  const expectedSignature = crypto
+    .createHmac("sha256", secret!)
+    .update(payload)
+    .digest("hex");
+
+  const receivedSignature = Array.isArray(signature)
+    ? Buffer.from(signature.join(""), "utf8")
+    : Buffer.from(signature, "utf8");
+
+  const calculatedSignature = Buffer.from(expectedSignature, "utf8");
+
+  if (!crypto.timingSafeEqual(receivedSignature, calculatedSignature)) {
+    console.log("Signature mismatch");
+    res.status(401).json({ message: "Invalid signature" });
+    return;
+  }
+
   const customerId = req.body.data.customer_id;
   const userId = req.body.meta.custom_data.user_id;
   const projectId = req.body.meta.custom_data.project_id;
