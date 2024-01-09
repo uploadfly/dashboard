@@ -21,8 +21,8 @@ const Plans = ({
   ];
 
   return (
-    <div className="flex gap-x-10">
-      <div className="">
+    <div className="flex gap-10 flex-wrap lg:flex-nowrap">
+      <div className="w-full">
         <p>This project is currently on the plan:</p>
         <h2 className="text-3xl font-medium text-uf-accent">
           {plan.toUpperCase()}
