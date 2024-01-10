@@ -41,7 +41,16 @@ export async function POST(request: Request) {
       },
     });
 
-    if (userProjects >= 2) {
+    const freeProjects = await prisma.fly.count({
+      where: {
+        user_id: userId,
+        plan: "free",
+      },
+    });
+
+    const hasTwoFreeProjects = freeProjects >= 2;
+
+    if (hasTwoFreeProjects) {
       return NextResponse.json(
         {
           message:
