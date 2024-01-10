@@ -51,7 +51,6 @@ const DashboardIndex = () => {
             className="bg-transparent border border-gray-800 rounded-md pl-3 lg:w-[450px] w-full py-2 outline-uf-accent"
             placeholder="Search for a project"
           />
-          {projectsCount?.free}
           <Link
             href={"/launch"}
             className=""
