@@ -5,10 +5,10 @@ import Navbar from "@/components/Navbar";
 import { axios } from "@/configs/axios";
 import { useUserStore } from "@/stores/userStore";
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { HiOutlineRocketLaunch, HiPlus } from "react-icons/hi2";
+import { TbLockSquareRounded } from "react-icons/tb";
 
 const DashboardIndex = () => {
   const { user } = useUserStore();
@@ -17,6 +17,11 @@ const DashboardIndex = () => {
 
   const [flies, setFlies] = useState<any[]>([]);
 
+  const [projectsCount, setProjectsCount] = useState<{
+    free: number;
+    all: number;
+  } | null>(null);
+
   useEffect(() => {
     const getFlies = async () => {
       const res = await axios("/fly");
@@ -24,6 +29,13 @@ const DashboardIndex = () => {
       setLoading(false);
     };
     getFlies();
+
+    const getProjectsCount = async () => {
+      const { data } = await axios("/count-projects");
+      setProjectsCount(data || null);
+    };
+
+    getProjectsCount();
   }, []);
 
   return (
@@ -39,10 +51,26 @@ const DashboardIndex = () => {
             className="bg-transparent border border-gray-800 rounded-md pl-3 lg:w-[450px] w-full py-2 outline-uf-accent"
             placeholder="Search for a project"
           />
-          <Link href={"/launch"} className="">
+          {projectsCount?.free}
+          <Link
+            href={"/launch"}
+            className=""
+            onClick={(e) => {
+              if (projectsCount?.free! >= 2) {
+                e.preventDefault();
+                e.stopPropagation();
+              }
+            }}
+          >
             <button className="flex gap-2 bg-uf-light hover:bg-uf-accent text-uf-dark rounded-md py-2 px-4 w-full items-center justify-center font-semibold transition-colors group disabled:opacity-50 disabled:cursor-not-allowed">
-              <HiOutlineRocketLaunch className="hidden lg:block text-xl group-hover:rotate-[360deg] transition-all duration-500" />
-              <HiPlus className="lg:hidden text-xl group-hover:rotate-[360deg] transition-all duration-500" />
+              {projectsCount?.free! >= 2 ? (
+                <TbLockSquareRounded size={25} />
+              ) : (
+                <>
+                  <HiOutlineRocketLaunch className="hidden lg:block text-xl group-hover:rotate-[360deg] transition-all duration-500" />
+                  <HiPlus className="lg:hidden text-xl group-hover:rotate-[360deg] transition-all duration-500" />
+                </>
+              )}
               <span className="hidden lg:block">Create a new project</span>
             </button>
           </Link>
