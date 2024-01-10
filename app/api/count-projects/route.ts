@@ -1,10 +1,6 @@
 import prisma from "@/prisma";
 import { getUserId } from "@/utils/getUserId";
 import { NextResponse } from "next/server";
-import validator from "validator";
-import generate from "boring-name-generator";
-import { generateRandomKey } from "@/utils/generateRandomKey";
-
 export async function GET(request: Request) {
   try {
     const userId = await getUserId();
