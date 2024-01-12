@@ -52,8 +52,7 @@ const DashboardIndex = () => {
             placeholder="Search for a project"
           />
           <Link
-            href={"/launch"}
-            className=""
+            href="/launch"
             onClick={(e) => {
               if (projectsCount?.free! >= 2) {
                 e.preventDefault();
