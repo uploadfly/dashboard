@@ -31,6 +31,7 @@ const BillingAndPlans = () => {
             <button
               onClick={fly.plan === "free" ? openCheckout : openCustomerPotal}
               className="flex gap-2 bg-uf-accent text-uf-light mt-10 rounded-md py-2 max-w-sm w-full items-center justify-center font-semibold hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={!user?.id || !fly.id}
             >
               {fly.plan === "free" ? "Upgrade to Pro" : "Manage Plan"}
             </button>
