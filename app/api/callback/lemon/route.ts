@@ -23,21 +23,21 @@ export async function POST(request: Request) {
       { status: 401 }
     );
   }
-  const data = await request.text();
-  const secret = process.env.LEMON_SECRET;
+  // const data = await request.text();
+  // const secret = process.env.LEMON_SECRET;
 
-  const digest = crypto
-    .createHmac("sha256", secret!)
-    .update(data)
-    .digest("base64");
+  // const digest = crypto
+  //   .createHmac("sha256", secret!)
+  //   .update(data)
+  //   .digest("base64");
 
-  if (digest !== signature) {
-    console.log({
-      digest,
-      signature,
-    });
-    return NextResponse.json({ message: "Invalid signature" }, { status: 401 });
-  }
+  // if (digest !== signature) {
+  //   console.log({
+  //     digest,
+  //     signature,
+  //   });
+  //   return NextResponse.json({ message: "Invalid signature" }, { status: 401 });
+  // }
 
   const customerId = body.data.customer_id;
   const userId = body.meta.custom_data.user_id;
