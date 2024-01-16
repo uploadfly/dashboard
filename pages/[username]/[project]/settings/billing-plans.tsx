@@ -15,7 +15,7 @@ const BillingAndPlans = () => {
   };
 
   const openCustomerPotal = () => {
-    window.open("https://uploadfly.lemonsqueezy.com/billing", "_blank");
+    window.open("https://uploadfly.lemonsqueezy.com/billing");
   };
 
   return (
