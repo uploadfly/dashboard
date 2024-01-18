@@ -13,8 +13,8 @@ export async function POST(request: Request) {
     | "subscription_unpaused"
     | "subscription_resumed"
     | "subscription_cancelled"
-    | "subscription_expired";
-
+    | "subscription_expired"
+    | "subscription_updated";
   const signature = request.headers.get("x-signature");
 
   if (!signature) {
@@ -39,7 +39,7 @@ export async function POST(request: Request) {
   //   return NextResponse.json({ message: "Invalid signature" }, { status: 401 });
   // }
 
-  const customerId = body.data.customer_id;
+  const customerId = String(body.data.attributes.customer_id);
   const userId = body.meta.custom_data.user_id;
   const projectId = body.meta.custom_data.project_id;
 
@@ -49,6 +49,13 @@ export async function POST(request: Request) {
         id: projectId,
       },
     });
+
+    if (!project) {
+      return NextResponse.json(
+        { message: "Project not found" },
+        { status: 404 }
+      );
+    }
 
     if (event === "subscription_created") {
       await prisma.user.update({
@@ -60,12 +67,6 @@ export async function POST(request: Request) {
         },
       });
 
-      const project = await prisma.fly.findUnique({
-        where: {
-          id: projectId,
-        },
-      });
-
       await prisma.fly.update({
         where: {
           id: project?.id,
@@ -73,11 +74,33 @@ export async function POST(request: Request) {
         data: {
           plan: "pro",
           storage: 100000000000,
+          lemon_subcription_id: String(body.data.id),
+          lemon_subcription_created_at: new Date(
+            body.data.attributes.created_at
+          ),
+          lemon_subcription_renews_at: new Date(body.data.attributes.renews_at),
         },
       });
 
       return NextResponse.json(
         { message: "Subscription created" },
+        {
+          status: 200,
+        }
+      );
+    }
+
+    if (event === "subscription_updated") {
+      await prisma.fly.update({
+        where: {
+          id: projectId,
+        },
+        data: {
+          lemon_subcription_renews_at: new Date(body.data.attributes.renews_at),
+        },
+      });
+      return NextResponse.json(
+        { message: "Subscription updated" },
         {
           status: 200,
         }
