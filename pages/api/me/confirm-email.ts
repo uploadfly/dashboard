@@ -1,4 +1,5 @@
 import prisma from "@/prisma";
+import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
 import { allowMethods } from "next-method-guard";
 
@@ -29,6 +30,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
 
+    const user = await prisma.user.findUnique({
+      where: {
+        id: emailRecord.user_id,
+      },
+    });
+
     await prisma.user.update({
       where: {
         id: emailRecord.user_id,
@@ -37,6 +44,29 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         email: emailRecord.email,
       },
     });
+
+    if (user?.lemon_customer_id) {
+      try {
+        const { data } = await axios.patch(
+          `https://api.lemonsqueezy.com/v1/customers/${user?.lemon_customer_id}`,
+          {
+            data: {
+              attributes: {
+                email: emailRecord.email,
+              },
+            },
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${process.env.LEMON_API_KEY}`,
+            },
+          }
+        );
+        console.log(data);
+      } catch (error: any) {
+        console.log(error.response);
+      }
+    }
 
     res.status(200).json({ message: "Email has been confirmed" });
   } catch (error) {
