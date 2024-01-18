@@ -56,7 +56,10 @@ model fly {
   customDomains customDomain[]
   paused        Boolean @default(false)
   paused_at     DateTime?
-
+  lemon_subcription_id String?
+  lemon_subcription_created_at DateTime?
+  lemon_subcription_renews_at DateTime?
+  
   @@index([user_id])
 }
 
