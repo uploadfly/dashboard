@@ -46,26 +46,23 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     if (user?.lemon_customer_id) {
-      try {
-        const { data } = await axios.patch(
-          `https://api.lemonsqueezy.com/v1/customers/${user?.lemon_customer_id}`,
-          {
-            data: {
-              attributes: {
-                email: emailRecord.email,
-              },
+      await axios.patch(
+        `https://api.lemonsqueezy.com/v1/customers/${user?.lemon_customer_id}`,
+        {
+          data: {
+            type: "customers",
+            id: user?.lemon_customer_id,
+            attributes: {
+              email: emailRecord.email,
             },
           },
-          {
-            headers: {
-              Authorization: `Bearer ${process.env.LEMON_API_KEY}`,
-            },
-          }
-        );
-        console.log(data);
-      } catch (error: any) {
-        console.log(error.response);
-      }
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.LEMON_API_KEY}`,
+          },
+        }
+      );
     }
 
     res.status(200).json({ message: "Email has been confirmed" });
