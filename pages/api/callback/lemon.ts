@@ -4,29 +4,37 @@ import dayjs from "dayjs";
 import { NextApiRequest, NextApiResponse } from "next";
 import { nodejsWebHookHandler } from "@/lib/validateWebhook";
 
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const customerId = req.body.data.customer_id;
-  const userId = req.body.meta.custom_data.user_id;
-  const projectId = req.body.meta.custom_data.project_id;
+  const lemon_secret = process.env.LEMON_SECRET as string;
 
   try {
-    const project = await prisma.fly.findUnique({
-      where: {
-        id: projectId,
-      },
-    });
-
-    const lemon_secret = process.env.LEMON_SECRET as string;
     await nodejsWebHookHandler({
       async onData(payload) {
-        console.log(payload);
+        const userId = payload.meta.custom_data.user_id;
+        const projectId = payload.meta.custom_data.project_id;
+
+        const project = await prisma.fly.findUnique({
+          where: {
+            id: projectId,
+          },
+        });
+
+        let responseMessage = "";
+
         if (payload.event_name === "subscription_created") {
+          const customerId = payload.data.attributes.customer_id;
           await prisma.user.update({
             where: {
               id: userId,
             },
             data: {
-              lemon_customer_id: customerId,
+              lemon_customer_id: String(customerId),
             },
           });
 
@@ -47,10 +55,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             },
           });
 
-          return res.status(200).json({ message: "Subscription created" });
-        }
-
-        if (payload.event_name === "subscription_updated") {
+          responseMessage = "Subscription created";
+        } else if (payload.event_name === "subscription_updated") {
           await prisma.fly.update({
             where: {
               id: projectId,
@@ -61,10 +67,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
               ),
             },
           });
-          return res.status(200).json({ message: "Subscription updated" });
-        }
-
-        if (payload.event_name === "subscription_paused") {
+          responseMessage = "Subscription updated";
+        } else if (payload.event_name === "subscription_paused") {
           await prisma.fly.update({
             where: {
               id: projectId,
@@ -74,12 +78,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
               paused_at: dayjs().toDate(),
             },
           });
-          return res
-            .status(200)
-            .json({ message: "Subscription has been paused" });
-        }
-
-        if (payload.event_name === "subscription_unpaused") {
+          responseMessage = "Subscription has been paused";
+        } else if (payload.event_name === "subscription_unpaused") {
           await prisma.fly.update({
             where: {
               id: projectId,
@@ -89,12 +89,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
               paused_at: null,
             },
           });
-          return res
-            .status(200)
-            .json({ message: "Subscription has been resumed" });
-        }
-
-        if (payload.event_name === "subscription_expired") {
+          responseMessage = "Subscription has been resumed";
+        } else if (payload.event_name === "subscription_expired") {
           await deleteAllFiles({
             projectId,
             userId,
@@ -107,7 +103,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     });
   } catch (error) {
     res.status(500).json({ message: "Internal server error", error });
-    console.log(error);
   }
 };
 
