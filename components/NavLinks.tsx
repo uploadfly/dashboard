@@ -1,3 +1,4 @@
+import { useFlyStore } from "@/stores/flyStore";
 import { useUserStore } from "@/stores/userStore";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -15,6 +16,8 @@ const NavLinks = ({ loading }: { loading: boolean }) => {
 
   const [currentRoute, setCurrentRoute] = useState("");
   const [flyName, setFlyName] = useState("");
+
+  const { fly } = useFlyStore();
 
   useEffect(() => {
     const route = router.pathname.split("/")[3];
@@ -91,14 +94,15 @@ const NavLinks = ({ loading }: { loading: boolean }) => {
         })}
       </div>
 
-      {!router.asPath.includes("plans") && (
-        <Link
-          href={`/${user?.username}/${flyName}/settings/billing-plans`}
-          className="bg-uf-accent rounded-md py-2 px-10 flex items-center justify-center text-white font-semibold transition-all"
-        >
-          Choose a plan
-        </Link>
-      )}
+      {!router.asPath.includes("plans") ||
+        (fly.plan !== "free" && (
+          <Link
+            href={`/${user?.username}/${flyName}/settings/billing-plans`}
+            className="bg-uf-accent rounded-md py-2 px-10 flex items-center justify-center text-white font-semibold transition-all"
+          >
+            Choose a plan
+          </Link>
+        ))}
     </div>
   );
 };
