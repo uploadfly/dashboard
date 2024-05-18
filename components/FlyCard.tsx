@@ -24,7 +24,8 @@ const FlyCard = ({
   paused?: boolean;
 }) => {
   const { user } = useUserStore();
-  const { fly, setFly } = useFlyStore();
+
+  const { setFly } = useFlyStore();
 
   const usedStorage = filesize(used).to("MB");
   const usedStoragePercent =
@@ -51,7 +52,7 @@ const FlyCard = ({
     >
       <div className="flex justify-between items-center">
         <h2 className="text-lg font-bold shiny-text">{name}</h2>
-        {icon[fly?.plan]({
+        {icon[plan]({
           className: "text-uf-accent",
           size: 20,
         })}
@@ -59,7 +60,7 @@ const FlyCard = ({
       <div className="my-14">
         <div className="flex justify-between mb-1">
           <p className="text-uf-light">{filesize(used).human("si")}</p>
-          {fly.plan !== "free" && (
+          {plan !== "free" && (
             <p className="text-uf-light">{filesize(storage).human("si")}</p>
           )}
         </div>
