@@ -146,5 +146,6 @@ enum apikey_permission {
 
 enum project_plan {
   free
+  basic
   pro
 }
