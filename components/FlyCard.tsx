@@ -3,6 +3,8 @@ import { useUserStore } from "@/stores/userStore";
 import moment from "moment";
 import Link from "next/link";
 import filesize from "file-size";
+import { FaCircle, FaSquare } from "react-icons/fa";
+import { BsTriangleFill } from "react-icons/bs";
 
 const FlyCard = ({
   name,
@@ -18,15 +20,21 @@ const FlyCard = ({
   updated: string;
   id: string;
   storage: number;
-  plan: "free" | "pro";
+  plan: "free" | "basic" | "pro";
   paused?: boolean;
 }) => {
   const { user } = useUserStore();
-  const { setFly } = useFlyStore();
+  const { fly, setFly } = useFlyStore();
 
   const usedStorage = filesize(used).to("MB");
   const usedStoragePercent =
     Number(usedStorage) / Number(filesize(storage).to("MB"));
+
+  const icon = {
+    free: FaCircle,
+    basic: BsTriangleFill,
+    pro: FaSquare,
+  };
 
   return (
     <Link
@@ -41,11 +49,19 @@ const FlyCard = ({
         })
       }
     >
-      <h2 className="text-lg font-bold shiny-text">{name}</h2>
+      <div className="flex justify-between items-center">
+        <h2 className="text-lg font-bold shiny-text">{name}</h2>
+        {icon[fly?.plan]({
+          className: "text-uf-accent",
+          size: 20,
+        })}
+      </div>
       <div className="my-14">
         <div className="flex justify-between mb-1">
           <p className="text-uf-light">{filesize(used).human("si")}</p>
-          <p className="text-uf-light">{filesize(storage).human("si")}</p>
+          {fly.plan !== "free" && (
+            <p className="text-uf-light">{filesize(storage).human("si")}</p>
+          )}
         </div>
         <div className="w-full h-2 bg-slate-200 rounded-full">
           <div
