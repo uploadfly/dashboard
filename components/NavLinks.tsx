@@ -6,11 +6,9 @@ import {
   HiSquares2X2,
   HiFolderOpen,
   HiKey,
-  HiShieldCheck,
   HiCog8Tooth,
   HiQueueList,
 } from "react-icons/hi2";
-import { RiPieChart2Fill } from "react-icons/ri";
 
 const NavLinks = ({ loading }: { loading: boolean }) => {
   const router = useRouter();
