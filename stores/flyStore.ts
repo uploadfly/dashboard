@@ -4,7 +4,7 @@ interface FlyStore {
   fly: {
     name: string;
     id: string;
-    plan?: "free" | "pro";
+    plan: "free" | "basic" | "pro";
     paused?: boolean;
   };
   setFly: ({
@@ -15,7 +15,8 @@ interface FlyStore {
   }: {
     name: string;
     id: string;
-    plan?: "free" | "pro";
+    plan: "free" | "basic" | "pro";
+
     paused?: boolean;
   }) => void;
 }
