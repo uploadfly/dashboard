@@ -28,7 +28,6 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
-    
     if (project_url && !validator.isURL(project_url)) {
       return NextResponse.json(
         { message: "Invalid project URL" },
