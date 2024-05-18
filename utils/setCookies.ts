@@ -25,7 +25,7 @@ export const setCookies = async (user_id: string) => {
     });
   }
 
-  const payload = { id: user?.id };
+  const payload = { id: user?.id, username: user?.username };
 
   const secretKey = process.env.JWT_SECRET_KEY!;
 
