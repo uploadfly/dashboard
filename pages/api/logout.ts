@@ -1,3 +1,5 @@
+import withAuth from "@/middleware/auth";
+import { withErrorHandling } from "@/middleware/withErrorHandling";
 import { deleteCookie } from "cookies-next";
 import { NextApiRequest, NextApiResponse } from "next";
 import { allowMethods } from "next-method-guard";
@@ -22,4 +24,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default allowMethods(["POST"])(handler);
+export default withErrorHandling(withAuth(handler), ["POST"]);

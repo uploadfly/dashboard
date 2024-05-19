@@ -1,5 +1,6 @@
 import { ExtendedRequest } from "@/interfaces";
-import authenticateToken from "@/middleware/auth";
+import withAuth from "@/middleware/auth";
+import { withErrorHandling } from "@/middleware/withErrorHandling";
 import prisma from "@/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
 import { allowMethods } from "next-method-guard";
@@ -34,7 +35,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   });
 };
 
-export default allowMethods(["DELETE"])(
-  (req: ExtendedRequest, res: NextApiResponse) =>
-    authenticateToken(req, res, () => handler(req, res))
-);
+export default withErrorHandling(withAuth(handler), ["DELETE"]);

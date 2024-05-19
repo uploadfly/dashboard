@@ -1,3 +1,4 @@
+import { withErrorHandling } from "@/middleware/withErrorHandling";
 import prisma from "@/prisma";
 import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -71,4 +72,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default allowMethods(["POST"])(handler);
+export default withErrorHandling(handler, ["POST"]);

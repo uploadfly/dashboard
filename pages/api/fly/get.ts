@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { allowMethods } from "next-method-guard";
 import prisma from "@/prisma";
 import { ExtendedRequest } from "@/interfaces";
-import authenticateToken from "@/middleware/auth";
+import withAuth from "@/middleware/auth";
 import { withErrorHandling } from "@/middleware/withErrorHandling";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -62,4 +62,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default withErrorHandling(authenticateToken(handler), ["GET"]);
+export default withErrorHandling(withAuth(handler), ["GET"]);

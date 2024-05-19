@@ -1,6 +1,7 @@
 import { APP_DOMAIN } from "@/constants";
 import { ExtendedRequest } from "@/interfaces";
-import authenticateToken from "@/middleware/auth";
+import withAuth from "@/middleware/auth";
+import { withErrorHandling } from "@/middleware/withErrorHandling";
 import prisma from "@/prisma";
 import { sendEmail } from "@/utils/sendEmail";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -63,7 +64,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default allowMethods(["POST"])(
-  (req: ExtendedRequest, res: NextApiResponse) =>
-    authenticateToken(req, res, () => handler(req, res))
-);
+export default withErrorHandling(withAuth(handler), ["POST"]);
