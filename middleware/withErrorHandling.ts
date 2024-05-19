@@ -1,9 +1,18 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
+type HttpMethod =
+  | "GET"
+  | "POST"
+  | "PUT"
+  | "DELETE"
+  | "PATCH"
+  | "OPTIONS"
+  | "HEAD";
+
 export const withErrorHandling =
-  (handler: any, method: string | string[]) =>
+  (handler: any, method: HttpMethod | HttpMethod[]) =>
   async (req: NextApiRequest, res: NextApiResponse) => {
-    if (req.method !== method && !method.includes(req.method!)) {
+    if (req.method !== method && !method.includes(req.method! as HttpMethod)) {
       res.status(405).json({
         message: `This endpoint supports only ${
           typeof method === "string" ? method : method.join(", ")
