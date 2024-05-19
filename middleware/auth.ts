@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import prisma from "@/prisma";
 import { UserModel } from "@/interfaces";
 
-const authenticateToken =
+const withAuth =
   async (handler: any) => async (req: NextApiRequest, res: NextApiResponse) => {
     const token = req.cookies.access_token;
     if (!token) {
@@ -30,4 +30,4 @@ const authenticateToken =
     return await handler(req, res);
   };
 
-export default authenticateToken;
+export default withAuth;
