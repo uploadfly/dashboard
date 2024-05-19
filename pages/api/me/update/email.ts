@@ -3,11 +3,11 @@ import { ExtendedRequest } from "@/interfaces";
 import authenticateToken from "@/middleware/auth";
 import prisma from "@/prisma";
 import { sendEmail } from "@/utils/sendEmail";
-import { NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 import { allowMethods } from "next-method-guard";
 import validator from "validator";
 
-const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const email = req.body.email;
 

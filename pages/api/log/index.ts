@@ -1,10 +1,10 @@
 import { ExtendedRequest } from "@/interfaces";
 import authenticateToken from "@/middleware/auth";
 import prisma from "@/prisma";
-import { NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 import { allowMethods } from "next-method-guard";
 
-const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const log_id = req.query.log_id as string;
   const fly_id = req.query.fly_id as string;
   if (!log_id)

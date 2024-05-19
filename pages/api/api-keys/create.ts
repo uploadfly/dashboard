@@ -1,12 +1,12 @@
 import prisma from "@/prisma";
 import { generateApiKey } from "@/utils/generateApiKey";
-import { NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 import { allowMethods } from "next-method-guard";
 import generate from "boring-name-generator";
 import { ExtendedRequest } from "@/interfaces";
 import authenticateToken from "@/middleware/auth";
 
-const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { fly_id, permission, name } = req.body;
 

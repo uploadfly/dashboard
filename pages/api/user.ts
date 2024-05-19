@@ -1,10 +1,10 @@
-import { NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 import { allowMethods } from "next-method-guard";
 import prisma from "@/prisma";
 import { ExtendedRequest } from "@/interfaces";
 import authenticateToken from "@/middleware/auth";
 
-const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const user = await prisma.user.findUnique({
       where: {

@@ -4,10 +4,10 @@ import prisma from "@/prisma";
 import { setCookie } from "cookies-next";
 import dayjs from "dayjs";
 import { sign } from "jsonwebtoken";
-import { NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 import { allowMethods } from "next-method-guard";
 
-const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const username: string = req.body.username;
 
