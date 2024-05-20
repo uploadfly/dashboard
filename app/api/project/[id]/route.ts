@@ -1,5 +1,6 @@
 import prisma from "@/prisma";
 import { generateApiKey } from "@/utils/generateApiKey";
+import { generateRandomKey } from "@/utils/generateRandomKey";
 import { getProject } from "@/utils/getProject";
 import { getUserId } from "@/utils/getUserId";
 import axios from "axios";
@@ -58,7 +59,7 @@ export async function DELETE(
           permission: "full",
           user_id: userId,
           key: generateApiKey(),
-          name: "key",
+          name: generateRandomKey(13),
         },
       });
 
@@ -81,7 +82,7 @@ export async function DELETE(
     );
 
     await prisma.$transaction([
-      prisma.apikey.delete({ where: { id: projectApiKey?.id } }),
+      prisma.apikey.deleteMany({ where: { fly_id: projectId } }),
       prisma.log.deleteMany({ where: { fly_id: projectId } }),
       prisma.file.deleteMany({ where: { fly_id: projectId } }),
       prisma.fly.delete({ where: { id: projectId } }),
@@ -92,6 +93,7 @@ export async function DELETE(
       { status: 200 }
     );
   } catch (error) {
+    console.log(error);
     return NextResponse.json(
       { message: "Something went wrong." },
       { status: 500 }
