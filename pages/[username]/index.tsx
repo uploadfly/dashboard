@@ -41,7 +41,7 @@ const DashboardIndex = () => {
   return (
     <div className="w-full bg-uf-dark h-screen text-uf-light">
       <Head>
-        <title>{user?.username} | Overview</title>
+        <title>{`${user?.username ? `${user.username} | Overview` : "Overview"}`}</title>
       </Head>
       <Navbar />
       {flies.length > 0 || loading ? (
