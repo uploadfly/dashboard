@@ -4,7 +4,7 @@ import prisma from "@/prisma";
 import { UserModel } from "@/interfaces";
 
 const withAuth =
-  async (handler: any) => async (req: NextApiRequest, res: NextApiResponse) => {
+  (handler: any) => async (req: NextApiRequest, res: NextApiResponse) => {
     const token = req.cookies.access_token;
     if (!token) {
       return res.status(401).json({ message: "Token is missing in request" });
