@@ -77,7 +77,7 @@ const Plans = () => {
               onClick={() =>
                 fly.plan === "free"
                   ? openCheckout(plan.checkout_url)
-                  : openCustomerPotal
+                  : openCustomerPotal()
               }
               className="flex gap-2 bg-uf-accent/95 hover:bg-uf-accent text-uf-light mt-10 rounded-md py-2 max-w-sm w-full items-center justify-center font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={!user?.id || !fly.id}

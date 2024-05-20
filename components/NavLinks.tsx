@@ -94,15 +94,14 @@ const NavLinks = ({ loading }: { loading: boolean }) => {
         })}
       </div>
 
-      {!router.asPath.includes("plans") ||
-        (fly.plan !== "free" && (
-          <Link
-            href={`/${user?.username}/${flyName}/settings/billing-plans`}
-            className="bg-uf-accent rounded-md py-2 px-10 flex items-center justify-center text-white font-semibold transition-all"
-          >
-            Choose a plan
-          </Link>
-        ))}
+      {!router.asPath.includes("plans") && fly.plan === "free" && (
+        <Link
+          href={`/${user?.username}/${flyName}/settings/billing-plans`}
+          className="bg-uf-accent rounded-md py-2 px-10 flex items-center justify-center text-white font-semibold transition-all"
+        >
+          Choose a plan
+        </Link>
+      )}
     </div>
   );
 };
