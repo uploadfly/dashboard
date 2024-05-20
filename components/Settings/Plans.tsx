@@ -45,7 +45,7 @@ const Plans = () => {
   const openCheckout = (checkout_url: string) => {
     const checkoutUrl = `${checkout_url}?checkout[email]=${user?.email}&checkout[custom][user_id]=${user?.id}&checkout[custom][project_id]=${fly?.id}`;
 
-    window.open(checkoutUrl);
+    window.location.href = checkoutUrl;
   };
 
   return (
@@ -75,9 +75,9 @@ const Plans = () => {
             ))}
             <button
               onClick={() =>
-                fly.plan === "free"
-                  ? openCheckout(plan.checkout_url)
-                  : openCustomerPotal()
+                fly.plan === plan.name.toLowerCase()
+                  ? openCustomerPotal()
+                  : openCheckout(plan.checkout_url)
               }
               className="flex gap-2 bg-uf-accent/95 hover:bg-uf-accent text-uf-light mt-10 rounded-md py-2 max-w-sm w-full items-center justify-center font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={!user?.id || !fly.id}
