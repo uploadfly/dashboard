@@ -57,7 +57,7 @@ const Name = () => {
       setIsRenaming(false);
       const newPath = `/${paths[1]}/${name}/${paths[3]}`;
       router.replace(newPath);
-      toast.success("Fly renamed successfully", toastSuccessConfig);
+      toast.success("Project renamed successfully", toastSuccessConfig);
     } catch (error: any) {
       console.log(error.response.data);
       setIsRenaming(false);
@@ -66,7 +66,7 @@ const Name = () => {
 
   return (
     <div className="">
-      <h3>Name</h3>
+      <h3>Project name</h3>
       <div>
         <form
           onSubmit={(e) => {

@@ -1,39 +1,31 @@
-import { ExtendedRequest } from "@/interfaces";
-import authenticateToken from "@/middleware/auth";
+import withAuth from "@/middleware/auth";
+import { withErrorHandling } from "@/middleware/withErrorHandling";
 import prisma from "@/prisma";
-import { NextApiResponse } from "next";
-import { allowMethods } from "next-method-guard";
+import { NextApiRequest, NextApiResponse } from "next";
 
-const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
-  try {
-    const flies = await prisma.fly.findMany({
-      where: {
-        user_id: req.user.id,
-      },
-      select: {
-        name: true,
-        id: true,
-        used_storage: true,
-        updated_at: true,
-        storage: true,
-        plan: true,
-        paused: true,
-      },
-    });
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const flies = await prisma.fly.findMany({
+    where: {
+      user_id: req.user.id,
+    },
+    select: {
+      name: true,
+      id: true,
+      used_storage: true,
+      updated_at: true,
+      storage: true,
+      plan: true,
+      paused: true,
+    },
+  });
 
-    const fliesWithUsedStorageAsNumber = flies.map((fly: any) => ({
-      ...fly,
-      used_storage: Number(fly.used_storage),
-      storage: Number(fly.storage),
-    }));
+  const fliesWithUsedStorageAsNumber = flies.map((fly: any) => ({
+    ...fly,
+    used_storage: Number(fly.used_storage),
+    storage: Number(fly.storage),
+  }));
 
-    res.json(fliesWithUsedStorageAsNumber);
-  } catch (error) {
-    res.status(500).json({ error });
-  }
+  return res.json(fliesWithUsedStorageAsNumber);
 };
 
-export default allowMethods(["GET"])(
-  (req: ExtendedRequest, res: NextApiResponse) =>
-    authenticateToken(req, res, () => handler(req, res))
-);
+export default withErrorHandling(withAuth(handler), ["GET"]);

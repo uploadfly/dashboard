@@ -1,10 +1,9 @@
-import { ExtendedRequest } from "@/interfaces";
-import authenticateToken from "@/middleware/auth";
+import withAuth from "@/middleware/auth";
+import { withErrorHandling } from "@/middleware/withErrorHandling";
 import prisma from "@/prisma";
-import { NextApiResponse } from "next";
-import { allowMethods } from "next-method-guard";
+import { NextApiRequest, NextApiResponse } from "next";
 
-const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const fly_id = req.query.fly_id;
 
   if (!fly_id) {
@@ -60,9 +59,4 @@ const handler = async (req: ExtendedRequest, res: NextApiResponse) => {
   });
 };
 
-const middlewareChain = allowMethods(["GET"])(
-  (req: ExtendedRequest, res: NextApiResponse) =>
-    authenticateToken(req, res, () => handler(req, res))
-);
-
-export default middlewareChain;
+export default withErrorHandling(withAuth(handler), ["GET"]);

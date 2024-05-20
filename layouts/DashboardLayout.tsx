@@ -5,6 +5,7 @@ import { axios } from "@/configs/axios";
 import { useFlyStore } from "@/stores/flyStore";
 import Head from "next/head";
 import { ReactNode, useEffect, useState } from "react";
+import { CgSpinnerTwo } from "react-icons/cg";
 
 const DashboardLayout = ({
   children,
@@ -59,7 +60,9 @@ const DashboardLayout = ({
         <>
           <Navbar />
           <div className="flex w-full">
-            <div className="w-full mt-5 px-14">{childLoadingComponent}</div>
+            <div className="w-full mt-5 px-14 flex items-center justify-center h-[80vh]">
+              <CgSpinnerTwo className="animate-spin" size={30} />
+            </div>
           </div>
         </>
       ) : status === 404 ? (
