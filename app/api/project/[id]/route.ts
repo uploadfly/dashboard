@@ -9,85 +9,92 @@ export async function DELETE(
   request: Request,
   { params }: { params: { id: string } }
 ) {
-  const projectId = params.id;
-  const userId = await getUserId();
+  try {
+    const projectId = params.id;
+    const userId = await getUserId();
 
-  if (!userId) {
-    return NextResponse.json(
-      { message: "Unauthorized request." },
-      { status: 401 }
-    );
-  }
+    if (!userId) {
+      return NextResponse.json(
+        { message: "Unauthorized request." },
+        { status: 401 }
+      );
+    }
 
-  if (!projectId) {
-    return NextResponse.json(
-      { message: "Project ID is required." },
-      { status: 400 }
-    );
-  }
+    if (!projectId) {
+      return NextResponse.json(
+        { message: "Project ID is required." },
+        { status: 400 }
+      );
+    }
 
-  const project = await getProject(projectId);
+    const project = await getProject(projectId);
 
-  if (!project) {
-    return NextResponse.json(
-      { message: "Project not found." },
-      { status: 404 }
-    );
-  }
+    if (!project) {
+      return NextResponse.json(
+        { message: "Project not found." },
+        { status: 404 }
+      );
+    }
 
-  if (project.user_id !== userId) {
-    return NextResponse.json(
-      { message: "You are not authorized to delete this project." },
-      { status: 403 }
-    );
-  }
+    if (project.user_id !== userId) {
+      return NextResponse.json(
+        { message: "You are not authorized to delete this project." },
+        { status: 403 }
+      );
+    }
 
-  let projectApiKey = await prisma.apikey.findFirst({
-    where: {
-      fly_id: projectId,
-      active: true,
-      permission: "full",
-    },
-  });
-
-  if (!projectApiKey) {
-    await prisma.apikey.create({
-      data: {
-        fly_id: projectId,
-        permission: "full",
-        user_id: userId,
-        key: generateApiKey(),
-        name: "key",
-      },
-    });
-
-    projectApiKey = await prisma.apikey.findFirst({
+    let projectApiKey = await prisma.apikey.findFirst({
       where: {
         fly_id: projectId,
         active: true,
         permission: "full",
       },
     });
-  }
 
-  await axios.delete(
-    `${process.env.NEXT_PUBLIC_UPLOADFLY_URL}/delete/all?fly_id=${projectId}`,
-    {
-      headers: {
-        Authorization: `Bearer ${projectApiKey?.key}`,
-      },
+    if (!projectApiKey) {
+      await prisma.apikey.create({
+        data: {
+          fly_id: projectId,
+          permission: "full",
+          user_id: userId,
+          key: generateApiKey(),
+          name: "key",
+        },
+      });
+
+      projectApiKey = await prisma.apikey.findFirst({
+        where: {
+          fly_id: projectId,
+          active: true,
+          permission: "full",
+        },
+      });
     }
-  );
 
-  await prisma.$transaction([
-    prisma.apikey.delete({ where: { id: projectApiKey?.id } }),
-    prisma.log.deleteMany({ where: { fly_id: projectId } }),
-    prisma.file.deleteMany({ where: { fly_id: projectId } }),
-    prisma.fly.delete({ where: { id: projectId } }),
-  ]);
+    await axios.delete(
+      `${process.env.NEXT_PUBLIC_UPLOADFLY_URL}/delete/all?fly_id=${projectId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${projectApiKey?.key}`,
+        },
+      }
+    );
 
-  return NextResponse.json(
-    { message: "Project deleted successfully." },
-    { status: 200 }
-  );
+    await prisma.$transaction([
+      prisma.apikey.delete({ where: { id: projectApiKey?.id } }),
+      prisma.log.deleteMany({ where: { fly_id: projectId } }),
+      prisma.file.deleteMany({ where: { fly_id: projectId } }),
+      prisma.fly.delete({ where: { id: projectId } }),
+    ]);
+
+    return NextResponse.json(
+      { message: "Project deleted successfully." },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      { message: "Something went wrong." },
+      { status: 500 }
+    );
+  }
 }
