@@ -1,3 +1,4 @@
+import { useFlyStore } from "@/stores/flyStore";
 import { useUserStore } from "@/stores/userStore";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -6,17 +7,17 @@ import {
   HiSquares2X2,
   HiFolderOpen,
   HiKey,
-  HiShieldCheck,
   HiCog8Tooth,
   HiQueueList,
 } from "react-icons/hi2";
-import { RiPieChart2Fill } from "react-icons/ri";
 
 const NavLinks = ({ loading }: { loading: boolean }) => {
   const router = useRouter();
 
   const [currentRoute, setCurrentRoute] = useState("");
   const [flyName, setFlyName] = useState("");
+
+  const { fly } = useFlyStore();
 
   useEffect(() => {
     const route = router.pathname.split("/")[3];
@@ -64,8 +65,10 @@ const NavLinks = ({ loading }: { loading: boolean }) => {
 
   const { user } = useUserStore();
 
+  const billingRoute = router.pathname.split("/")[4];
+
   return (
-    <div className="lg:px-10 px-5 w-full overflow-x-auto">
+    <div className="lg:px-10 px-5 w-full overflow-x-auto flex items-center justify-between">
       <div className={loading ? "pointer-events-none" : "flex gap-12 mt-3"}>
         {links.map((link, i) => {
           const href = `/${user?.username}/${flyName}${link.path}`;
@@ -90,6 +93,15 @@ const NavLinks = ({ loading }: { loading: boolean }) => {
           );
         })}
       </div>
+
+      {!router.asPath.includes("plans") && fly.plan === "free" && (
+        <Link
+          href={`/${user?.username}/${flyName}/settings/billing-plans`}
+          className="bg-uf-accent rounded-md py-2 px-10 flex items-center justify-center text-white font-semibold transition-all"
+        >
+          Choose a plan
+        </Link>
+      )}
     </div>
   );
 };

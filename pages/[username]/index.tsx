@@ -53,22 +53,22 @@ const DashboardIndex = () => {
           />
           <Link
             href="/launch"
-            onClick={(e) => {
-              if (projectsCount?.free! >= 2) {
-                e.preventDefault();
-                e.stopPropagation();
-              }
-            }}
+            // onClick={(e) => {
+            //   if (projectsCount?.free! >= 2) {
+            //     e.preventDefault();
+            //     e.stopPropagation();
+            //   }
+            // }}
           >
             <button className="flex gap-2 bg-uf-light hover:bg-uf-accent text-uf-dark rounded-md py-2 px-4 w-full items-center justify-center font-semibold transition-colors group disabled:opacity-50 disabled:cursor-not-allowed">
-              {projectsCount?.free! >= 2 ? (
+              {/* {projectsCount?.free! >= 2 ? (
                 <TbLockSquareRounded size={25} />
               ) : (
                 <>
-                  <HiOutlineRocketLaunch className="hidden lg:block text-xl group-hover:rotate-[360deg] transition-all duration-500" />
-                  <HiPlus className="lg:hidden text-xl group-hover:rotate-[360deg] transition-all duration-500" />
                 </>
-              )}
+              )} */}
+              <HiPlus className="lg:hidden text-xl group-hover:rotate-[360deg] transition-all duration-500" />
+              <HiOutlineRocketLaunch className="hidden lg:block text-xl group-hover:rotate-[360deg] transition-all duration-500" />
               <span className="hidden lg:block">Create a new project</span>
             </button>
           </Link>

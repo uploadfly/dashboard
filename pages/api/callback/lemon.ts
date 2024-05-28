@@ -10,6 +10,11 @@ export const config = {
   },
 };
 
+const plans = [
+  { name: "basic", id: process.env.BASIC_PLAN_ID, storage: 20000000000 },
+  { name: "pro", id: process.env.PRO_PLAN_ID, storage: 100000000000 },
+];
+
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const lemon_secret = process.env.LEMON_SECRET as string;
 
@@ -38,20 +43,30 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             },
           });
 
+          const selectedPlan = plans.find(
+            (plan) => plan.id === String(payload.data.attributes.product_id)
+          );
+
+          enum project_plan {
+            free = "free",
+            basic = "basic",
+            pro = "pro",
+          }
+
           await prisma.fly.update({
             where: {
               id: project?.id,
             },
             data: {
-              plan: "pro",
-              storage: 100000000000,
+              plan: selectedPlan?.name as project_plan,
+              storage: selectedPlan?.storage,
               lemon_subcription_id: String(payload.data.id),
               lemon_subcription_created_at: new Date(
                 payload.data.attributes.created_at
               ),
               lemon_subcription_renews_at: new Date(
                 payload.data.attributes.renews_at
-              ),
+              )
             },
           });
 

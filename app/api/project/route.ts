@@ -35,30 +35,30 @@ export async function POST(request: Request) {
       );
     }
 
-    const userProjects = await prisma.fly.count({
-      where: {
-        user_id: userId,
-      },
-    });
+    // const userProjects = await prisma.fly.count({
+    //   where: {
+    //     user_id: userId,
+    //   },
+    // });
 
-    const freeProjects = await prisma.fly.count({
-      where: {
-        user_id: userId,
-        plan: "free",
-      },
-    });
+    // const freeProjects = await prisma.fly.count({
+    //   where: {
+    //     user_id: userId,
+    //     plan: "free",
+    //   },
+    // });
 
-    const hasTwoFreeProjects = freeProjects >= 2;
+    // const hasTwoFreeProjects = freeProjects >= 2;
 
-    if (hasTwoFreeProjects) {
-      return NextResponse.json(
-        {
-          message:
-            "You have reached the maximum number of projects you can have.",
-        },
-        { status: 400 }
-      );
-    }
+    // if (hasTwoFreeProjects) {
+    //   return NextResponse.json(
+    //     {
+    //       message:
+    //         "You have reached the maximum number of projects you can have.",
+    //     },
+    //     { status: 400 }
+    //   );
+    // }
 
     const project = await prisma.fly.create({
       data: {
