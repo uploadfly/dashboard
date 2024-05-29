@@ -8,12 +8,9 @@ import { withErrorHandling } from "@/middleware/withErrorHandling";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { fly_id, permission, name } = req.body;
 
-  const keyNameRegex = /^(?!-)(?!.*--)[a-z0-9-]{1,50}(?<!-)$/i;
-
-  if (name && !keyNameRegex.test(name)) {
+  if (name) {
     return res.status(400).json({
-      message:
-        "Key names can contain up 50 alphanumeric lowercase characters. Hyphens can be used between the name but never at the start or end.",
+      message: "Key name is required",
     });
   }
 
