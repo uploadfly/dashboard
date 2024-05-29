@@ -51,7 +51,7 @@ const FlyCard = ({
       }
     >
       <div className="flex justify-between items-center">
-        <h2 className="text-lg font-bold shiny-text">{name}</h2>
+        <h2 className="text-white">{name}</h2>
         {icon[plan]({
           className: "text-uf-accent",
           size: 20,
