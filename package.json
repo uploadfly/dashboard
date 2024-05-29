@@ -12,6 +12,7 @@
     "@aws-sdk/client-acm": "^3.431.0",
     "@badrap/bar-of-progress": "^0.2.2",
     "@heroicons/react": "^1.0.6",
+    "@logsnag/next": "^1.0.3",
     "@plunk/node": "^2.0.0",
     "@prisma/client": "^5.4.2",
     "@radix-ui/react-popover": "^1.0.6",
