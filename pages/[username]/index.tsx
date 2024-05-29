@@ -7,6 +7,7 @@ import { useUserStore } from "@/stores/userStore";
 import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { CgSpinner } from "react-icons/cg";
 import { HiOutlineRocketLaunch, HiPlus } from "react-icons/hi2";
 import { TbLockSquareRounded } from "react-icons/tb";
 
@@ -74,13 +75,9 @@ const DashboardIndex = () => {
           </Link>
         </div>
       ) : null}
-      <div className="flex flex-col items-center w-screen px-5 lg:px-10">
+      <div className="flex flex-col items-center pb-20 px-5 lg:px-10">
         {loading ? (
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 w-full mt-12">
-            <LoadingCard />
-            <LoadingCard />
-            <LoadingCard />
-          </div>
+          <CgSpinner size={30} className="mt-32 animate-spin" />
         ) : (
           <div className="w-full">
             {!flies.length ? (
