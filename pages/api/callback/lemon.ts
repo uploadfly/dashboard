@@ -3,6 +3,7 @@ import { deleteAllFiles } from "@/utils/deleteAllFiles";
 import dayjs from "dayjs";
 import { NextApiRequest, NextApiResponse } from "next";
 import { nodejsWebHookHandler } from "@/lib/validateWebhook";
+import { LogSnag } from "@logsnag/next/server";
 
 export const config = {
   api: {
@@ -10,9 +11,24 @@ export const config = {
   },
 };
 
+const logsnag = new LogSnag({
+  token: process.env.LOGSNAG_TOKEN!,
+  project: process.env.LOGSNAG_PROJECT!,
+});
+
 const plans = [
-  { name: "basic", id: process.env.BASIC_PLAN_ID, storage: 20000000000 },
-  { name: "pro", id: process.env.PRO_PLAN_ID, storage: 100000000000 },
+  {
+    name: "basic",
+    id: process.env.BASIC_PLAN_ID,
+    storage: 20000000000,
+    price: 5,
+  },
+  {
+    name: "pro",
+    id: process.env.PRO_PLAN_ID,
+    storage: 100000000000,
+    price: 20,
+  },
 ];
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -66,8 +82,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
               ),
               lemon_subcription_renews_at: new Date(
                 payload.data.attributes.renews_at
-              )
+              ),
             },
+          });
+
+          await logsnag.track({
+            channel: "subcriptions",
+            event: "New subscription",
+            user_id: userId,
+            description: `$${selectedPlan?.price} ${selectedPlan?.name} plan`,
+            icon: "💰",
+            notify: true,
           });
 
           responseMessage = "Subscription created";

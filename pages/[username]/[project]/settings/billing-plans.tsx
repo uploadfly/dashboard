@@ -1,14 +1,12 @@
 import Plans from "@/components/Settings/Plans";
 import SettingsLayout from "@/layouts/SettingsLayout";
-import Head from "next/head";
+import Script from "next/script";
 
 const BillingAndPlans = () => {
   return (
     <SettingsLayout>
-      <Head>
-        <script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
-      </Head>
       <div className="w-full">
+        <Script src="https://app.lemonsqueezy.com/js/lemon.js" defer></Script>
         <Plans />
       </div>
     </SettingsLayout>
