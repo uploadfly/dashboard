@@ -13,7 +13,7 @@ export const config = {
 
 const logsnag = new LogSnag({
   token: process.env.LOGSNAG_TOKEN!,
-  project: process.env.LOGSNAG_PROJECTS!,
+  project: process.env.LOGSNAG_PROJECT!,
 });
 
 const plans = [
@@ -87,7 +87,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           });
 
           await logsnag.track({
-            channel: "payment",
+            channel: "subcriptions",
             event: "New subscription",
             user_id: userId,
             description: `$${selectedPlan?.price} ${selectedPlan?.name} plan`,
