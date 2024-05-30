@@ -185,7 +185,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             break;
 
           default:
-            console.log("UNKNOWN EVENT");
             break;
         }
       },
