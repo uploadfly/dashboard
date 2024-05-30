@@ -1,6 +1,5 @@
 import prisma from "@/prisma";
 import { deleteAllFiles } from "@/utils/deleteAllFiles";
-import dayjs from "dayjs";
 import { NextApiRequest, NextApiResponse } from "next";
 import { nodejsWebHookHandler } from "@/lib/validateWebhook";
 import { LogSnag } from "@logsnag/next/server";
