@@ -31,112 +31,169 @@ const plans = [
   },
 ];
 
+enum project_plan {
+  free = "free",
+  basic = "basic",
+  pro = "pro",
+}
+
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const lemon_secret = process.env.LEMON_SECRET as string;
 
   try {
     await nodejsWebHookHandler({
       async onData(payload) {
-        const userId = payload.meta.custom_data.user_id;
-        const projectId = payload.meta.custom_data.project_id;
+        console.log(payload);
+
+        const event_name = payload.event_name as
+          | "subscription_created"
+          | "subscription_cancelled"
+          | "subscription_payment_success"
+          | "subscription_updated"
+          | "subscription_paused"
+          | "subscription_unpaused"
+          | "subscription_resumed"
+          | "subscription_expired";
+
+        const selectedPlan = plans.find(
+          (plan) => plan.id === String(payload.data.attributes.product_id)
+        );
+
+        const customData = {
+          userId: payload.meta.custom_data.user_id,
+          projectId: payload.meta.custom_data.project_id,
+        };
+        const customerId = payload.data.attributes.customer_id;
 
         const project = await prisma.fly.findUnique({
           where: {
-            id: projectId,
+            id: customData.projectId,
           },
         });
 
-        let responseMessage = "";
+        const user = await prisma.user.findUnique({
+          where: {
+            id: customData.userId,
+          },
+        });
 
-        if (payload.event_name === "subscription_created") {
-          const customerId = payload.data.attributes.customer_id;
+        if (user?.lemon_customer_id === null) {
           await prisma.user.update({
             where: {
-              id: userId,
+              id: customData.userId,
             },
             data: {
               lemon_customer_id: String(customerId),
             },
           });
+        }
 
-          const selectedPlan = plans.find(
-            (plan) => plan.id === String(payload.data.attributes.product_id)
-          );
+        switch (event_name) {
+          case "subscription_created":
+            await prisma.fly.update({
+              where: {
+                id: project?.id,
+              },
+              data: {
+                plan: selectedPlan?.name as project_plan,
+                storage: selectedPlan?.storage,
+                lemon_subcription_id: String(payload.data.id),
+                lemon_subcription_created_at: new Date(
+                  payload.data.attributes.created_at
+                ),
+                lemon_subcription_renews_at: new Date(
+                  payload.data.attributes.renews_at
+                ),
+              },
+            });
 
-          enum project_plan {
-            free = "free",
-            basic = "basic",
-            pro = "pro",
-          }
+            await logsnag.track({
+              channel: "subcriptions",
+              event: "New subscription",
+              user_id: customData.userId,
+              description: `$${selectedPlan?.price}/m ${selectedPlan?.name} plan`,
+              icon: "💰",
+              notify: true,
+            });
 
-          await prisma.fly.update({
-            where: {
-              id: project?.id,
-            },
-            data: {
-              plan: selectedPlan?.name as project_plan,
-              storage: selectedPlan?.storage,
-              lemon_subcription_id: String(payload.data.id),
-              lemon_subcription_created_at: new Date(
-                payload.data.attributes.created_at
-              ),
-              lemon_subcription_renews_at: new Date(
-                payload.data.attributes.renews_at
-              ),
-            },
-          });
+            break;
 
-          await logsnag.track({
-            channel: "subcriptions",
-            event: "New subscription",
-            user_id: userId,
-            description: `$${selectedPlan?.price} ${selectedPlan?.name} plan`,
-            icon: "💰",
-            notify: true,
-          });
+          case "subscription_cancelled":
+            await prisma.fly.update({
+              where: {
+                id: project?.id,
+              },
+              data: {
+                paused: true,
+                paused_at: new Date(),
+              },
+            });
+            break;
 
-          responseMessage = "Subscription created";
-        } else if (payload.event_name === "subscription_updated") {
-          await prisma.fly.update({
-            where: {
-              id: projectId,
-            },
-            data: {
-              lemon_subcription_renews_at: new Date(
-                payload.data.attributes.renews_at
-              ),
-            },
-          });
-          responseMessage = "Subscription updated";
-        } else if (payload.event_name === "subscription_paused") {
-          await prisma.fly.update({
-            where: {
-              id: projectId,
-            },
-            data: {
-              paused: true,
-              paused_at: dayjs().toDate(),
-            },
-          });
-          responseMessage = "Subscription has been paused";
-        } else if (payload.event_name === "subscription_unpaused") {
-          await prisma.fly.update({
-            where: {
-              id: projectId,
-            },
-            data: {
-              paused: false,
-              paused_at: null,
-            },
-          });
-          responseMessage = "Subscription has been resumed";
-        } else if (payload.event_name === "subscription_expired") {
-          await deleteAllFiles({
-            projectId,
-            userId,
-          });
+          case "subscription_payment_success":
+            await logsnag.track({
+              channel: "subcriptions",
+              event: "Subscription renewal",
+              user_id: customData.userId,
+              description: `$${selectedPlan?.price}/m ${selectedPlan?.name} plan`,
+              icon: "💰",
+              notify: true,
+            });
+            break;
+
+          case "subscription_updated":
+            // Tf am I supposed to do here???!!!
+            break;
+
+          case "subscription_paused":
+            await prisma.fly.update({
+              where: {
+                id: project?.id,
+              },
+              data: {
+                paused: true,
+                paused_at: new Date(),
+              },
+            });
+            break;
+
+          case "subscription_unpaused":
+            await prisma.fly.update({
+              where: {
+                id: project?.id,
+              },
+              data: {
+                paused: false,
+                paused_at: null,
+              },
+            });
+            break;
+
+          case "subscription_resumed":
+            await prisma.fly.update({
+              where: {
+                id: project?.id,
+              },
+              data: {
+                paused: false,
+                paused_at: null,
+              },
+            });
+            break;
+
+          case "subscription_expired":
+            await deleteAllFiles({
+              projectId: customData.projectId,
+              userId: customData.userId,
+            });
+            break;
+
+          default:
+            console.log("UNKNOWN EVENT");
+            break;
         }
       },
+
       req,
       res,
       secret: lemon_secret,
