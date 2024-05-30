@@ -1,8 +1,6 @@
-export * from "@/types";
 import crypto from "crypto";
 import type { Readable } from "stream";
 import type { IncomingMessage, ServerResponse } from "http";
-import { DiscriminatedWebhookPayload, WebhookPayload } from "@/types";
 
 export async function nodejsWebHookHandler<CustomData = any>({
   secret,
@@ -13,7 +11,7 @@ export async function nodejsWebHookHandler<CustomData = any>({
 }: {
   secret: string;
   req: IncomingMessage;
-  onData: (data: DiscriminatedWebhookPayload<CustomData>) => any;
+  onData: (data: any) => any;
   res: ServerResponse;
   onError?: (error: Error) => any;
 }) {
@@ -44,10 +42,9 @@ export async function nodejsWebHookHandler<CustomData = any>({
         .end(JSON.stringify({ message: "Invalid signature." }));
     }
 
-    const payload: WebhookPayload = JSON.parse(rawBody);
+    const payload = JSON.parse(rawBody);
 
     const eventName = payload.meta.event_name;
-    const customData = payload.meta.custom_data;
 
     await onData({ event_name: eventName, ...payload } as any);
     res
