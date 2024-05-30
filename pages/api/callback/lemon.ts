@@ -43,8 +43,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     await nodejsWebHookHandler({
       async onData(payload) {
-        console.log(payload);
-
         const event_name = payload.event_name as
           | "subscription_created"
           | "subscription_cancelled"
