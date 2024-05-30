@@ -132,7 +132,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
               channel: "subcriptions",
               event: "Subscription renewal",
               user_id: customData.userId,
-              description: `$${selectedPlan?.price}/m ${selectedPlan?.name} plan`,
               icon: "💰",
               notify: true,
             });
