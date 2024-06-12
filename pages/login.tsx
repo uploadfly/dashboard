@@ -39,10 +39,6 @@ const Login = () => {
       const userData = response?.data?.user;
       if (userData && userData.username) {
         toast("Login successful", toastSuccessConfig);
-        if (returnTo) {
-          router.push(returnTo);
-          return;
-        }
         router.push(`/${userData.username}`);
       }
     } catch (error: any) {
