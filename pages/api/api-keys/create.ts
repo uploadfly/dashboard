@@ -8,7 +8,7 @@ import { withErrorHandling } from "@/middleware/withErrorHandling";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { fly_id, permission, name } = req.body;
 
-  if (name) {
+  if (!name) {
     return res.status(400).json({
       message: "Key name is required",
     });
